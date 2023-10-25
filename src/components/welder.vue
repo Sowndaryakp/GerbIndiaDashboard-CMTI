@@ -8,7 +8,6 @@
         <table class="w-full">
           <thead>
             <tr class="bg-blue-500 text-white ">
-              //table headers
               <th class="px-2 py-2 font-poppins">Item No</th>
               <th class="px-2 py-2 font-poppins">Welding Machine</th>
               <th class="px-4 py-2 font-poppins">Operator</th>
