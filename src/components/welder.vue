@@ -18,6 +18,7 @@
               <th class="px-4 py-2 font-poppins">Live</th>
               <th class="px-4 py-2 font-poppins">Project</th>
               <th class="px-4 py-2 font-poppins">Remarks</th>
+            
             </tr>
           </thead> 
           <!-- flex space-y-2 flex-col items-center -->
@@ -169,9 +170,38 @@
                       src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsTAAALEwEAmpwYAAABWUlEQVR4nO2US0oDQRCGs5IIiaAkbjyAeolo5gjxAGrwsY6LoAg+F46HURfJzngBxcfSB7jSZGlMDvCHxm+gaXqGPARdpFbzVVX/NVM9VanU2P6VSZqTVBnhfMVoxAUnJd3px8pDiK9z1mikfQn7JLxLyg1RYEbSKxq7bnBaUpvgEr4VSYd9CB9IKvFcROPLaPo+7xqelfSNr5AgXiDH5ObxNfCt2YlXODfgU7gGT0g6l9SU9CkpND5iNXKP4S340i7wgnMefoKLsBF0LSQWwA/wAvxsF+jizMRw01OgRSwLd+AM3E0q0IGzsGmLax/EpqJ78HFcix7hIKFFZ06L7uFFX4uiS96ET+C6dckhX+Jecp3cI3gbvvD9pg04P+Bv2o6GU9INvtW4QVvGV4reKsnMMFqDFngHjeDeL6yKNzSqvoT0iMuuzNlb77Kz1vXOoOJ9reux/Zn1AHTH1NfLscaMAAAAAElFTkSuQmCC "
                       class="ml-3">
                       Graph</button> -->
-                      <button @click="showUserPopupGraph()" class="glassmorphic-button bg-blue-500 text-white px-2 py-1 rounded-md  mr-4 w-16">
-                        <img width="25" height="25" src="https://img.icons8.com/ios-filled/50/FFFFFF/appointment-reminders--v1.png" alt="appointment-reminders--v1" class="ml-3"/>
-                      </button>
+                      <!-- <button @click="showUserPopupGraph()" class="glassmorphic-button bg-blue-500 text-white px-2 py-1 rounded-md  mr-4 w-16"> -->
+                        <!-- <img width="25" height="25" src="https://img.icons8.com/ios-filled/50/FFFFFF/appointment-reminders--v1.png" alt="appointment-reminders--v1" class="ml-3"/> -->
+                        <!-- <img width="24" height="24" src="https://img.icons8.com/material-sharp/24/FFFFFF/alarm--v1.png" alt="alarm--v1" class="ml-3"/> -->
+                      <!-- </button> -->
+                      
+    <button @click="openPopup" class="glassmorphic-button bg-blue-500 text-white px-2 py-1 rounded-md mr-4 w-16">
+      <img width="24" height="24" src="https://img.icons8.com/material-sharp/24/FFFFFF/alarm--v1.png" alt="alarm--v1" class="ml-3"/>
+      <span v-if="notificationCount > 0" class="notification-counter">{{ notificationCount }}</span>
+    </button>
+
+    <!-- Popup -->
+   
+    <div v-if="isPopupOpen" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
+      <div class="container mx-auto p-4 w-96">
+    <div class="max-w-md mx-auto bg-white rounded-lg shadow-lg p-16">
+      <div class="bg-white  rounded-md shadow-md p-14 w-64"> <!-- Decreased width to w-36 -->
+        <!-- Close button -->
+        <button @click="closePopup" class="absolute top-0 right-0 p-1 m-1 h-6 w-6 text-gray-500 hover:text-red-500"> <!-- Decreased size to h-6 w-6 -->
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <!-- Adjusted size to h-4 w-4 -->
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+
+        <!-- Random notification content -->
+        <div>
+          <h2 class="text-xl font-semibold mb-2">Notification</h2>
+          <p>{{ randomMessage }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+                </div>
                 </div>
               </td>
   
@@ -326,6 +356,46 @@
     const currentDate = ref('');
   const currentTime = ref('');
   const selectedShift = ref(null);
+
+// Initialize the notification counter
+const notificationCount = ref(0);
+
+// Control the popup window
+const isPopupOpen = ref(false);
+
+// Random notification messages
+const messages = [
+  "Hello, world!",
+  "This is a random notification message.",
+  "Vue.js is awesome!",
+  "You've got a new message!",
+  "Don't forget to stay hydrated.",
+];
+// Generate a random message
+const randomMessage = ref('');
+
+const generateRandomMessage = () => {
+  const randomIndex = Math.floor(Math.random() * messages.length);
+  randomMessage.value = messages[randomIndex];
+};
+
+// Function to open the popup
+const openPopup = () => {
+  generateRandomMessage();
+  isPopupOpen.value = true;
+};
+
+// Function to close the popup
+const closePopup = () => {
+  isPopupOpen.value = false;
+};
+// Increment the counter automatically every 2 seconds
+onMounted(() => {
+  setInterval(() => {
+    notificationCount.value++;
+  }, 2000);
+});
+
   const userInfo = {
     name: "Admin",
     email: "admin@example.com",
@@ -853,5 +923,19 @@
     background-color: transparent;
     /* Remove background color */
   }
+
+  .notification-counter {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  padding: 4px 8px;
+  font-size: 12px;
+}
+button.close-button:hover {
+  color: red;
+}
   </style>
   
