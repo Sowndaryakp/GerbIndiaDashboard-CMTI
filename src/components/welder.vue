@@ -175,33 +175,10 @@
                         <!-- <img width="24" height="24" src="https://img.icons8.com/material-sharp/24/FFFFFF/alarm--v1.png" alt="alarm--v1" class="ml-3"/> -->
                       <!-- </button> -->
                       
-    <button @click="openPopup" class="glassmorphic-button bg-blue-500 text-white px-2 py-1 rounded-md mr-4 w-16">
-      <img width="24" height="24" src="https://img.icons8.com/material-sharp/24/FFFFFF/alarm--v1.png" alt="alarm--v1" class="ml-3"/>
-      <span v-if="notificationCount > 0" class="notification-counter">{{ notificationCount }}</span>
-    </button>
-
-    <!-- Popup -->
-   
-    <div v-if="isPopupOpen" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-      <div class="container mx-auto p-4 w-96">
-    <div class="max-w-md mx-auto bg-white rounded-lg shadow-lg p-16">
-      <div class="bg-white  rounded-md shadow-md p-14 w-64"> <!-- Decreased width to w-36 -->
-        <!-- Close button -->
-        <button @click="closePopup" class="absolute top-0 right-0 p-1 m-1 h-6 w-6 text-gray-500 hover:text-red-500"> <!-- Decreased size to h-6 w-6 -->
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <!-- Adjusted size to h-4 w-4 -->
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-          </svg>
-        </button>
-
-        <!-- Random notification content -->
-        <div>
-          <h2 class="text-xl font-semibold mb-2">Notification</h2>
-          <p>{{ randomMessage }}</p>
-        </div>
-      </div>
-    </div>
-  </div>
-                </div>
+                      <button @click="showNotificationPopup()" class="glassmorphic-button bg-blue-500 text-white px-2 py-1 rounded-md mr-4 w-16">
+                        <span width="24" height="24" v-if="notificationCount > 0" class="notification-counter">{{ notificationCount }}</span>
+                        <img width="24" height="24" src="https://img.icons8.com/material-sharp/24/FFFFFF/alarm--v1.png" alt="alarm--v1" class="ml-3"/>
+                      </button>
                 </div>
               </td>
   
@@ -310,6 +287,14 @@
                 </button>
               </div>
             </div>
+            <div v-if="isNotificationVisible" class="fixed inset-0 flex items-center justify-center z-50">
+              <div class="bg-white p-8 rounded-lg shadow-lg w-1/2 h-1/2 relative">
+                <Notification />
+                <!-- <Report/> -->
+                <button @click="hideNotificationPopup" class=" bg-white px-1 py-0 rounded-lg absolute top-2 right-0 -mt-1 mr-3"><img width="20" height="20" src="https://img.icons8.com/ios-glyphs/30/delete-sign.png" alt="delete-sign"/>
+                </button>
+              </div>
+            </div>
   
   
             <div v-if="isloginVisible" class="fixed inset-0 flex items-center justify-center z-50">
@@ -345,6 +330,7 @@
     import LineGraph from '@/components/LineGraph.vue'
     import Stack from '@/components/Stack.vue'
     import Report from '@/components/Report.vue'
+    import Notification from '@/components/Notification.vue'
     import { ref, onMounted } from 'vue'
     import axios from 'axios';
   
@@ -352,6 +338,7 @@
     const isUserPopupVisible = ref(false);
     const isUserPopupVisibleGraph=ref(false);
     const isStackVisible = ref(false);
+    const isNotificationVisible=ref(false);
     const isloginVisible = ref(false);
     const currentDate = ref('');
   const currentTime = ref('');
@@ -847,6 +834,14 @@ onMounted(() => {
   function hideStackPopup() {
     isStackVisible.value = false;
   }
+
+  function showNotificationPopup() {
+    isNotificationVisible.value = true;
+  }
+  
+  function hideNotificationPopup() {
+    isNotificationVisible.value = false;
+  }
   
   function showloginPopup() {
     isloginVisible.value = true;
@@ -926,16 +921,14 @@ onMounted(() => {
 
   .notification-counter {
   position: absolute;
-  top: -10px;
-  right: -10px;
+  /* top: -10px; */
+  right: 438px;
   background-color: red;
   color: white;
   border-radius: 50%;
   padding: 4px 8px;
   font-size: 12px;
 }
-button.close-button:hover {
-  color: red;
-}
+
   </style>
   
