@@ -138,19 +138,20 @@ const convertToEpoch = (field) => {
 const startDateTime = computed({
   get: () => {
     if (formData.start_time) {
-      return moment.unix(formData.start_time).format('YYYY-MM-DDTHH:mm');
+      return moment.unix(formData.start_time).local().format('YYYY-MM-DDTHH:mm');
     }
     return '';
   },
   set: (newValue) => {
     formData.start_time = moment(newValue).unix();
+    console.log(formData.start_time );
   }
 });
 
 const endDateTime = computed({
   get: () => {
     if (formData.end_time) {
-      return moment.unix(formData.end_time).format('YYYY-MM-DDTHH:mm');
+      return moment.unix(formData.end_time).local().format('YYYY-MM-DDTHH:mm');
     }
     return '';
   },
@@ -255,22 +256,90 @@ const fetchAndDisplayDataForAllMachines = () => {
   });
 };
 
+
 const deleteData = (machineName, startTime, endTime) => {
-  const url = `http://172.18.100.240:6969/op_shift/${machineName}/${startTime}/${endTime}`;
+  // Convert local date and time to epoch timestamps
+  const startTimeEpoch = moment(startTime, 'YYYY-MM-DDTHH:mm').unix();
+  const endTimeEpoch = moment(endTime, 'YYYY-MM-DDTHH:mm').unix();
+
+  // Make the delete request to the backend
+  const url = `http://172.18.100.240:6969/op_shift/?machine_name=${machineName}&start_time=${startTimeEpoch}&end_time=${endTimeEpoch}`;
+
   axios
     .delete(url)
     .then(() => {
-      // Remove the deleted row from tableData
+      console.log(`Data for machine ${machineName} deleted successfully.`);
+      // After successful deletion, remove the deleted row from tableData
       tableData.value = tableData.value.filter((data) => {
-        return !(data.machine_name === machineName && data.start_time === startTime && data.end_time === endTime);
+        return !(data.machine_name === machineName && data.start_time === startTimeEpoch && data.end_time === endTimeEpoch);
       });
+      setTimeout(() => {
+        location.reload();
+      }, 500);
     })
     .catch((error) => {
       console.error(`Error deleting data for machine ${machineName}:`, error);
     });
+  
 };
 
 
+// const deleteData = (machineName, startTime, endTime) => {
+//   // Convert local date and time to epoch timestamps
+//   const startTimeEpoch = moment(startTime, 'YYYY-MM-DDTHH:mm').unix();
+//   const endTimeEpoch = moment(endTime, 'YYYY-MM-DDTHH:mm').unix();
+
+//   // Remove the deleted row from tableData immediately
+//   tableData.value = tableData.value.filter((data) => {
+//     return !(data.machine_name === machineName && data.start_time === startTimeEpoch && data.end_time === endTimeEpoch);
+//   });
+
+//   // Make the delete request to the backend
+//   const url = `http://172.18.100.240:6969/op_shift/?machine_name=${machineName}&start_time=${startTimeEpoch}&end_time=${endTimeEpoch}`;
+
+//   axios
+//     .delete(url)
+//     .then(() => {
+//       console.log(`Data for machine ${machineName} deleted successfully.`);
+//     })
+//     .catch((error) => {
+//       console.error(`Error deleting data for machine ${machineName}:`, error);
+//     });
+
+//   // Create a new machine object
+//   const MachineDeleted = {
+//     machine_name: formData.machineName,
+//     element_type: formData.element_type,
+//     operator_name: formData.operator_name,
+//     start_time: formData.start_time, // No need to convert to epoch timestamp
+//     end_time: formData.end_time, // No need to convert to epoch timestamp
+//     shift: formData.shift,
+//   };
+
+//   // Add the new machine to the table data
+//   tableData.value.push(MachineDeleted);
+
+//   // Reset the form data and hide the form
+//   resetFormData();
+//   isFormVisible.value = false;
+// };
+
+
+
+// onMounted(async () => {
+//   try {
+//       // Make a POST request to save the new machine data to the backend
+//       await axios.post('http://172.18.100.240:6969/op_shift/${machineId}'); // Updated URL
+//       // Add the new machine to the table data
+//       console.log(newMachine);
+//       tableData.value.push(newMachineString);
+//     } catch (error) {
+//       console.error('Error saving the new machine:', error);
+//       // Handle the error as needed (e.g., show an error message)
+//     }
+//     resetFormData();
+//     isFormVisible.value = false;
+// });
 const saveMachine = async () => {
   if (isEditMode.value) {
     // Implement your update logic here
