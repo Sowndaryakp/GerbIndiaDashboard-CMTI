@@ -1,0 +1,30 @@
+[
+    {
+        "id": 1,
+        "itemno": "7D",
+        "machine": "AK-400-2-7D",
+        "machine_name": "7D",
+        "operator": "",
+        "element": "",
+        "element_description": "",
+        "plate": "",
+        "standard": { "current": "15", "voltage": "15" },
+        "actual": { "current": "", "voltage": "" },
+        "remarks": "",
+        "machineimg": "./src/assets/ak400.png"
+      },
+      {
+        "id": 2,
+        "itemno": "7F",
+        "machine": "AK-400-2-7F",
+        "machine_name": "7F",
+        "operator": "",
+        "element": "",
+        "element_description": "",
+        "plate": "",
+        "standard": { "current": "15", "voltage": "15" },
+        "actual": { "current": "", "voltage": "" },
+        "remarks": "",
+        "machineimg": "./src/assets/ak400.png"
+      }
+]
