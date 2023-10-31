@@ -23,9 +23,12 @@
 <script setup>
 import { ref } from 'vue';
 import axios from 'axios';
+import { useRouter } from 'vue-router'; // Import Vue Router
 const notificationCount = ref(0);
 const showPopup = ref(false);
 const alertMessages = ref([]);
+
+const router = useRouter(); // Initialize Vue Router
 
 const calculateRanges = async () => {
   try {
@@ -49,8 +52,7 @@ const calculateRanges = async () => {
 const closePopup = () => {
   showPopup.value = false;
   alertMessages.value = [];
-  // Add the following line to navigate back to the previous page
-  window.history.back();
+  router.go(-1); // Navigate back to the previous page using Vue Router
 };
 </script>
 
@@ -96,5 +98,4 @@ const closePopup = () => {
     width: 90%;
   }
 }
-
 </style>
