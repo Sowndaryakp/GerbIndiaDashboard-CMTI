@@ -2,8 +2,7 @@
  <div>
     <h3 class="font-poppins text-purple-500 text-xl font-bold bg-blue-50 absolute left-1/2 transform -translate-x-1/2">Welder page</h3>
 </div>
-  <div class="card p-8 bg-blue-50 shadow-lg rounded-lg">
-      
+  <div class="card p-8 bg-blue-50 shadow-lg rounded-lg"> 
       <div class="overflow-x-auto">
         <table class="w-full">
           <thead>
@@ -18,7 +17,6 @@
               <th class="px-4 py-2 font-poppins">Live</th>
               <th class="px-4 py-2 font-poppins">Project</th>
               <th class="px-4 py-2 font-poppins">Remarks</th>
-            
             </tr>
           </thead> 
           <!-- flex space-y-2 flex-col items-center -->
@@ -32,7 +30,6 @@
                   <span class="text-center">{{ row.machine }}</span>
                 </div>
               </td>
-  
               <td>
                 <div class=" flex space-y-2 flex-col items-center  sm:px-4 sm:py-16 font-poppins">
                   <select v-model="row.operator" @change="onOperatorSelected($event)"
@@ -42,7 +39,6 @@
                   </select>
                 </div>
               </td>
-  
               <td class=" flex  flex-col items-center  sm:px-4 sm:py-16 font-poppins">
                 <div class="flex flex-col items-center font-poppins">
                 <div class="flex space-x-2 px-2 py-1 rounded-md mb-4">
@@ -56,7 +52,6 @@
                 </div>
                 </div>
               </td>
-  
               <td>
                 <div class=" flex  flex-col items-center font-poppins">
                   <select v-model="row.element" @change="onOptionSelected($event)"
@@ -65,8 +60,7 @@
                     <option v-for="element in elements" :key="element.value" :value="element.value">{{ element.label }}
                     </option>
                   </select>
-                <div class="mt-2 mb-2">
-                  
+                <div class="mt-2 mb-2"> 
                   <textarea v-model="row.element_description" class="border border-gray-300 px-1 py-1 rounded-md"
                     placeholder="Element Description"></textarea>
                 </div>
@@ -120,7 +114,6 @@
                     </div>
                 </div>
               </td>
-  
               <td>
                 <div class="mb-3 mt-3 font-poppins">
                   <div class="flex space-y-2 flex-col items-center " v-if="dataLoaded">
@@ -140,15 +133,12 @@
                         <p class="text-lg text-lime-500 text-center font-bold "> {{ getMachineLiveVoltage(row.id) }}V</p>
                       </div>
                     </div>
-  
                   </div>
                   <div v-else>
                     Loading data...
                   </div>
                 </div>
               </td>
-  
-  
               <td>
                 <div class="flex space-y-2 flex-col items-center font-poppins">
                   <button @click="showUserPopup()"
@@ -175,13 +165,13 @@
                         <!-- <img width="24" height="24" src="https://img.icons8.com/material-sharp/24/FFFFFF/alarm--v1.png" alt="alarm--v1" class="ml-3"/> -->
                       <!-- </button> -->
                       
-                      <button @click="showNotificationPopup()" class="glassmorphic-button bg-blue-500 text-white px-2 py-1 rounded-md mr-4 w-16">
+                      <!-- <button @click="showNotificationPopup()" class=" bg-blue-500 text-white px-2 py-1 rounded-md mr-4 w-16">
                         <span width="24" height="24" v-if="notificationCount > 0" class="notification-counter">{{ notificationCount }}</span>
                         <img width="24" height="24" src="https://img.icons8.com/material-sharp/24/FFFFFF/alarm--v1.png" alt="alarm--v1" class="ml-3"/>
-                      </button>
+                      </button> -->
+                      <Notification/>  
                 </div>
               </td>
-  
               <td>
                 <!-- <div class=" flex space-y-2 flex-col items-center  sm:px-4 sm:py-16 font-poppins">
                   <div class="flex space-x-2"><input v-model="row.I_no" class="border border-gray-300 px-4 py-2 rounded-md w-24 text-center" placeholder="I_No"></div>
@@ -216,8 +206,6 @@
                     </select>
                 </div> -->
                 <!-- </div> -->
-
-
                 <div class=" flex space-y-2 flex-col items-center  sm:px-4 sm:py-16 font-poppins">
                   <div class="flex space-x-2">
                     <input v-model="row.I_no" class="border border-gray-300 px-4 py-2 rounded-md w-24  text-center" placeholder="I_No">
@@ -230,7 +218,6 @@
                   <button @click="toggleEdit(row)" v-if="!row.isEditing" class="glassmorphic-button bg-blue-500 text-white px-2 py-1 rounded-md w-8 h-8 mb-2 flex flex-wrap"><img width="21" height="21" src="https://img.icons8.com/fluency-systems-filled/48/FFFFFF/edit.png" alt="edit" class="flex flex-warp mr-3 mt-1"/></button>
                   <button @click="saveEditedData(row)" v-else class="glassmorphic-button bg-green-500 text-white px-2 py-1 rounded-md w-10 h-8 mb-2 flex flex-wrap" ><img width="30" height="30" src="https://img.icons8.com/material-outlined/24/FFFFFF/save.png" alt="save" class="flex flex-warp"/></button>
                 </div>
-
                 <!-- <div class="mb-4">
           <label class="block text-gray-700 text-sm font-bold mb-2" placeholder="select shift">Select Shift:</label>
           <select v-model="row.selectedShift" class="block w-full bg-gray-100 border rounded p-2" >
@@ -240,7 +227,6 @@
         </div> -->
                 </div>
               </td>
-  
               <td class="font-poppins">
                 <div class="flex flex-col items-center">
                 <textarea v-model="row.remarks" class="border border-gray-300 px-2 py-1 rounded-md mb-2"
@@ -295,8 +281,6 @@
                 </button>
               </div>
             </div>
-  
-  
             <div v-if="isloginVisible" class="fixed inset-0 flex items-center justify-center z-50">
               <div class="bg-white p-8 rounded-lg shadow-lg w-1/2 h-1/2 relative">
   
@@ -306,7 +290,6 @@
                 </button>
               </div>
             </div>
-  
             <!-- //PopUp Chart -->
             <div v-if="isReport" class="fixed inset-0 flex items-center justify-center z-50">
               <div class="bg-white p-8 rounded-lg shadow-lg w-1\/2 h-1\/2 relative">
@@ -836,8 +819,10 @@ onMounted(() => {
   }
 
   function showNotificationPopup() {
-    isNotificationVisible.value = true;
-  }
+    // isNotificationVisible.value = true;
+    isNotificationVisible.value =!isNotificationVisible.value;
+    notificationCount.value = 0;
+  };
   
   function hideNotificationPopup() {
     isNotificationVisible.value = false;
@@ -929,6 +914,5 @@ onMounted(() => {
   padding: 4px 8px;
   font-size: 12px;
 }
-
   </style>
   

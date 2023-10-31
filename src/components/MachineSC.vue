@@ -166,6 +166,7 @@ const fetchMachineNames = async () => {
   try {
     const response = await axios.get(machinesUrl);
     machineIds.value = response.data.Data.map((machine) => machine.machine_id);
+    console.log(machineIds.value);
     // Extract "machine_id" property
   } catch (error) {
     console.error('Error fetching machine names:', error);
@@ -235,7 +236,9 @@ const showCreateForm = () => {
 
 const fetchAndDisplayDataForAllMachines = () => {
   machineNames.forEach((machineId) => {
+    console.log(machineId);
     const url = `http://172.18.100.240:6969/op_shift/${machineId}`;
+    
     axios
       .get(url)
       .then((response) => {
