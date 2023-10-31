@@ -22,25 +22,35 @@
 
 <script setup>
 import { ref } from 'vue';
-
+import axios from 'axios';
 const notificationCount = ref(0);
 const showPopup = ref(false);
 const alertMessages = ref([]);
 
-const calculateRanges = () => {
-  for (let i = 1; i <= 40; i++) {
-    if (i > 30) {
-      // Use setTimeout to add a delay of 5 seconds (5000 milliseconds)
-      setTimeout(() => {
-        alertMessages.value.push(`Alert ${notificationCount.value + 1}: Range ${i} is greater than 30`);
-        notificationCount.value++;
-      }, 6000 * (i - 30)); // Delay each notification by 5 seconds
-    }
+const calculateRanges = async () => {
+  try {
+    // Make an Axios request to fetch data from the specified URL
+    const response = await axios.get("http://172.18.100.240:6969/logs/");
+    const data = response.data.Data; // Access the "Data" property
+
+    // Assuming the response is an array of JSON objects
+    data.forEach((item) => {
+      const { machine_id, voltage, current, time } = item;
+      // Create the alert message using the data
+      alertMessages.value.push(`Machine id ${machine_id} has crossed voltage ${voltage}/current ${current} at the time ${time}`);
+      notificationCount.value++;
+    });
+    showPopup.value = true;
+  } catch (error) {
+    console.error("Error fetching data:", error);
   }
 };
+
 const closePopup = () => {
   showPopup.value = false;
   alertMessages.value = [];
+  // Add the following line to navigate back to the previous page
+  window.history.back();
 };
 </script>
 
