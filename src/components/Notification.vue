@@ -8,15 +8,38 @@
           <div class="popup-content">
             <h2>Alert Messages</h2>
             <ul>
-              <li v-for="(message, index) in alertMessages" :key="index" class="text-red-500">
-                {{ message }}
-              </li>
+              
+                <!-- {{ message }} -->
+                 <!-- Display data in a table -->
+    <table class="table-auto" v-if="responseData">
+      <thead>
+        <tr>
+          <th>Time</th>
+          <th>Current</th>
+          <th>Voltage</th>
+          <th>Machine ID</th>
+        </tr>
+      </thead>
+      <li v-for="(message, index) in alertMessages" :key="index" class="text-red-500">
+      <tbody>
+        <tr v-for="(item, index) in responseData.Data" :key="index">
+          <td>{{ item.time }}</td>
+          <td>{{ item.current }}</td>
+          <td>{{ item.voltage }}</td>
+          <td>{{ item.machine_id }}</td>
+        </tr>
+      </tbody>
+    </li>
+    </table>
+             
             </ul>
             <button @click="closePopup">Close</button>
           </div>
         </div>
       </div>
     </button>
+
+   
   </div>
 </template>
 
@@ -24,9 +47,11 @@
 import { ref } from 'vue';
 import axios from 'axios';
 import { useRouter } from 'vue-router'; // Import Vue Router
+
 const notificationCount = ref(0);
 const showPopup = ref(false);
 const alertMessages = ref([]);
+const responseData = ref(null); // New variable to hold API response data
 
 const router = useRouter(); // Initialize Vue Router
 
@@ -34,12 +59,12 @@ const calculateRanges = async () => {
   try {
     // Make an Axios request to fetch data from the specified URL
     const response = await axios.get("http://172.18.100.240:6969/logs/");
-    const data = response.data.Data; // Access the "Data" property
+    responseData.value = response.data; // Store the entire response
 
-    // Assuming the response is an array of JSON objects
+    // Extract and process data, similar to your previous code
+    const data = response.data.Data;
     data.forEach((item) => {
       const { machine_id, voltage, current, time } = item;
-      // Create the alert message using the data
       alertMessages.value.push(`Machine id ${machine_id} has crossed voltage ${voltage}/current ${current} at the time ${time}`);
       notificationCount.value++;
     });
@@ -52,11 +77,15 @@ const calculateRanges = async () => {
 const closePopup = () => {
   showPopup.value = false;
   alertMessages.value = [];
-  router.go(-1); // Navigate back to the previous page using Vue Router
+  router.go(0); // Navigate back to the current page using Vue Router
 };
 </script>
 
 <style>
+.table-container {
+  max-width: 100%;
+  overflow-x: auto;
+}
 .notification-icon {
   position: relative;
   display: inline-block;
@@ -93,9 +122,9 @@ const closePopup = () => {
 }
 
 /* Responsive styles for smaller screens */
-@media (max-width: 640px) {
+/* @media (max-width: 800px) {
   .popup {
-    width: 90%;
+    width: 100%;
   }
-}
+} */
 </style>

@@ -245,10 +245,20 @@
                     class="glassmorphic-button bg-green-500 text-white px-2 py-1 rounded-md w-28 h-8"><i class="fa-solid fa-chart-simple"></i>
                     Analytics</button> -->
                 </div>
+                <button
+      @click="scrollToTop"
+      class="fixed bottom-4 right-4 bg-blue-500 text-white p-2 rounded-full shadow-md hover:bg-blue-600 focus:outline-none"
+    ><img width="24" height="24" src="https://img.icons8.com/glyph-neue/64/FFFFFF/up-squared.png" alt="up-squared"/>
+      <!-- Scroll to Top -->
+    </button>
               </div>
+              
               </div>
+              
               </td>
+              
             </tr>
+          
             <!-- //PopUp Chart -->
             <div v-if="isUserPopupVisible" class="fixed inset-0 flex items-center justify-center z-50">
               <div class="bg-white p-8 rounded-lg shadow-lg w-1/2 h-1/2 relative">
@@ -841,6 +851,13 @@ onMounted(() => {
   function toggleEditElement(row) {
     row.isEditing = !row.isEditing;
   }
+
+  const scrollToTop = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth' // Smooth scrolling
+  });
+};
   </script>
   
   
