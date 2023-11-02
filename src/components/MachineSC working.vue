@@ -2,15 +2,11 @@
   <div>
     <div class="flex">
       <!-- Add a button to open the "Create" form -->
-      <button @click="showCreateForm" class="bg-blue-500 rounded-lg px-4 py-2 mt-2 mb-2 ml-3 text-white font-poppins flex flex-wrap">
-  <img src="https://img.icons8.com/material-outlined/24/FFFFFF/add.png" alt="add" class="w-6 h-6 mr-2" />
-  Add Machine
-</button>
-
-<!-- Add a filter button -->
-<button @click="showFilterForm" class="bg-gray-500 rounded-lg px-4 py-2 mt-2 mb-2 ml-3 text-white font-poppins flex flex-wrap">
-  Filter Table
-</button>
+      <button @click="showCreateForm"
+        class="bg-blue-500 rounded-lg px-4 py-2 mt-2 mb-2 ml-3 text-white font-poppins flex flex-wrap">
+        <img src="https://img.icons8.com/material-outlined/24/FFFFFF/add.png" alt="add" class="w-6 h-6 mr-2" />
+        Add Machine
+      </button>
     </div>
 
     <div class="container mx-auto">
@@ -108,36 +104,6 @@
         </div>
       </div>
     </div>
-    <div v-if="isFilterFormVisible" class="fixed inset-0 flex items-center justify-center z-50">
-  <div class="w-96 p-4 bg-gray-100 border border-gray-300 rounded-lg shadow-md">
-    <h2 class="text-lg font-semibold text-gray-800">Filter Table</h2>
-    <form @submit.prevent="applyFilters">
-      <div class="mb-2">
-        <label class="block text-gray-800">Operator Name:</label>
-        <select v-model="filterData.operatorName" class="border border-gray-300 rounded-lg px-2 py-1 w-full">
-          <option value="">All</option>
-          <option v-for="operator in operators" :key="operator">{{ operator }}</option>
-        </select>
-      </div>
-      <div class="mb-2">
-        <label class="block text-gray-800">Machine ID:</label>
-        <select v-model="filterData.machineId" class="border border-gray-300 rounded-lg px-2 py-1 w-full">
-          <option value="">All</option>
-          <option v-for="machineId in machineIds" :key="machineId">{{ machineId }}</option>
-        </select>
-      </div>
-      <div class="mb-2">
-        <label class="block text-gray-800">Start Date:</label>
-        <input v-model="filterData.startDate" type="date" class="border border-gray-300 rounded-lg px-2 py-1 w-full" />
-      </div>
-      <div class="mt-2 flex justify-end">
-        <button type="submit" class="bg-blue-500 text-white px-2 py-1 rounded-lg mr-2">Apply Filters</button>
-        <button @click="resetFilters" class="bg-gray-300 text-gray-700 px-2 py-1 rounded-lg">Reset Filters</button>
-      </div>
-    </form>
-  </div>
-</div>
-
   </div>
 </template>
 
@@ -172,20 +138,19 @@ const convertToEpoch = (field) => {
 const startDateTime = computed({
   get: () => {
     if (formData.start_time) {
-      return moment.unix(formData.start_time).local().format('YYYY-MM-DDTHH:mm');
+      return moment.unix(formData.start_time).format('YYYY-MM-DDTHH:mm');
     }
     return '';
   },
   set: (newValue) => {
     formData.start_time = moment(newValue).unix();
-    console.log(formData.start_time );
   }
 });
 
 const endDateTime = computed({
   get: () => {
     if (formData.end_time) {
-      return moment.unix(formData.end_time).local().format('YYYY-MM-DDTHH:mm');
+      return moment.unix(formData.end_time).format('YYYY-MM-DDTHH:mm');
     }
     return '';
   },
@@ -201,7 +166,6 @@ const fetchMachineNames = async () => {
   try {
     const response = await axios.get(machinesUrl);
     machineIds.value = response.data.Data.map((machine) => machine.machine_id);
-    console.log(machineIds.value);
     // Extract "machine_id" property
   } catch (error) {
     console.error('Error fetching machine names:', error);
@@ -269,16 +233,9 @@ const showCreateForm = () => {
   resetFormData();
 };
 
-// Store the original table data and initialize it
-const originalTableData = ref([]);
-
-
-// Function to fetch and display the data for all machines
 const fetchAndDisplayDataForAllMachines = () => {
   machineNames.forEach((machineId) => {
-    console.log(machineId);
     const url = `http://172.18.100.240:6969/op_shift/${machineId}`;
-    
     axios
       .get(url)
       .then((response) => {
@@ -288,7 +245,6 @@ const fetchAndDisplayDataForAllMachines = () => {
         }
         // Append the data to the existing tableData
         tableData.value = [...tableData.value, ...response.data];
-        originalTableData.value = [...originalTableData.value, ...response.data]; // Store original data
       })
       .catch((error) => {
         console.error(`Error fetching data for machine ${machineId}:`, error);
@@ -296,33 +252,20 @@ const fetchAndDisplayDataForAllMachines = () => {
   });
 };
 
-
 const deleteData = (machineName, startTime, endTime) => {
-  // Convert local date and time to epoch timestamps
-  const startTimeEpoch = moment(startTime, 'YYYY-MM-DDTHH:mm').unix();
-  const endTimeEpoch = moment(endTime, 'YYYY-MM-DDTHH:mm').unix();
-
-  // Make the delete request to the backend
-  const url = `http://172.18.100.240:6969/op_shift/?machine_name=${machineName}&start_time=${startTimeEpoch}&end_time=${endTimeEpoch}`;
-
+  const url = `http://172.18.100.240:6969/op_shift/${machineName}/${startTime}/${endTime}`;
   axios
     .delete(url)
     .then(() => {
-      console.log(`Data for machine ${machineName} deleted successfully.`);
-      // After successful deletion, remove the deleted row from tableData
+      // Remove the deleted row from tableData
       tableData.value = tableData.value.filter((data) => {
-        return !(data.machine_name === machineName && data.start_time === startTimeEpoch && data.end_time === endTimeEpoch);
+        return !(data.machine_name === machineName && data.start_time === startTime && data.end_time === endTime);
       });
-      setTimeout(() => {
-        location.reload();
-      }, 500);
     })
     .catch((error) => {
       console.error(`Error deleting data for machine ${machineName}:`, error);
     });
-  
 };
-
 
 
 
@@ -388,58 +331,9 @@ const saveMachine = async () => {
     // The logic for creating a new machine remains the same
   }
 };
-
-const filterData = reactive({
-  operatorName: '',
-  machineId: '',
-  startDate: '',
-});
-
-const isFilterFormVisible = ref(false);
-
-const showFilterForm = () => {
-  isFilterFormVisible.value = true;
-};
-
-const applyFilters = () => {
-  // Filter the tableData based on the filterData values (operatorName, machineId, startDate)
-  const filteredData = tableData.value.filter((data) => {
-    const operatorNameMatch = !filterData.operatorName || data.operator_name === filterData.operatorName;
-    const machineIdMatch = !filterData.machineId || data.machine_name === filterData.machineId;
-
-    // Extract the date part from the timestamp and compare it with the filter date
-    const startDateMatch = !filterData.startDate || moment(data.start_time).format('YYYY-MM-DD') === filterData.startDate;
-
-    return operatorNameMatch && machineIdMatch && startDateMatch;
-  });
-
-  // Update the tableData with the filtered results
-  tableData.value = filteredData;
-
-  // Hide the filter form
-  isFilterFormVisible.value = false;
-};
-
-// Add this variable to store the original data
-
 onMounted(() => {
   fetchAndDisplayDataForAllMachines();
-  originalTableData.value = [...tableData.value]; // Store the original data
 });
-
-const resetFilters = () => {
-  // Reset the filterData values
-  filterData.operatorName = '';
-  filterData.machineId = '';
-  filterData.startDate = '';
-
-  // Reset tableData to the original unfiltered data
-  tableData.value = [...originalTableData.value];
-
-  // Hide the filter form
-  isFilterFormVisible.value = false;
-};
-
 </script>
 
 <style scoped>
