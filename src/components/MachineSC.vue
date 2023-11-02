@@ -172,20 +172,19 @@ const convertToEpoch = (field) => {
 const startDateTime = computed({
   get: () => {
     if (formData.start_time) {
-      return moment.unix(formData.start_time).local().format('YYYY-MM-DDTHH:mm');
+      return moment.unix(formData.start_time).format('YYYY-MM-DDTHH:mm');
     }
     return '';
   },
   set: (newValue) => {
     formData.start_time = moment(newValue).unix();
-    console.log(formData.start_time );
   }
 });
 
 const endDateTime = computed({
   get: () => {
     if (formData.end_time) {
-      return moment.unix(formData.end_time).local().format('YYYY-MM-DDTHH:mm');
+      return moment.unix(formData.end_time).format('YYYY-MM-DDTHH:mm');
     }
     return '';
   },
@@ -201,7 +200,6 @@ const fetchMachineNames = async () => {
   try {
     const response = await axios.get(machinesUrl);
     machineIds.value = response.data.Data.map((machine) => machine.machine_id);
-    console.log(machineIds.value);
     // Extract "machine_id" property
   } catch (error) {
     console.error('Error fetching machine names:', error);
@@ -276,9 +274,7 @@ const originalTableData = ref([]);
 // Function to fetch and display the data for all machines
 const fetchAndDisplayDataForAllMachines = () => {
   machineNames.forEach((machineId) => {
-    console.log(machineId);
     const url = `http://172.18.100.240:6969/op_shift/${machineId}`;
-    
     axios
       .get(url)
       .then((response) => {
@@ -298,31 +294,19 @@ const fetchAndDisplayDataForAllMachines = () => {
 
 
 const deleteData = (machineName, startTime, endTime) => {
-  // Convert local date and time to epoch timestamps
-  const startTimeEpoch = moment(startTime, 'YYYY-MM-DDTHH:mm').unix();
-  const endTimeEpoch = moment(endTime, 'YYYY-MM-DDTHH:mm').unix();
-
-  // Make the delete request to the backend
-  const url = `http://172.18.100.240:6969/op_shift/?machine_name=${machineName}&start_time=${startTimeEpoch}&end_time=${endTimeEpoch}`;
-
+  const url = `http://172.18.100.240:6969/op_shift/${machineName}/${startTime}/${endTime}`;
   axios
     .delete(url)
     .then(() => {
-      console.log(`Data for machine ${machineName} deleted successfully.`);
-      // After successful deletion, remove the deleted row from tableData
+      // Remove the deleted row from tableData
       tableData.value = tableData.value.filter((data) => {
-        return !(data.machine_name === machineName && data.start_time === startTimeEpoch && data.end_time === endTimeEpoch);
+        return !(data.machine_name === machineName && data.start_time === startTime && data.end_time === endTime);
       });
-      setTimeout(() => {
-        location.reload();
-      }, 500);
     })
     .catch((error) => {
       console.error(`Error deleting data for machine ${machineName}:`, error);
     });
-  
 };
-
 
 
 

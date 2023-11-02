@@ -2,7 +2,8 @@
  <div>
     <h3 class="font-poppins text-purple-500 text-xl font-bold bg-blue-50 absolute left-1/2 transform -translate-x-1/2">Welder page</h3>
 </div>
-  <div class="card p-8 bg-blue-50 shadow-lg rounded-lg"> 
+  <div class="card p-8 bg-blue-50 shadow-lg rounded-lg">
+      
       <div class="overflow-x-auto">
         <table class="w-full">
           <thead>
@@ -30,6 +31,7 @@
                   <span class="text-center">{{ row.machine }}</span>
                 </div>
               </td>
+  
               <td>
                 <div class=" flex space-y-2 flex-col items-center  sm:px-4 sm:py-16 font-poppins">
                   <select v-model="row.operator" @change="onOperatorSelected($event)"
@@ -39,6 +41,7 @@
                   </select>
                 </div>
               </td>
+  
               <td class=" flex  flex-col items-center  sm:px-4 sm:py-16 font-poppins">
                 <div class="flex flex-col items-center font-poppins">
                 <div class="flex space-x-2 px-2 py-1 rounded-md mb-4">
@@ -52,6 +55,7 @@
                 </div>
                 </div>
               </td>
+  
               <td>
                 <div class=" flex  flex-col items-center font-poppins">
                   <select v-model="row.element" @change="onOptionSelected($event)"
@@ -60,7 +64,8 @@
                     <option v-for="element in elements" :key="element.value" :value="element.value">{{ element.label }}
                     </option>
                   </select>
-                <div class="mt-2 mb-2"> 
+                <div class="mt-2 mb-2">
+                  
                   <textarea v-model="row.element_description" class="border border-gray-300 px-1 py-1 rounded-md"
                     placeholder="Element Description"></textarea>
                 </div>
@@ -114,6 +119,7 @@
                     </div>
                 </div>
               </td>
+  
               <td>
                 <div class="mb-3 mt-3 font-poppins">
                   <div class="flex space-y-2 flex-col items-center " v-if="dataLoaded">
@@ -133,12 +139,15 @@
                         <p class="text-lg text-lime-500 text-center font-bold "> {{ getMachineLiveVoltage(row.id) }}V</p>
                       </div>
                     </div>
+  
                   </div>
                   <div v-else>
                     Loading data...
                   </div>
                 </div>
               </td>
+  
+  
               <td>
                 <div class="flex space-y-2 flex-col items-center font-poppins">
                   <button @click="showUserPopup()"
@@ -160,18 +169,12 @@
                       src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsTAAALEwEAmpwYAAABWUlEQVR4nO2US0oDQRCGs5IIiaAkbjyAeolo5gjxAGrwsY6LoAg+F46HURfJzngBxcfSB7jSZGlMDvCHxm+gaXqGPARdpFbzVVX/NVM9VanU2P6VSZqTVBnhfMVoxAUnJd3px8pDiK9z1mikfQn7JLxLyg1RYEbSKxq7bnBaUpvgEr4VSYd9CB9IKvFcROPLaPo+7xqelfSNr5AgXiDH5ObxNfCt2YlXODfgU7gGT0g6l9SU9CkpND5iNXKP4S340i7wgnMefoKLsBF0LSQWwA/wAvxsF+jizMRw01OgRSwLd+AM3E0q0IGzsGmLax/EpqJ78HFcix7hIKFFZ06L7uFFX4uiS96ET+C6dckhX+Jecp3cI3gbvvD9pg04P+Bv2o6GU9INvtW4QVvGV4reKsnMMFqDFngHjeDeL6yKNzSqvoT0iMuuzNlb77Kz1vXOoOJ9reux/Zn1AHTH1NfLscaMAAAAAElFTkSuQmCC "
                       class="ml-3">
                       Graph</button> -->
-                      <!-- <button @click="showUserPopupGraph()" class="glassmorphic-button bg-blue-500 text-white px-2 py-1 rounded-md  mr-4 w-16"> -->
-                        <!-- <img width="25" height="25" src="https://img.icons8.com/ios-filled/50/FFFFFF/appointment-reminders--v1.png" alt="appointment-reminders--v1" class="ml-3"/> -->
-                        <!-- <img width="24" height="24" src="https://img.icons8.com/material-sharp/24/FFFFFF/alarm--v1.png" alt="alarm--v1" class="ml-3"/> -->
-                      <!-- </button> -->
-                      
-                      <!-- <button @click="showNotificationPopup()" class=" bg-blue-500 text-white px-2 py-1 rounded-md mr-4 w-16">
-                        <span width="24" height="24" v-if="notificationCount > 0" class="notification-counter">{{ notificationCount }}</span>
-                        <img width="24" height="24" src="https://img.icons8.com/material-sharp/24/FFFFFF/alarm--v1.png" alt="alarm--v1" class="ml-3"/>
-                      </button> -->
-                      <Notification/>  
+                      <button @click="showUserPopupGraph()" class="glassmorphic-button bg-blue-500 text-white px-2 py-1 rounded-md  mr-4 w-16">
+                        <img width="25" height="25" src="https://img.icons8.com/ios-filled/50/FFFFFF/appointment-reminders--v1.png" alt="appointment-reminders--v1" class="ml-3"/>
+                      </button>
                 </div>
               </td>
+  
               <td>
                 <!-- <div class=" flex space-y-2 flex-col items-center  sm:px-4 sm:py-16 font-poppins">
                   <div class="flex space-x-2"><input v-model="row.I_no" class="border border-gray-300 px-4 py-2 rounded-md w-24 text-center" placeholder="I_No"></div>
@@ -206,6 +209,8 @@
                     </select>
                 </div> -->
                 <!-- </div> -->
+
+
                 <div class=" flex space-y-2 flex-col items-center  sm:px-4 sm:py-16 font-poppins">
                   <div class="flex space-x-2">
                     <input v-model="row.I_no" class="border border-gray-300 px-4 py-2 rounded-md w-24  text-center" placeholder="I_No">
@@ -218,6 +223,7 @@
                   <button @click="toggleEdit(row)" v-if="!row.isEditing" class="glassmorphic-button bg-blue-500 text-white px-2 py-1 rounded-md w-8 h-8 mb-2 flex flex-wrap"><img width="21" height="21" src="https://img.icons8.com/fluency-systems-filled/48/FFFFFF/edit.png" alt="edit" class="flex flex-warp mr-3 mt-1"/></button>
                   <button @click="saveEditedData(row)" v-else class="glassmorphic-button bg-green-500 text-white px-2 py-1 rounded-md w-10 h-8 mb-2 flex flex-wrap" ><img width="30" height="30" src="https://img.icons8.com/material-outlined/24/FFFFFF/save.png" alt="save" class="flex flex-warp"/></button>
                 </div>
+
                 <!-- <div class="mb-4">
           <label class="block text-gray-700 text-sm font-bold mb-2" placeholder="select shift">Select Shift:</label>
           <select v-model="row.selectedShift" class="block w-full bg-gray-100 border rounded p-2" >
@@ -227,6 +233,7 @@
         </div> -->
                 </div>
               </td>
+  
               <td class="font-poppins">
                 <div class="flex flex-col items-center">
                 <textarea v-model="row.remarks" class="border border-gray-300 px-2 py-1 rounded-md mb-2"
@@ -245,20 +252,10 @@
                     class="glassmorphic-button bg-green-500 text-white px-2 py-1 rounded-md w-28 h-8"><i class="fa-solid fa-chart-simple"></i>
                     Analytics</button> -->
                 </div>
-                <button
-      @click="scrollToTop"
-      class="fixed bottom-4 right-4 bg-blue-500 text-white p-2 rounded-full shadow-md hover:bg-blue-600 focus:outline-none"
-    ><img width="24" height="24" src="https://img.icons8.com/glyph-neue/64/FFFFFF/up-squared.png" alt="up-squared"/>
-      <!-- Scroll to Top -->
-    </button>
               </div>
-              
               </div>
-              
               </td>
-              
             </tr>
-          
             <!-- //PopUp Chart -->
             <div v-if="isUserPopupVisible" class="fixed inset-0 flex items-center justify-center z-50">
               <div class="bg-white p-8 rounded-lg shadow-lg w-1/2 h-1/2 relative">
@@ -283,14 +280,8 @@
                 </button>
               </div>
             </div>
-            <div v-if="isNotificationVisible" class="fixed inset-0 flex items-center justify-center z-50">
-              <div class="bg-white p-8 rounded-lg shadow-lg w-1/2 h-1/2 relative">
-                <Notification />
-                <!-- <Report/> -->
-                <button @click="hideNotificationPopup" class=" bg-white px-1 py-0 rounded-lg absolute top-2 right-0 -mt-1 mr-3"><img width="20" height="20" src="https://img.icons8.com/ios-glyphs/30/delete-sign.png" alt="delete-sign"/>
-                </button>
-              </div>
-            </div>
+  
+  
             <div v-if="isloginVisible" class="fixed inset-0 flex items-center justify-center z-50">
               <div class="bg-white p-8 rounded-lg shadow-lg w-1/2 h-1/2 relative">
   
@@ -300,6 +291,7 @@
                 </button>
               </div>
             </div>
+  
             <!-- //PopUp Chart -->
             <div v-if="isReport" class="fixed inset-0 flex items-center justify-center z-50">
               <div class="bg-white p-8 rounded-lg shadow-lg w-1\/2 h-1\/2 relative">
@@ -323,7 +315,6 @@
     import LineGraph from '@/components/LineGraph.vue'
     import Stack from '@/components/Stack.vue'
     import Report from '@/components/Report.vue'
-    import Notification from '@/components/Notification.vue'
     import { ref, onMounted } from 'vue'
     import axios from 'axios';
   
@@ -331,51 +322,10 @@
     const isUserPopupVisible = ref(false);
     const isUserPopupVisibleGraph=ref(false);
     const isStackVisible = ref(false);
-    const isNotificationVisible=ref(false);
     const isloginVisible = ref(false);
     const currentDate = ref('');
   const currentTime = ref('');
   const selectedShift = ref(null);
-
-// Initialize the notification counter
-const notificationCount = ref(0);
-
-// Control the popup window
-const isPopupOpen = ref(false);
-
-// Random notification messages
-const messages = [
-  "Hello, world!",
-  "This is a random notification message.",
-  "Vue.js is awesome!",
-  "You've got a new message!",
-  "Don't forget to stay hydrated.",
-];
-// Generate a random message
-const randomMessage = ref('');
-
-const generateRandomMessage = () => {
-  const randomIndex = Math.floor(Math.random() * messages.length);
-  randomMessage.value = messages[randomIndex];
-};
-
-// Function to open the popup
-const openPopup = () => {
-  generateRandomMessage();
-  isPopupOpen.value = true;
-};
-
-// Function to close the popup
-const closePopup = () => {
-  isPopupOpen.value = false;
-};
-// Increment the counter automatically every 2 seconds
-onMounted(() => {
-  setInterval(() => {
-    notificationCount.value++;
-  }, 2000);
-});
-
   const userInfo = {
     name: "Admin",
     email: "admin@example.com",
@@ -827,16 +777,6 @@ onMounted(() => {
   function hideStackPopup() {
     isStackVisible.value = false;
   }
-
-  function showNotificationPopup() {
-    // isNotificationVisible.value = true;
-    isNotificationVisible.value =!isNotificationVisible.value;
-    notificationCount.value = 0;
-  };
-  
-  function hideNotificationPopup() {
-    isNotificationVisible.value = false;
-  }
   
   function showloginPopup() {
     isloginVisible.value = true;
@@ -851,13 +791,6 @@ onMounted(() => {
   function toggleEditElement(row) {
     row.isEditing = !row.isEditing;
   }
-
-  const scrollToTop = () => {
-  window.scrollTo({
-    top: 0,
-    behavior: 'smooth' // Smooth scrolling
-  });
-};
   </script>
   
   
@@ -920,16 +853,5 @@ onMounted(() => {
     background-color: transparent;
     /* Remove background color */
   }
-
-  .notification-counter {
-  position: absolute;
-  /* top: -10px; */
-  right: 438px;
-  background-color: red;
-  color: white;
-  border-radius: 50%;
-  padding: 4px 8px;
-  font-size: 12px;
-}
   </style>
   
