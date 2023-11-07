@@ -44,7 +44,7 @@
       <!-- create form -->
       <div v-if="isFormVisible" class="fixed inset-0 flex items-center justify-center z-50">
         <div class="w-96 p-4 bg-gray-100 border border-gray-300 rounded-lg shadow-md">
-          <h2 class="text-lg font-semibold text-gray-800">{{ isEditMode ? 'Edit Machine' : 'Create Machine' }}</h2>
+          <h2 class="text-lg font-semibold text-gray-800">{{ isSaveMode ? 'Edit Machine' : 'Create Machine' }}</h2>
           <form @submit.prevent="saveMachine">
             <div class="mb-2">
               <label class="block text-gray-800">Machine Name:</label>
@@ -102,7 +102,7 @@
             </div>
 
             <div class="mt-2 flex justify-end">
-              <button type="submit" class="bg-blue-500 text-white px-2 py-1 rounded-lg mr-2">{{ isEditMode ? 'Update' :
+              <button type="submit" class="bg-blue-500 text-white px-2 py-1 rounded-lg mr-2">{{ isSaveMode ? 'Update' :
                 'Create' }}</button>
               <button @click="cancelForm" class="bg-gray-300 text-gray-700 px-2 py-1 rounded-lg">Cancel</button>
             </div>
@@ -226,6 +226,7 @@ const machineNames = [ '7G', '7H', '7J', '7K', '7L', '27C', '27D', '27E'];
 const isFormVisible = ref(false);
 const isEditFormVisible = ref(false);
 const isEditMode = ref(false);
+const isSaveMode =ref(false);
 const formData = reactive({
   machineName: '',
   element_type: '',
@@ -342,6 +343,7 @@ const showCreateForm = () => {
   isFormVisible.value = true;
   isEditFormVisible.value = true;
   isEditMode.value = false;
+  isSaveMode.value = false;
   resetFormData();
 };
 
@@ -442,7 +444,7 @@ const deleteData = (machineName, startTime, endTime) => {
 // };
 
 const saveMachine = async () => {
-  if (isEditMode.value) {
+  if (isSaveMode.value) {
     // Update the existing machine data
     const updatedMachine = {
       // machine_name: formData.machineName,
@@ -480,6 +482,7 @@ const saveMachine = async () => {
     resetFormData();
         isFormVisible.value = false;
         isEditMode.value = false;
+        isSaveMode.value = false;
        
     } catch (error) {
       console.error('Error updating the machine data:', error);
@@ -568,6 +571,7 @@ const editMachine = async (index) => {
   formData.end_time = moment.unix(selectedRow.end_time).format('YYYY-MM-DDTHH:mm');
   formData.shift = selectedRow.shift;
   isEditMode.value = true;
+  isSaveMode.value = true;
   isEditFormVisible.value = true;
 };
 

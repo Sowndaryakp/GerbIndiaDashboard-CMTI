@@ -44,7 +44,7 @@
       <!-- create form -->
       <div v-if="isFormVisible" class="fixed inset-0 flex items-center justify-center z-50">
         <div class="w-96 p-4 bg-gray-100 border border-gray-300 rounded-lg shadow-md">
-          <h2 class="text-lg font-semibold text-gray-800">{{ isEditMode ? 'Edit Machine' : 'Create Machine' }}</h2>
+          <h2 class="text-lg font-semibold text-gray-800">{{ isSaveMode ? 'Edit Machine' : 'Create Machine' }}</h2>
           <form @submit.prevent="saveMachine">
             <div class="mb-2">
               <label class="block text-gray-800">Machine Name:</label>
@@ -102,7 +102,7 @@
             </div>
 
             <div class="mt-2 flex justify-end">
-              <button type="submit" class="bg-blue-500 text-white px-2 py-1 rounded-lg mr-2">{{ isEditMode ? 'Update' :
+              <button type="submit" class="bg-blue-500 text-white px-2 py-1 rounded-lg mr-2">{{ isSaveMode ? 'Update' :
                 'Create' }}</button>
               <button @click="cancelForm" class="bg-gray-300 text-gray-700 px-2 py-1 rounded-lg">Cancel</button>
             </div>
@@ -116,27 +116,30 @@
           <form @submit.prevent="saveMachine">
             <div class="mb-2">
               <label class="block text-gray-800">Machine Name:</label>
-              <select v-model="formData.machineName" required class="border border-gray-300 rounded-lg px-2 py-1 w-full"
+              <input v-model="formData.machineName" type="text" class="border border-gray-300 rounded-lg px-2 py-1 w-full" readonly />
+              <!-- <select v-model="formData.machineName" required class="border border-gray-300 rounded-lg px-2 py-1 w-full"
                 @click="fetchMachineNames">
                 <option value="">Select Machine Name</option>
                 <option v-for="machineId in machineIds" :key="machineId">{{ machineId }}</option>
-              </select>
+              </select> -->
             </div>
             <div class="mb-2">
-              <label class="block text-gray-800">element_type:</label>
-              <select v-model="formData.element_type" required class="border border-gray-300 rounded-lg px-2 py-1 w-full"
-                @click="fetchElementTypes">
-                <option value="">Select Element Type</option>
-                <option v-for="elementType in elementTypes" :key="elementType">{{ elementType }}</option>
-              </select>
-            </div>
+  <label class="block text-gray-800">element_type:</label>
+  <select v-model="formData.element_type" required class="border border-gray-300 rounded-lg px-2 py-1 w-full"
+          @click="fetchElementTypes">
+    <option value="" >Select Element Type</option>
+    <option v-for="elementType in elementTypes" :key="elementType">{{ elementType }}</option>
+  </select>
+</div>
+
 
             <div class="mb-2">
     <label class="block text-gray-800">operator_name:</label>
-    <select v-model="formData.operator_name" required class="border border-gray-300 rounded-lg px-2 py-1 w-full" @click="fetchOperators">
+    <input v-model="formData.operator_name" type="text" class="border border-gray-300 rounded-lg px-2 py-1 w-full" readonly />
+    <!-- <select v-model="formData.operator_name" required class="border border-gray-300 rounded-lg px-2 py-1 w-full" @click="fetchOperators">
       <option value="">Select Operator Type</option>
       <option v-for="operator in operators" :key="operator" >{{ operator }} </option>
-    </select>
+    </select> -->
   </div>
 
             <!-- <div class="mb-2">
@@ -218,11 +221,12 @@ import axios from 'axios';
 import { computed } from 'vue';
 import moment from 'moment';
 
-const machineNames = ['7D', '7F', '7G', '7H', '7I', '7J', '7K', '7L', '27B', '27C', '28D', '28E'];
+const machineNames = [ '7G', '7H', '7J', '7K', '7L', '27C', '27D', '27E'];
 // const elementTypes = ['type-1', 'type-2', 'type-3'];
 const isFormVisible = ref(false);
 const isEditFormVisible = ref(false);
 const isEditMode = ref(false);
+const isSaveMode =ref(false);
 const formData = reactive({
   machineName: '',
   element_type: '',
@@ -337,8 +341,8 @@ const fetchShiftTypes = async () => {
 
 const showCreateForm = () => {
   isFormVisible.value = true;
-  isEditFormVisible.value = true;
   isEditMode.value = false;
+  isSaveMode.value = false;
   resetFormData();
 };
 
@@ -439,10 +443,10 @@ const deleteData = (machineName, startTime, endTime) => {
 // };
 
 const saveMachine = async () => {
-  if (isEditMode.value) {
+  if (isSaveMode.value) {
     // Update the existing machine data
     const updatedMachine = {
-      // machine_name: formData.machineName,
+      machine_name: formData.machineName,
       element_type: formData.element_type,
       operator_name: formData.operator_name,
       start_time: formData.start_time,
@@ -469,18 +473,28 @@ const saveMachine = async () => {
         });
 
         if (recordIndex !== -1) {
-          tableData.value.splice(recordIndex, 1, updatedMachine);
+          // Merge the updated data with the existing data in the same row
+          const existingMachine = tableData.value[recordIndex];
+  for (const key in updatedMachine) {
+    existingMachine[key] = updatedMachine[key];
+          }
         }
-
-        // Reset the form and visibility
-        resetFormData();
-        isFormVisible.value = false;
-        isEditMode.value = false;
       }
+
+      // tableData.value.push(updatedMachine);
+      isEditFormVisible.value = false;
+       // Reset the form and visibility
+    resetFormData();
+        isFormVisible.value = false;
+        // isEditMode.value = false;
+        isSaveMode.value = false;
+       
     } catch (error) {
       console.error('Error updating the machine data:', error);
       // Handle the error as needed (e.g., show an error message)
     }
+
+   
 //     onMounted(() => {
 //   fetchAndDisplayDataForAllMachines();
 // });
@@ -494,6 +508,15 @@ const saveMachine = async () => {
       end_time: formData.end_time,
       shift: formData.shift,
     };
+    const newMachineString = {
+      machine_name: formData.machineName,
+      element_type: formData.element_type,
+      operator_name: formData.operator_name,
+      start_time: moment.unix(formData.start_time).format('YYYY-MM-DD HH:mm'), // Convert to date-time string
+      end_time: moment.unix(formData.end_time).format('YYYY-MM-DD HH:mm'), // Convert to date-time string
+      shift: formData.shift,
+      // operator_id: formData.operator_id,
+    };
 
     try {
       // Make a POST request to save the new machine data to the backend
@@ -501,11 +524,11 @@ const saveMachine = async () => {
       await axios.post(url, newMachine);
 
       // Add the new machine to the table data
-      tableData.value.push(newMachine);
+      tableData.value.push(newMachineString);
 
-      // Reset the form and visibility
-      resetFormData();
-      isFormVisible.value = false;
+       // Reset the form and visibility
+    resetFormData();
+        isFormVisible.value = false;
       
     } catch (error) {
       console.error('Error saving the new machine:', error);
@@ -535,18 +558,25 @@ const resetFormData = () => {
 
 // Other code for fetching machine names and other data remains the same
 
-const editMachine = (index) => {
+const editMachine = async (index) => {
+  // Fetch the list of operators if it hasn't been fetched already
+  if (operators.value.length === 0) {
+    await fetchOperators();
+  }
+
   const selectedRow = tableData.value[index];
- 
   formData.machineName = selectedRow.machine_name;
   formData.element_type = selectedRow.element_type;
+  
+  // Set the operator_name to the selected operator name
   formData.operator_name = selectedRow.operator_name;
+  
   formData.start_time = moment.unix(selectedRow.start_time).format('YYYY-MM-DDTHH:mm');
   formData.end_time = moment.unix(selectedRow.end_time).format('YYYY-MM-DDTHH:mm');
   formData.shift = selectedRow.shift;
   isEditMode.value = true;
+  isSaveMode.value = true;
   isEditFormVisible.value = true;
-  
 };
 
 const filterData = reactive({

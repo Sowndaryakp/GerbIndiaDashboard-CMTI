@@ -505,7 +505,8 @@ const saveMachine = async () => {
 
       // Reset the form and visibility
       resetFormData();
-      isFormVisible.value = false;
+        isFormVisible.value = false;
+        isEditMode.value = false;
       
     } catch (error) {
       console.error('Error saving the new machine:', error);

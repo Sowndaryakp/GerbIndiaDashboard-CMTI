@@ -331,9 +331,7 @@ const saveMachine = async () => {
     // The logic for creating a new machine remains the same
   }
 };
-onMounted(() => {
-  fetchAndDisplayDataForAllMachines();
-});
+
 </script>
 
 <style scoped>
