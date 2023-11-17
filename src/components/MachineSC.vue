@@ -471,7 +471,6 @@ const saveMachine = async () => {
             data.start_time === formData.start_time
           );
         });
-
         if (recordIndex !== -1) {
           // Merge the updated data with the existing data in the same row
           const existingMachine = tableData.value[recordIndex];
@@ -481,10 +480,21 @@ const saveMachine = async () => {
         }
       }
 
-      // tableData.value.push(updatedMachine);
-      isEditFormVisible.value = false;
+      // tableData.value.,map(updatedMachine);
+      tableData.value = tableData.value.map((data) => {
+  if (data.machine_id === machineNames && data.operator_name === operator_name) {
+    // Update the data with the edited values
+    return { ...data, ...editData };
+  } else {
+    return data;
+  }
+});
+setTimeout(() => {
+        location.reload();
+      }, 50);
        // Reset the form and visibility
     resetFormData();
+    isEditFormVisible.value = false;
         isFormVisible.value = false;
         // isEditMode.value = false;
         isSaveMode.value = false;
@@ -495,9 +505,7 @@ const saveMachine = async () => {
     }
 
    
-//     onMounted(() => {
-//   fetchAndDisplayDataForAllMachines();
-// });
+   
   } else {
     // Create a new machine object
     const newMachine = {
@@ -536,6 +544,7 @@ const saveMachine = async () => {
     }
   }
 };
+
 
 
 const cancelForm = () => {

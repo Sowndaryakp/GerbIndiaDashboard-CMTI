@@ -389,7 +389,7 @@ const deleteData = (machineName, startTime, endTime) => {
       });
       setTimeout(() => {
         location.reload();
-      }, 500);
+      }, 100);
     })
     .catch((error) => {
       console.error(`Error deleting data for machine ${machineName}:`, error);
@@ -444,7 +444,7 @@ const saveMachine = async () => {
     const updatedMachine = {
       // machine_name: formData.machineName,
       element_type: formData.element_type,
-      operator_name: formData.operator_name,
+      // operator_name: formData.operator_name,
       start_time: formData.start_time,
       end_time: formData.end_time,
       shift: formData.shift,
@@ -468,9 +468,22 @@ const saveMachine = async () => {
           );
         });
 
-        if (recordIndex !== -1) {
-          tableData.value.splice(recordIndex, 1, updatedMachine);
-        }
+        // if (recordIndex !== -1) {
+        //   tableData.value.splice(recordIndex, 1, updatedMachine);
+        // }
+        tableData.value(updatedMachine);
+
+//         tableData.value = tableData.value.map((data) => {
+//   if (data.machine_id === machineNames && data.operator_name === operator_name) {
+//     // Update the data with the edited values
+//     return { ...data, ...editData };
+//   } else {
+//     return data;
+//   }
+// });
+// setTimeout(() => {
+//         location.reload();
+//       }, 100);
 
         // Reset the form and visibility
         resetFormData();

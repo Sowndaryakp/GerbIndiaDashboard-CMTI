@@ -18,19 +18,16 @@
       const chartData = ref([
         {
           name: 'ON',
-          data: [3, 2, 4, 3, 5, 6, 7, 8], // Example data for ON state (M1, M2, M3, M4)
+          data: [3, 2, 4, 3, 3, 6, 7, 5], // Example data for ON state (M1, M2, M3, M4)
         },
-        {
-          name: 'ON',
-          data: [4, 1, 4, 2, 1, 2, 1, 0], // Example data for ON state (M1, M2, M3, M4)
-        },
+    
         {
           name: 'OFF',
-          data: [1, 2, 1, 0, 2, 3, 2, 4], // Example data for OFF state (M1, M2, M3, M4)
+          data: [1, 2, 1, 3, 2, 3, 2, 4], // Example data for OFF state (M1, M2, M3, M4)
         },
         {
           name: 'PRODUCTION',
-          data: [2, 3, 2, 4, 2, 4, 3, 5,], // Example data for PRODUCTION state (M1, M2, M3, M4)
+          data: [2, 3, 2, 4, 2, 4, 3, 3,], // Example data for PRODUCTION state (M1, M2, M3, M4)
         },
         
       ]);
@@ -53,7 +50,7 @@
           enabled: false,
         },
         xaxis: {
-          categories: ['M1','M2','M3','M4','M5','M6','M7','M8'], // Time intervals
+          categories: ['7G','7H','7J','7K','7L','27C','27D','27E'], // Time intervals
           labels: {
             style: {
               colors: '#0000FF',
