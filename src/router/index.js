@@ -6,6 +6,7 @@ import About from '../views/About.vue';
 import admintable from '../views/admintable.vue';
 import weldertable from '../views/weldertable.vue';
 import machinescheduling from '../views/machinescheduling.vue';
+import reporttable from '../views/reporttable.vue';
 const routes = [
   {
     path: '/',
@@ -31,6 +32,11 @@ const routes = [
     path: '/machinescheduling',
     name: 'machine scheduling',
     component: machinescheduling,
+  },
+  {
+    path: '/reporttable',
+    name: 'reporttable',
+    component: reporttable,
   },
   // Add other routes here if needed
   // {

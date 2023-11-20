@@ -12,6 +12,13 @@
 <button @click="showFilterForm" class="bg-gray-500 rounded-lg px-4 py-2 mt-2 mb-2 ml-3 text-white font-poppins flex flex-wrap">
   Filter Table
 </button>
+
+<!--Download table data-->
+<button @click="downloadTableData"
+        class="bg-blue-500 rounded-lg px-4 py-2 mt-2 mb-2 ml-3 text-white font-poppins flex flex-wrap">
+        <img width="24" height="24" src="https://img.icons8.com/sf-black/64/FFFFFF/download.png" alt="download" class="flex flex-wrap"/>
+        Download Table Data
+      </button>
     </div>
 
     <div class="container mx-auto">
@@ -41,6 +48,11 @@
           </tr>
         </tbody>
       </table>
+
+
+   
+
+
       <!-- create form -->
       <div v-if="isFormVisible" class="fixed inset-0 flex items-center justify-center z-50">
         <div class="w-96 p-4 bg-gray-100 border border-gray-300 rounded-lg shadow-md">
@@ -213,6 +225,22 @@
 </div>
 
   </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </template>
 
 <script setup>
@@ -220,6 +248,7 @@ import { ref, reactive, onMounted } from 'vue';
 import axios from 'axios';
 import { computed } from 'vue';
 import moment from 'moment';
+import * as XLSX from 'xlsx';
 
 const machineNames = [ '7G', '7H', '7J', '7K', '7L', '27C', '27D', '27E'];
 // const elementTypes = ['type-1', 'type-2', 'type-3'];
@@ -269,6 +298,38 @@ const endDateTime = computed({
     formData.end_time = moment(newValue).unix();
   }
 });
+
+
+const downloadTableData = async () => {
+  try {
+    // Make a request to the backend to fetch the data
+    const response = await axios.get('http://172.18.100.240:6969/op_shift/');
+
+    // Assuming the API response has a 'dataToDownload' key containing the specific data
+    const dataToDownload = response.data.dataToDownload;
+
+    // Convert JSON data to Excel workbook
+    const ws = XLSX.utils.json_to_sheet(dataToDownload);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+    XLSX.writeFile(wb, 'tableData.xlsx');
+    // Create a Blob containing the Excel workbook
+    const blob = XLSX.write(wb, { bookType: 'xlsx', mimeType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+
+    // Create a link element to trigger the download
+    const link = document.createElement('a');
+    link.href = window.URL.createObjectURL(blob);
+    link.download = 'table_data.xlsx';
+
+    // Trigger a click on the link to initiate the download
+    link.click();
+
+    // Clean up by revoking the object URL
+    window.URL.revokeObjectURL(link.href);
+  } catch (error) {
+    console.error('Error downloading table data:', error);
+  }
+};
 
 const machineIds = ref([]); // Store machine IDs
 

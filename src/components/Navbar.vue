@@ -26,7 +26,18 @@
 >
   MACHINE-SCHEDULING
   
-</router-link></div>
+</router-link>
+
+<router-link 
+  to="/reporttable"
+  class="ml-4 text-white text-lg font-poppins hover:text-blue-200 transition-colors"
+  :class="{ selected: $route.path === '/reporttable' }"
+
+>
+  MACHINE-SCHEDULING
+  
+</router-link>
+</div>
     
 <div class="text-white flex items-center space-x-9">
   <span class="text-white text-xl font-semibold">

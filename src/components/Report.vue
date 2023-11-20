@@ -78,12 +78,12 @@ console.log(sampleProperties.machine_id);
 
 // Computed property for the Axios URL for machine data
 const axiosMachineUrl = computed(() => {
-  return `http://localhost:9999/live_data/${sampleProperties.machine_id}`;
+  return `http://172.18.100.240:6969/live_data/${sampleProperties.machine_id}`;
 });
 
 // Computed property for the Axios URL for operator data
 const axiosOperatorUrl = computed(() => {
-  return `http://localhost:9999/welder/${selectedName.value}`;
+  return `http://172.18.100.240:6969/welder/${selectedName.value}`;
 });
 
 // Function to fetch data from the API for both machine and operator
