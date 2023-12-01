@@ -29,14 +29,21 @@
                    <img :src="row.machineimg" alt="Machine Image" width="150" class="mb-2">
                    <span class="text-center">{{ row.machine }}</span>
                  </div>
+                 <div class="ml-16 ">
+                  <button @click="nopenPopup(row.itemno)">
+                    <div class="glassmorphic-button bg-blue-500 px-2 py-1 rounded-md w-8 h-8 mb-2  "><img width="24" height="24" src="https://img.icons8.com/material-rounded/24/FFFFFF/appointment-reminders.png" alt="appointment-reminders" /></div>
+                    
+                  </button>
+                </div>
                </td>
                <td>
                  <div class=" flex space-y-2 flex-col items-center  sm:px-4 sm:py-16 font-poppins">
-                   <select v-model="row.operator" @change="onOperatorSelected($event)"
+                   <!-- <select v-model="row.operator" @change="onOperatorSelected($event)"
                      class="border border-gray-300 px-2 py-1 rounded-md mb-4">
                      <option disabled value="">Operator Type</option>
                      <option v-for="operator in operators" :key="operator.value" :value="operator.value">{{ operator.label }} </option>
-                   </select>
+                   </select> -->
+                   <td>{{ row.operator }}</td>
                  </div>
                </td>
                <td class=" flex  flex-col items-center  sm:px-4 sm:py-16 font-poppins">
@@ -53,18 +60,20 @@
                  </div>
                </td>
                <td>
-                 <div class=" flex  flex-col items-center font-poppins">
-                   <select v-model="row.element" @change="onOptionSelected($event)"
+                 <div class=" flex  flex-col items-center font-poppins ">
+                   <!-- <select v-model="row.element" @change="onOptionSelected($event)"
                      class="border border-gray-300  px-2 py-1 rounded-md mb-4">
                      <option disabled value="">Element Type</option>
                      <option v-for="element in elements" :key="element.value" :value="element.value">{{ element.label }}
                      </option>
-                   </select>
+                   </select> -->
+                   <div class="text-center"><td class="bg-blue-100 border-1    w-36 font-bold rounded-lg shadow-lg  ">{{ row.element }}</td></div>
+                   
                  <div class="mt-2 mb-2"> 
                    <textarea v-model="row.element_description" class="border border-gray-300 px-1 py-1 rounded-md"
                      placeholder="Element Description"></textarea>
                  </div>
-                 <div  v-if="!row.isEditing" type="text" class="border border-gray-300 rounded-md w-26 px-2 py-2 sm:px-4 sm:py-2 mb-2 w-40 text-center"><b> {{ getMachineElementRange(row.id) }}</b></div>
+                 <div  v-if="!row.isEditing" type="text" class="border border-gray-300 rounded-md w-26 px-2 py-2 sm:px-4 sm:py-2 mb-2 w-40 text-center"><b> {{ row.range }}</b></div>
                  <div v-else><input v-model="row.range" class="border border-gray-300 px-4 py-2 rounded-md w-40 text-center" placeholder="range"></div>
                </div>
                <div class="flex space-x-2 mt-2 ml-24">
@@ -101,7 +110,7 @@
                      <p class="text-sm text-black text-center font-bold mb-2 ">Range</p>
                      <div class="absolute  mr-4"><img width="24" height="24" src="https://img.icons8.com/material-rounded/24/lightning-bolt--v1.png" alt="lightning-bolt--v1 " class="-ml-1 mt-1"/></div>
                      <div v-if="!row.isEditing" type="text"  class="border border-gray-300 rounded-md ml-4 h-8 w-24">
-                       <p class="text-lg text-blue-800 text-center font-bold "> {{ getMachineCurrent(row.id) }}A</p></div>
+                       <p class="text-lg text-blue-800 text-center font-bold "> {{ row.standard.current }}A</p></div>
                      <div v-else><input v-model="row.current" class="border border-gray-300 px-4 py-2 rounded-md ml-4 h-8 w-24 text-center" placeholder="current range"></div>
                    </div>
                    <div class="border border-gray-300 px-4 py-6 rounded-md h-25 w-36 ">
@@ -109,7 +118,7 @@
                      <p class="text-sm text-black text-center font-bold mb-2 ">Range</p>
                      <div class="absolute  mr-4"><img width="24" height="24" src="https://img.icons8.com/ios-glyphs/30/speedometer.png" alt="speedometer" class="-ml-1 mt-1"/></div>
                      <div v-if="!row.isEditing" type="text" class="border border-gray-300 rounded-md ml-4 h-8 w-24">
-                       <p class="text-lg text-blue-800 text-center font-bold "> {{ getMachineVoltage(row.id) }}V</p></div>
+                       <p class="text-lg text-blue-800 text-center font-bold "> {{ row.standard.voltage }}V</p></div>
                        <div v-else><input v-model="row.voltage" class="border border-gray-300 px-4 py-2 rounded-md ml-4 h-8 w-24 text-center" placeholder="voltage range"></div>
                      </div>
                  </div>
@@ -169,7 +178,8 @@
                          <span width="24" height="24" v-if="notificationCount > 0" class="notification-counter">{{ notificationCount }}</span>
                          <img width="24" height="24" src="https://img.icons8.com/material-sharp/24/FFFFFF/alarm--v1.png" alt="alarm--v1" class="ml-3"/>
                        </button> -->
-                       <Notification/>  
+                       <!-- <Notification/>  
+                       <button @click="openPopup(row)">Notification</button> -->
                  </div>
                </td>
                <td>
@@ -310,8 +320,18 @@
                    </button>
                </div>
              </div>
+             
            </tbody>
          </table>
+         <div v-if="nisPopupOpen" class="npopup">
+          <div class="npopup-content">
+            <h1>Machine ID: {{ npopupData.machineId }}</h1>
+            <h1>current : {{ npopupData.current }}</h1>
+            <h1>voltage : {{ npopupData.voltage }}</h1>
+            <h1>Created at : {{ npopupData.createdat }}</h1>
+            <button @click="nclosePopup">Close</button>
+          </div>
+    </div>
        </div>
        <Line v-for="machine in machines" :key="machine.id" :machineData="machine" />
      </div>
@@ -336,6 +356,73 @@
      const currentDate = ref('');
    const currentTime = ref('');
    const selectedShift = ref(null);
+
+//notification new updated one
+
+const nisPopupOpen = ref(false);
+const npopupData = ref({
+  machineId: '',
+  current : '',
+  voltage : '',
+  createdat : ''
+});
+
+// const nopenPopup  = async(machineId) => {
+//   nisPopupOpen.value = true;
+//   npopupData.value.machineId = machineId;
+//   console.log(npopupData.value.machineId)
+//   try {
+//     console.log(npopupData.value.machineId);
+//     const popresponse = await axios.get(`http://172.18.100.240:6969/logs/${npopupData.value.machineId}`);
+//     console.log("api called")
+//     npopupData.value.current = popresponse.data.detail.current;
+//     npopupData.value.voltage = popresponse.data.detail.voltage;
+//     npopupData.value.createdat = popresponse.data.detail.createdat;
+     
+//   } catch (error) {
+//     console.error('Error fetching data:', error);
+//   }
+  
+  
+// };
+
+async function nopenPopup(machineId){
+  nisPopupOpen.value = true;
+  npopupData.value.machineId = machineId;
+  console.log(npopupData.value.machineId)
+  try {
+    console.log(npopupData.value.machineId);
+    const popresponse = await axios.get(`http://172.18.100.240:6969/logs/${npopupData.value.machineId}`);
+    console.log("api called")
+    npopupData.value.current = popresponse.data.detail.current;
+    npopupData.value.voltage = popresponse.data.detail.voltage;
+    npopupData.value.createdat = popresponse.data.detail.createdat;
+     
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+  
+  
+
+}
+
+// onMounted(async () => {
+//   try {
+//     const popresponse = await axios.get(`http://172.18.100.240:6969/logs/${npopupData.value.machineId}`);
+//     console.log("api called")
+//     data.value = popresponse.data;
+//     npopupData.value.machineId = data.value
+//   } catch (error) {
+//     console.error('Error fetching data:', error);
+//   }
+// });
+
+const nclosePopup = () => {
+  nisPopupOpen.value = false;
+};
+
+
+
  
  // Initialize the notification counter
  const notificationCount = ref(0);
@@ -428,20 +515,20 @@
      }, 1000);
    });
    const dataRows = ref([
-     // {
-     //   id: 1,
-     //   itemno: '7D',
-     //   machine: "AK-400-2-7D",
-     //   machine_name: '7D',
-     //   operator: "",
-     //   element: "",
-     //   element_description: "",
-     //   plate: "",
-     //   standard: { current: "15", voltage: "15" },
-     //   actual: { current: "", voltage: "" },
-     //   remarks: "",
-     //   machineimg: "./src/assets/ak400.png",
-     // },
+    //  {
+    //    id: 1,
+    //    itemno: '7D',
+    //    machine: "AK-400-2-7D",
+    //    machine_name: '7D',
+    //    operator: "",
+    //    element: "",
+    //    element_description: "",
+    //    plate: "",
+    //    standard: { current: "", voltage: "" },
+    //    actual: { current: "", voltage: "" },
+    //    remarks: "",
+    //    machineimg: "./src/assets/ak400.png",
+    //  },
      // {
      //   id: 2,
      //   itemno: '7F',
@@ -451,7 +538,7 @@
      //   element: "",
      //   element_description: "",
      //   plate: "",
-     //   standard: { current: "17", voltage: "18" },
+     //   standard: { current: "", voltage: "" },
      //   actual: { current: "", voltage: "" },
      //   remarks: "",
      //   machineimg: "./src/assets/ak400.png",
@@ -465,7 +552,7 @@
        element: "",
        element_description: "",
        plate: "",
-       standard: { current: "5", voltage: "7" },
+       standard: { current: "", voltage: "" },
        actual: { current: "", voltage: "" },
        remarks: "",
        machineimg: "./src/assets/ak600.png",
@@ -479,7 +566,7 @@
        element: "",
        element_description: "",
        plate: "",
-       standard: { current: "14", voltage: "13" },
+       standard: { current: "", voltage: "" },
        actual: { current: "", voltage: "" },
        remarks: "",
        machineimg: "./src/assets/ak600.png",
@@ -493,7 +580,7 @@
      //   element: "",
      //   element_description: "",
      //   plate: "",
-     //   standard: { current: "13", voltage: "16" },
+     //   standard: { current: "", voltage: "" },
      //   actual: { current: "", voltage: "" },
      //   remarks: "",
      //   machineimg: "./src/assets/I500.png",
@@ -507,7 +594,7 @@
        element: "",
        element_description: "",
        plate: "",
-       standard: { current: "13", voltage: "15" },
+       standard: { current: "", voltage: "" },
        actual: { current: "", voltage: "" },
        remarks: "",
        machineimg: "./src/assets/I500.png",
@@ -521,7 +608,7 @@
        element: "",
        element_description: "",
        plate: "",
-       standard: { current: "14", voltage: "12" },
+       standard: { current: "14", voltage: "" },
        actual: { current: "", voltage: "" },
        remarks: "",
        machineimg: "./src/assets/I500.png",
@@ -535,7 +622,7 @@
        element: "",
        element_description: "",
        plate: "",
-       standard: { current: "15", voltage: "12" },
+       standard: { current: "", voltage: "" },
        actual: { current: "", voltage: "" },
        remarks: "",
        machineimg: "./src/assets/I500.png",
@@ -549,7 +636,7 @@
      //   element: "",
      //   element_description: "",
      //   plate: "",
-     //   standard: { current: "17", voltage: "18" },
+     //   standard: { current: "", voltage: "" },
      //   actual: { current: "", voltage: "" },
      //   remarks: "",
      //   machineimg: "./src/assets/kr400.png",
@@ -563,7 +650,7 @@
        element: "",
        element_description: "",
        plate: "",
-       standard: { current: "12", voltage: "16" },
+       standard: { current: "", voltage: "" },
        actual: { current: "", voltage: "" },
        remarks: "",
        machineimg: "./src/assets/kr400.png",
@@ -577,7 +664,7 @@
        element: "",
        element_description: "",
        plate: "",
-       standard: { current: "21", voltage: "14" },
+       standard: { current: "", voltage: "" },
        actual: { current: "", voltage: "" },
        remarks: "",
        machineimg: "./src/assets/yd.webp",
@@ -591,7 +678,7 @@
        element: "",
        element_description: "",
        plate: "",
-       standard: { current: "18", voltage: "17" },
+       standard: { current: "", voltage: "" },
        actual: { current: "", voltage: "" },
        remarks: "",
        machineimg: "./src/assets/yd.webp",
@@ -623,25 +710,216 @@
    
    let selectedMachine = ref("7D");
  
+
+
+
+//olasnkf
+
+
+
+// const fetchopData = async () => {
+//   try {
+//     const rows = ['7H','7D'];
+//     for (const row of rows) {
+//       const response = await fetch(`http://172.18.100.240:6969/op_shift/${row}`);
+//       const data = await response.json();
+//       console.log(`Data for row ${row}:`, data);
+//       if (operatorData) {
+//       row.operator = operatorData.operator_name;
+//       // Update other properties as needed
+//     }
+//     }
+//   } catch (error) {
+//     console.error('Error fetching data:', error);
+//   }
+// };
+
+// onMounted(() => {
+//   fetchopData();
+// });
+
+//WORKING CODE for the weleder display
+// onMounted(async () => {
+//   // Fetch operator data for each row
+//   for (const row of dataRows.value) {
+//     const response = await fetch(`http://172.18.100.240:6969/op_shift/${row.itemno}`);
+//     const operatorData = await response.json();
+//     console.log("++--==--")
+//     console.log(operatorData)
+    
+    
+//     // Assuming the response contains only one item
+//     const operatorInfo = operatorData[0];
+    
+
+
+//     // Update the operator field for the current row
+//     if (operatorInfo) {
+//       row.operator = operatorInfo.operator_name;
+      
+      
+
+//     }
+//   }
+// });
+
+//Working Current and voltage
+
+// onMounted(async () => {
+//   // Fetch operator data for each row
+//   for (const row of dataRows.value) {
+//     try {
+//       // Fetch element types based on row.itemno
+//       const typesResponse = await fetch(`http://172.18.100.240:6969/op_shift/${row.itemno}`);
+//       const typesData = await typesResponse.json();
+
+//       // Assuming typesData is an array of types, for simplicity
+//       const elementTypes = typesData.map(item => item.element_type);
+
+//       // Fetch element data for each type
+//       for (const elementType of elementTypes) {
+//         const elementResponse = await fetch(`http://172.18.100.240:6969/elements/${elementType}`);
+//         const elementData = await elementResponse.json();
+
+//         console.log("Element Type:", elementType);
+//         console.log("Element Data:", elementData);
+
+//         const { current, voltage } = elementData;
+
+//         console.log("Current:", current);
+//         console.log("Voltage:", voltage);
+
+//         // Assuming the response contains only one item
+//         const operatorInfo = elementData;
+
+//         // Update the operator field for the current row
+//         if (operatorInfo) {
+//           row.operator = operatorInfo.operator_name;
+//         }
+//       }
+//     } catch (error) {
+//       console.error('Error fetching data:', error);
+//     }
+//   }
+// });
+
+
+
+onMounted(async () => {
+  // Fetch operator data for each row
+  for (const row of dataRows.value) {
+    try {
+      // Fetch element types based on row.itemno
+      const typesResponse = await fetch(`http://172.18.100.240:6969/op_shift/${row.itemno}`);
+      const typesData = await typesResponse.json();
+
+      // Assuming typesData is an array of types, for simplicity
+      const elementTypes = typesData.map(item => item.element_type);
+      const welderDetails = typesData.map(item => item.operator_name);
+
+      //operator
+
+      for (const welderDetail of welderDetails) {
+        const welderResponse = await fetch(`http://172.18.100.240:6969/welder/${welderDetail}`);
+        const welderdata = await welderResponse.json();
+        console.log("_____________________________________________")
+        console.log(welderdata)
+        row.I_no=welderdata.I_no
+        row.Fc_no=welderdata.Fc_no
+        row.project=welderdata.project
+
+      }
+
+
+      // Fetch element data for each type
+      for (const elementType of elementTypes) {
+        const elementResponse = await fetch(`http://172.18.100.240:6969/elements/${elementType}`);
+        const elementData = await elementResponse.json();
+
+        console.log("Element Type:", elementType);
+        console.log("Element Data:", elementData);
+
+        // Assuming the response contains only one item
+        const { current, voltage,range } = elementData;
+        const operatorInfo = typesData[0];
+
+        // Update the standard current and voltage for the current row
+        row.standard.current = current;
+        row.standard.voltage = voltage;
+        row.range = range;
+        // row.standard.voltage = element_description;
+
+        // Display the standard current and voltage
+        console.log("Standard Current:", row.standard.current);
+        console.log("Standard Voltage:", row.standard.voltage);
+
+        // Update the operator field for the current row
+        if (operatorInfo) {
+          row.operator = operatorInfo.operator_name;
+          row.element = operatorInfo.element_type;
+          console.log(row.operator)
+        }
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  }
+});
+
+//http://172.18.100.240:6969/welder/
+
+// console.log("************************************")
+      // console.log(operatorInfo.element_type);
+      // row.element = operatorInfo.element_type;
+      // // row.element = operatorInfo.element_type;
+      // // row.element = operatorInfo.element_type;
+      // row.current = operatorInfo.current;
+      // const responseelem = await fetch(`//172.18.100.240:6969/elements/${operatorInfo.element_type}`);
+      // console.log("+++++++++++++++++++++++")
+      // console.log(responseelem)
+
+
+
+
    //element select data getting
    const machineData = ref({});
+
+
+
+  //  async function onOptionSelected(event) {
+  //   //  const selectedValue = event.target.value;
+  //   //  console.log('Selected item:', selectedValue);
    
-   async function onOptionSelected(event) {
-     const selectedValue = event.target.value;
-     console.log('Selected item:', selectedValue);
+  //    try {
+  //     for (const row of dataRows.value){
+  //      const response = await axios.get(`http://172.18.100.240:6969/elements/${row.element}`);
+  //      console.log('API Response:', response.data);
+  //      dataRows.value.forEach((row) => {
+  //        if (row.element) {
+  //          updateMachineData(row.id, response.data.current, response.data.voltage, response.data.range, response.data.element_descrption);
+  //        }
+  //      });
+  //    }} catch (error) {
+  //      console.error('Error fetching data:', error);
+  //    }
+  //  }
    
-     try {
-       const response = await axios.get(`http://172.18.100.240:6969/elements/${selectedValue}`);
-       console.log('API Response:', response.data);
-       dataRows.value.forEach((row) => {
-         if (row.element === selectedValue) {
-           updateMachineData(row.id, response.data.current, response.data.voltage, response.data.range, response.data.element_descrption);
-         }
-       });
-     } catch (error) {
-       console.error('Error fetching data:', error);
-     }
-   }
+  //  async function onOptionSelected(event) {
+  //    const selectedValue = event.target.value;
+  //    console.log('Selected item:', selectedValue);
+   
+  //    try {
+  //      const response = await axios.get(`http://172.18.100.240:6969/elements/${selectedValue}`);
+  //      console.log('API Response:', response.data);
+  //      dataRows.value.forEach((row) => {
+  //        if (row.element === selectedValue) {
+  //          updateMachineData(row.id, response.data.current, response.data.voltage, response.data.range, response.data.element_descrption);
+  //        }
+  //      });
+  //    } catch (error) {
+  //      console.error('Error fetching data:', error);
+  //    }
+  //  }
    
    function updateMachineData(machineId, current, voltage, range,element_description) {
      machineData.value[machineId] = { current, voltage, range,element_description};
@@ -680,6 +958,23 @@
        console.error('Error fetching data:', error);
      }
    }
+
+  //  async function onOeratorSelected(event) {
+  //    const selectedValue = event.target.value;
+  //    console.log('Selected item:', selectedValue);
+   
+  //    try {
+  //      const response = await axios.get(`http://172.18.100.240:6969/welder/${selectedValue}`);
+  //      console.log('API Response:', response.data);
+  //      dataRows.value.forEach((row) => {
+  //        if (row.operator === selectedValue) {
+  //          updateoperatorData(row.id, response.data.I_no, response.data.Fc_no, response.data.project);
+  //        }
+  //      });
+  //    } catch (error) {
+  //      console.error('Error fetching data:', error);
+  //    }
+  //  }
    function updateoperatorData(machineId, I_no, Fc_no, project) {
      operatorData.value[machineId] = { I_no, Fc_no, project };
    }
@@ -920,6 +1215,27 @@
      background-color: transparent;
      /* Remove background color */
    }
+
+   .npopup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.npopup-content {
+  background: white;
+  padding: 20px;
+  border-radius: 5px;
+  text-align: center;
+  max-width: 80%;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
  
    .notification-counter {
    position: absolute;

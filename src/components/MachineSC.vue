@@ -1,11 +1,11 @@
 <template>
-  <div>
+  <div >
     <div class="flex">
       <!-- Add a button to open the "Create" form -->
       <button @click="showCreateForm"
         class="bg-blue-500 rounded-lg px-4 py-2 mt-2 mb-2 ml-3 text-white font-poppins flex flex-wrap">
         <img src="https://img.icons8.com/material-outlined/24/FFFFFF/add.png" alt="add" class="w-6 h-6 mr-2" />
-        Add Machine
+        Add Schedule
       </button>
 
 <!-- Add a filter button -->
@@ -14,14 +14,32 @@
 </button>
 
 <!--Download table data-->
-<button @click="downloadTableData"
+<!-- <button @click="downloadTableData"
         class="bg-blue-500 rounded-lg px-4 py-2 mt-2 mb-2 ml-3 text-white font-poppins flex flex-wrap">
         <img width="24" height="24" src="https://img.icons8.com/sf-black/64/FFFFFF/download.png" alt="download" class="flex flex-wrap"/>
         Download Table Data
-      </button>
-    </div>
+      </button> -->
+      <button @click="downloadTablePDF" class="bg-blue-500 rounded-lg px-4 py-2 mt-2 mb-2 ml-3 text-white font-poppins flex flex-wrap">
+        <img width="24" height="24" src="https://img.icons8.com/sf-black/64/FFFFFF/download.png" alt="download" class="flex flex-wrap"/>
+          Download Table Report
+        </button>
 
-    <div class="container mx-auto">
+        <button @click="downloadTableDataExcel" class="bg-green-500 rounded-lg px-4 py-2 mt-2 mb-2 ml-3 text-white font-poppins flex flex-wrap">
+  <img width="24" height="24" src="https://img.icons8.com/sf-black/64/FFFFFF/download.png" alt="download" class="flex flex-wrap"/>
+  Download Table Excel
+</button>
+
+        <!-- <button @click="downloadTablePDF" class="bg-blue-500 rounded-lg px-4 py-2 mt-2 mb-2 ml-3 text-white font-poppins flex flex-wrap">
+        <img width="24" height="24" src="https://img.icons8.com/sf-black/64/FFFFFF/download.png" alt="download" class="flex flex-wrap"/>
+          Download Table Exel
+        </button> -->
+    </div>
+    <!-- <div>
+      <button @click="downloadReport">Download Report</button>
+      <reporttable ref="reporttableRef" />
+    </div> -->
+
+    <div class="container mx-auto" ref="reportContainerTable">
       <h1 class="text-2xl font-semibold my-4">Machine Data</h1>
       <table class="table-auto border-collapse w-full">
         <thead>
@@ -220,27 +238,20 @@
         <button type="submit" class="bg-blue-500 text-white px-2 py-1 rounded-lg mr-2">Apply Filters</button>
         <button @click="resetFilters" class="bg-gray-300 text-gray-700 px-2 py-1 rounded-lg">Reset Filters</button>
       </div>
+      <div v-if="isReport" class="fixed inset-0 flex items-center justify-center z-50">
+               <div class="bg-white p-8 rounded-lg shadow-lg w-1\/2 h-1\/2 relative">
+                 <MachineSCTable />
+                 <!-- <Report/> -->
+                 <button @click="hideReportPopup" class=" bg-white px-1 py-0 rounded-lg absolute top-2 right-0 -mt-1 mr-1">
+                   <img width="20" height="20" src="https://img.icons8.com/ios-glyphs/30/delete-sign.png" alt="delete-sign"/>
+                   </button>
+               </div>
+             </div>
     </form>
   </div>
 </div>
 
   </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </template>
 
 <script setup>
@@ -249,6 +260,101 @@ import axios from 'axios';
 import { computed } from 'vue';
 import moment from 'moment';
 import * as XLSX from 'xlsx';
+// import reporttable from '../views/reporttable.vue';
+import html2pdf from 'html2pdf.js';
+const isReport = ref(false);
+
+//Importing Store Statements
+const reportContainerTable = ref(null);
+const downloadTablePDF = () => {
+  const element = reportContainerTable.value; // Reference to the container you want to download
+const pdfOptions = {
+  margin: 10,
+  filename: 'reportTable.pdf',
+  image: { type: 'jpeg', quality: 0.98 },
+  html2canvas: { scale: 2 },
+  jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+};
+
+html2pdf(element, pdfOptions);
+}
+
+function downloadTableDataAsExcel(){
+  isReport.value = true;
+}
+const downloadTableDataExcel = async () => {
+  try {
+    // Make a request to the backend to fetch the data
+    const response = await axios.get('http://localhost:6969/op_shift/');
+
+    // Assuming the API response has a 'Download' key containing the specific data
+    const dataToDownload = response.data.Download;
+console.log(dataToDownload)
+    // Convert JSON data to Excel workbook
+    const ws = XLSX.utils.json_to_sheet(dataToDownload);
+
+    // Add your previous code for combining data and generating Excel here
+    const header = ["machine_name", "element_type", "operator_name", "start_time","end_time","shift"];
+    XLSX.utils.sheet_add_aoa(ws, [header], { origin: -1 });
+
+    // Add data rows
+    const dataRows = dataToDownload.map(item => [
+      item.machine_name, // Replace with the actual property names from your machine data
+      item.element_type,
+      item.operator_name,
+      item.start_time,
+      item.end_time,
+      item.shift,
+    ]);
+
+    XLSX.utils.sheet_add_aoa(ws, dataRows, { origin: -1 });
+
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+    XLSX.writeFile(wb, 'tableData.xlsx');
+  } catch (error) {
+    console.error('Error downloading table data as Excel:', error);
+  }
+};
+
+
+// const downloadTableDataAsExcel = async () => {
+//   try {
+//     // Make a request to the backend to fetch the data
+//     const response = await axios.get('http://172.18.100.240:6969/op_shift/');
+
+//     // Assuming the API response has a 'dataToDownload' key containing the specific data
+//     const dataToDownload = response.data.dataToDownload;
+//     console.log(response.data.dataToDownload);
+
+//     // Convert JSON data to Excel workbook
+//     const ws = XLSX.utils.json_to_sheet(dataToDownload);
+//     const wb = XLSX.utils.book_new();
+//     XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+//     XLSX.writeFile(wb, 'tableData.xlsx');
+//     // Create a Blob containing the Excel workbook
+//     const blob = XLSX.write(wb, { bookType: 'xlsx', mimeType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+
+//     // Create a link element to trigger the download
+//     const link = document.createElement('a');
+//     link.href = window.URL.createObjectURL(blob);
+//     link.download = 'table_data.xlsx';
+
+//     // Trigger a click on the link to initiate the download
+//     link.click();
+
+//     // Clean up by revoking the object URL
+//     window.URL.revokeObjectURL(link.href);
+//   } catch (error) {
+//     console.error('Error downloading table data:', error);
+//   }
+// };
+
+
+
+
+
+
 
 const machineNames = [ '7G', '7H', '7J', '7K', '7L', '27C', '27D', '27E'];
 // const elementTypes = ['type-1', 'type-2', 'type-3'];
@@ -299,6 +405,12 @@ const endDateTime = computed({
   }
 });
 
+const downloadReport = () => {
+  const reporttable = ref(null);
+
+  // Access the child component's methods using the ref
+  reporttable.value.downloadReport();
+};
 
 const downloadTableData = async () => {
   try {
@@ -365,8 +477,11 @@ const operators = ref([]); // Store machine IDs
 
 const fetchOperators = async () => {
   const machinesUrl = 'http://172.18.100.240:6969/welder'; // Replace with the actual endpoint
+  
   try {
     const response = await axios.get(machinesUrl);
+    console.log("++++++++++++++")
+    console.log(response.data)
     operators.value = response.data.Data.map((machine) => machine.welder_name);
      // Extract "machine_id" property
   } catch (error) {

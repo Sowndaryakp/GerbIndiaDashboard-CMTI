@@ -34,7 +34,7 @@
   :class="{ selected: $route.path === '/reporttable' }"
 
 >
-  MACHINE-SCHEDULING
+  Report 
   
 </router-link>
 </div>

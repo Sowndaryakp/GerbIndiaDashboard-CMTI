@@ -1,7 +1,6 @@
 <template>
   <div class="container">
    
-
     <!-- Render the form only if not logged in -->
     <form v-if="!loggedIn" class="login-form" @submit.prevent="handleLogin">
       <h2 class="login-title">Log in</h2>
