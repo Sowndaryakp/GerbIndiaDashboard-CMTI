@@ -16,7 +16,7 @@
     "ant-design-vue": "^4.0.3",
     "apexcharts": "^3.44.0",
     "autoprefixer": "^10.4.14",
-    "axios": "^1.6.0",
+    "axios": "^1.6.2",
     "chart.js": "^4.4.0",
     "dygraphs": "^2.2.1",
     "echarts": "^5.4.3",

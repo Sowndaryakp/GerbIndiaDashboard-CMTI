@@ -59,27 +59,6 @@ const handleLogin = async () => {
     alert('An error occurred while fetching user data. Please try again later.');
   }
 };
-
-// const handleLogin = async () => {
-//   try {
-//     const response = await axios.get('http://172.18.100.240:6969/users/2', {
-//       headers: {
-//         'Authorization': `Bearer ${token}`,
-//       },
-//     });
-//     const user = response.data;
-//     if (email.value === user.email && password.value === user.password) {
-//       loggedIn.value = true;
-//       router.push({ name: 'admintable' });
-//     } else {
-//       alert('Invalid credentials. Please try again.');
-//     }
-//   } catch (error) {
-//     console.error('Error fetching user data:', error);
-//     alert('An error occurred while fetching user data. Please try again later.');
-//   }
-// };
-
 const handleLogout = async () => {
   // try {
   //   await axios.post('http://your-server-address/logout');

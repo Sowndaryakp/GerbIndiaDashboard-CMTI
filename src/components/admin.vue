@@ -1,4 +1,6 @@
 <template>
+  <Navbar/>
+
   <div>
      <h3 class="font-poppins text-purple-500 text-xl font-bold bg-blue-50 absolute left-1/2 transform -translate-x-1/2">Admin page</h3>
  </div>
@@ -78,10 +80,10 @@
                  <div  v-if="!row.isEditing" type="text" class="border border-gray-300 rounded-md w-26 px-2 py-2 sm:px-4 sm:py-2 mb-2 w-40 text-center"><b> {{ row.range }}</b></div>
                  <div v-else><input v-model="row.range" class="border border-gray-300 px-4 py-2 rounded-md w-40 text-center" placeholder="range"></div>
                </div>
-               <div class="flex space-x-2 mt-2 ml-24">
+               <!-- <div class="flex space-x-2 mt-2 ml-24">
                    <button @click="toggleEdit(row)" v-if="!row.isEditing" class="glassmorphic-button bg-blue-500 text-white px-2 py-1 rounded-md w-8 h-8 mb-2 flex flex-wrap"><img width="21" height="21" src="https://img.icons8.com/fluency-systems-filled/48/FFFFFF/edit.png" alt="edit" class="flex flex-warp mr-3 mt-1"/></button>
                    <button @click="saveEditedData(row)" v-else class="glassmorphic-button bg-green-500 text-white px-2 py-1 rounded-md w-10 h-8 mb-2 flex flex-wrap" ><img width="24" height="24" src="https://img.icons8.com/material-outlined/24/FFFFFF/save.png" alt="save" class="flex flex-warp"/></button>
-                 </div>
+                 </div> -->
                </td>
                <!-- <td>
                  <div
@@ -113,7 +115,7 @@
                      <div class="absolute  mr-4"><img width="24" height="24" src="https://img.icons8.com/material-rounded/24/lightning-bolt--v1.png" alt="lightning-bolt--v1 " class="-ml-1 mt-1"/></div>
                      <div v-if="!row.isEditing" type="text"  class="border border-gray-300 rounded-md ml-4 h-8 w-24">
                        <p class="text-lg text-blue-800 text-center font-bold "> {{ row.standard.current }}A</p></div>
-                     <div v-else><input v-model="row.current" class="border border-gray-300 px-4 py-2 rounded-md ml-4 h-8 w-24 text-center" placeholder="current range"></div>
+                     <div v-else><input v-model=" row.standard.current" class="border border-gray-300 px-4 py-2 rounded-md ml-4 h-8 w-24 text-center" placeholder="current range"></div>
                    </div>
                    <div class="border border-gray-300 px-4 py-6 rounded-md h-25 w-36 ">
                      <p class="text-lg text-black text-center font-bold -mb-2 ">Voltage</p>
@@ -121,7 +123,7 @@
                      <div class="absolute  mr-4"><img width="24" height="24" src="https://img.icons8.com/ios-glyphs/30/speedometer.png" alt="speedometer" class="-ml-1 mt-1"/></div>
                      <div v-if="!row.isEditing" type="text" class="border border-gray-300 rounded-md ml-4 h-8 w-24">
                        <p class="text-lg text-blue-800 text-center font-bold "> {{ row.standard.voltage }}V</p></div>
-                       <div v-else><input v-model="row.voltage" class="border border-gray-300 px-4 py-2 rounded-md ml-4 h-8 w-24 text-center" placeholder="voltage range"></div>
+                       <div v-else><input v-model="row.standard.voltage" class="border border-gray-300 px-4 py-2 rounded-md ml-4 h-8 w-24 text-center" placeholder="voltage range"></div>
                      </div>
                  </div>
                </td>
@@ -220,16 +222,27 @@
                  <!-- </div> -->
                  <div class=" flex space-y-2 flex-col items-center  sm:px-4 sm:py-16 font-poppins">
                    <div class="flex space-x-2">
-                     <input v-model="row.I_no" class="border border-gray-300 px-4 py-2 rounded-md w-24  text-center" placeholder="I_No">
-                   </div>
+                    <div  v-if="!row.isEditing" type="text" class="border border-gray-300 rounded-md w-26 px-2 py-2 sm:px-4 sm:py-2 mb-2 w-36 text-center"><b> {{ row.I_no }}</b></div>
+                 <div v-else><input v-model="row.I_no" class="border border-gray-300 px-4 py-2 rounded-md w-40 text-center" placeholder="range"></div>
+                 </div>
+
+                 <div  v-if="!row.isEditing" type="text" class="border border-gray-300 rounded-md w-26 px-2 py-2 sm:px-4 sm:py-2 mb-2 w-36 text-center"><b> {{row.Fc_no }}</b></div>
+                 <div v-else><input v-model="row.Fc_no" class="border border-gray-300 px-4 py-2 rounded-md w-40 text-center" placeholder="range"></div>
+
+                 <div  v-if="!row.isEditing" type="text" class="border border-gray-300 rounded-md w-26 px-2 py-2 sm:px-4 sm:py-2 mb-2 w-36 text-center"><b> {{ row.project }}</b></div>
+                 <div v-else><input v-model="row.project" class="border border-gray-300 px-4 py-2 rounded-md w-40 text-center" placeholder="range"></div>
+                
+
+                     <!-- <input v-model="row.I_no" class="border border-gray-300 px-4 py-2 rounded-md w-24  text-center" placeholder="I_No">
                    <div class="flex space-x-2 mt-2"><input v-model="row.Fc_no" class="border border-gray-300 px-4 py-2 rounded-md w-24 text-center" placeholder="Fc_No">
                    </div>
                    <div class="flex space-x-2 mt-2"><input v-model="row.project" class="border border-gray-300 px-4 py-2 rounded-md w-24 text-center" placeholder="Project">
-                   </div>
-                   <div class="flex space-x-2 mt-2">
+                   </div> -->
+
+                   <!-- <div class="flex space-x-2 mt-2">
                    <button @click="toggleEdit(row)" v-if="!row.isEditing" class="glassmorphic-button bg-blue-500 text-white px-2 py-1 rounded-md w-8 h-8 mb-2 flex flex-wrap"><img width="21" height="21" src="https://img.icons8.com/fluency-systems-filled/48/FFFFFF/edit.png" alt="edit" class="flex flex-warp mr-3 mt-1"/></button>
                    <button @click="saveEditedData(row)" v-else class="glassmorphic-button bg-green-500 text-white px-2 py-1 rounded-md w-10 h-8 mb-2 flex flex-wrap" ><img width="30" height="30" src="https://img.icons8.com/material-outlined/24/FFFFFF/save.png" alt="save" class="flex flex-warp"/></button>
-                 </div>
+                 </div> -->
                  <!-- <div class="mb-4">
            <label class="block text-gray-700 text-sm font-bold mb-2" placeholder="select shift">Select Shift:</label>
            <select v-model="row.selectedShift" class="block w-full bg-gray-100 border rounded p-2" >
@@ -348,6 +361,7 @@
      import Notification from '@/components/Notification.vue'
      import { ref, onMounted } from 'vue'
      import axios from 'axios';
+     import Navbar from '@/components/Navbar.vue'
    
      const isReport = ref(false);
      const isUserPopupVisible = ref(false);
@@ -1030,12 +1044,13 @@ onMounted(async () => {
      setInterval(fetchDataFromBackend, 10000);
    });
    
-   //all element type and operator edit/save
-   async function saveEditedData(row) {
+  
+//all element type and operator edit/save
+async function saveEditedData(row) {
      try {
        const response = await axios.put(`http://172.18.100.240:6969/edit/${row.element}/${row.operator}`, {
-         current: row.current, 
-         voltage: row.voltage, 
+         current: row.standard.current, 
+         voltage: row.standard.voltage, 
          element_description: row.element_description,
          range: row.range,
          I_no: row.I_no,

@@ -1,4 +1,6 @@
 <template>
+  <Navbar/>
+
   <div class="container mx-auto p-4">
     <div class="max-w-md mx-auto bg-white rounded-lg shadow-lg p-6">
       <!-- Date selection -->
@@ -62,15 +64,17 @@
 import { ref, watch, computed, defineProps } from 'vue';
 import axios from 'axios';
 import * as XLSX from 'xlsx';
+import Navbar from '@/components/Navbar.vue'
 
 // Define reactive variables
 const startDate = ref('');
 const selectedMachine = ref('7D'); // Default value
 const selectedName = ref('Bhimappa'); // Default value for the new dropdown
 const data = ref(null);
+const predeterminedType = 'type-1'; // Change this to your actual predetermined type
 
 const sampleProperties = defineProps({
-  machine_id: String
+  machine_id: String,
 });
 
 console.log("=============================");
@@ -86,21 +90,30 @@ const axiosOperatorUrl = computed(() => {
   return `http://172.18.100.240:6969/welder/${selectedName.value}`;
 });
 
+// Computed property for the Axios URL for the predetermined type
+const axiosTypeUrl = computed(() => {
+  return `http://172.18.100.240:6969/elements/${predeterminedType}`;
+});
+
+
 // Function to fetch data from the API for both machine and operator
 const generateExcel = async () => {
   try {
     const machineResponse = await axios.get(axiosMachineUrl.value);
     const operatorResponse = await axios.get(axiosOperatorUrl.value);
+    const typeResponse = await axios.get(axiosTypeUrl.value);
 
     console.log('Machine Response Data:', machineResponse.data);
     console.log('Operator Response Data:', operatorResponse.data);
+    console.log('Type Response Data:', typeResponse.data);
 
     // Convert response data to arrays (if necessary)
     const machineData = Array.isArray(machineResponse.data) ? machineResponse.data : [machineResponse.data];
     const operatorData = Array.isArray(operatorResponse.data) ? operatorResponse.data : [operatorResponse.data];
+    const typeData = Array.isArray(typeResponse.data) ? typeResponse.data : [typeResponse.data];
 
-    // Combine the data from both responses into a single array
-    const combinedData = [...machineData, ...operatorData];
+    // Combine the data from all responses into a single array
+    const combinedData = [...machineData, ...operatorData, ...typeData];
 
     data.value = combinedData;
 
@@ -113,6 +126,8 @@ const generateExcel = async () => {
     console.error('Error fetching data:', error);
   }
 };
+
+
 
 // Watch for changes in selectedName and trigger data fetching
 watch(selectedName, () => {

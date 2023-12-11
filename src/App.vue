@@ -1,7 +1,8 @@
 <template>
   <div>
+  <Navbar/>
     <!-- The Navbar component is included here -->
-    <Navbar />
+    <!-- <Navbar /> -->
 
     <!-- The content for the current route will be rendered here -->
     <router-view />

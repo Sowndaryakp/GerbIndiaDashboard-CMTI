@@ -1,14 +1,16 @@
 <template>
   <div>
-    
+    <welder/>
+    <!-- <testhome/> -->
+    <welder/>
     <!-- Add content for the Home page here -->
   </div>
 </template>
 
-<script>
-export default {
-  // No additional logic needed for this simple view
-};
+<script setup>
+// import testhome from '@/components/testhome.vue'
+import welder from '@/components/welder.vue'
+
 </script>
 
 <style>

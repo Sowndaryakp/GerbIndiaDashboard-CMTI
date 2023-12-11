@@ -1,122 +1,162 @@
 <template>
-    <div id="app">
-      <div id="chart">
-        <apexchart type="area" height="350" :options="chartOptions" :series="series"></apexchart>
-      </div>
-    </div>
-  </template>
-  
-  <script>
-  import { ref, onMounted, onUnmounted } from 'vue';
-  import VueApexCharts from 'vue3-apexcharts';
-  
-  export default {
-    components: {
-      apexchart: VueApexCharts,
+  <div class="h-96">
+    <!-- <p>{{ props.dataFromParent }}</p> -->
+    <v-chart class="chart" :option="option" autoresize />
+  </div>
+</template>
+
+<script setup >
+import { defineProps, watch } from 'vue';
+import { ref, onMounted } from 'vue';
+import axios from 'axios';
+import { use } from 'echarts/core';
+import { CanvasRenderer } from 'echarts/renderers';
+import { CustomChart, LineChart } from 'echarts/charts';
+import {
+  TitleComponent,
+  TooltipComponent,
+  LegendComponent,
+  GridComponent,
+  DataZoomComponent,
+} from 'echarts/components';
+import * as echarts from 'echarts/core';
+
+// Import VChart from vue-echarts
+import VChart from 'vue-echarts';
+
+// Register components
+use([
+  CanvasRenderer,
+  CustomChart,
+  TitleComponent,
+  TooltipComponent,
+  LegendComponent,
+  GridComponent,
+  DataZoomComponent,
+  LineChart
+]);
+
+const props = defineProps(['dataFromParent']);
+console.log("*********************");
+console.log(props.dataFromParent);
+console.log()
+// const machineName = 'dataFromParent';
+// console.log(props)
+
+const option = ref({
+  title: {
+    text: `Current and Voltage Chart (${props.dataFromParent})`,
+    left: 'center',
+  },
+  tooltip: {
+    trigger: 'axis',
+    formatter: function (params) {
+      return (
+        params[0].axisValueLabel +
+        '<br/>' +
+        params[0].marker +
+        'Current: ' +
+        params[0].value +
+        ' A<br/>' +
+        params[1].marker +
+        'Voltage: ' +
+        params[1].value +
+        ' V'
+      );
     },
-    setup() {
-      const series = ref([
-        {
-          name: 'Voltage',
-          data: [], // Initialize with empty data array
-        },
-        {
-          name: 'Current',
-          data: [], // Initialize with empty data array
-        },
-      ]);
-  
-      const chartOptions = {
-        chart: {
-          height: 350,
-          type: 'area',
-        },
-        dataLabels: {
-          enabled: false,
-        },
-        stroke: {
-          curve: 'smooth',
-        },
-        xaxis: {
-          type: 'datetime',
-          labels: {
-            datetimeFormatter: {
-              year: 'yyyy',
-              month: "MMM 'yy",
-              day: 'dd MMM',
-              hour: 'HH:mm',
-            },
-            style: {
-              colors: '#00008B', // Set the x-axis label text color to white
-            },
-          },
-        },
-        yaxis: {
-          labels: {
-            style: {
-              colors: '#00008B', // Set the y-axis label text color to white
-            },
-          },
-        },
-        tooltip: {
-          x: {
-            format: 'dd/MM/yy HH:mm',
-          },
-        },
-        theme: {
-          mode: 'light', // Use dark theme for the chart
-        },
-      };
-  
-      // Update data every 5 seconds
-      const intervalId = setInterval(updateChartData, 1000);
-  
-      // Clear interval on component unmount
-      onUnmounted(() => clearInterval(intervalId));
-  
-      // Function to update the chart data
-      function updateChartData() {
-        // Generate random values for current and voltage
-        const current = getRandomValue(18, 35);
-        const voltage = getRandomValue(180, 350);
-  
-        // Get the current timestamp in UTC format and convert to IST (UTC+5:30)
-        const utcTimestamp = new Date().toISOString();
-        const istTimestamp = new Date(utcTimestamp);
-        istTimestamp.setHours(istTimestamp.getHours() + 5);
-        istTimestamp.setMinutes(istTimestamp.getMinutes() + 30);
-  
-        // Add the new data point to the series array
-        series.value[0].data.push({ x: istTimestamp.getTime(), y: voltage });
-        series.value[1].data.push({ x: istTimestamp.getTime(), y: current });
-  
-        // Remove the oldest data point to maintain 7 data points on the chart
-        if (series.value[0].data.length > 7) {
-          series.value[0].data.shift();
-          series.value[1].data.shift();
-        }
-      }
-  
-      // Function to generate random value within a range
-      function getRandomValue(min, max) {
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-      }
-  
-      // Initial update
-      updateChartData();
-  
-      return {
-        series,
-        chartOptions,
-      };
+  },
+  dataZoom: [
+    {
+      type: 'slider',
+      filterMode: 'weakFilter',
+      showDataShadow: false,
+      bottom: 20,
+      start: 0,
+      end: 100,
     },
-  };
-  </script>
-  
-  <style>
-  /* Add any custom styles for the chart container if needed */
-  #chart {
-    margin: 20px;
+    {
+      type: 'inside',
+      filterMode: 'weakFilter',
+      start: 0,
+      end: 100,
+    },
+  ],
+  grid: {
+    height: 300,
+    bottom: 80,
+  },
+  xAxis: {
+    type: 'category',
+    boundaryGap: false,
+    data: [],
+  },
+  yAxis: [
+    {
+      type: 'value',
+      name: 'Current (A)',
+      scale: true,
+    },
+    {
+      type: 'value',
+      name: 'Voltage (V)',
+      scale: true,
+    },
+  ],
+  series: [
+    {
+      name: `Current (${props.dataFromParent})`,
+      type: 'line',
+      yAxisIndex: 0,
+      data: [],
+    },
+    {
+      name: `Voltage (${props.dataFromParent})`,
+      type: 'line',
+      yAxisIndex: 1,
+      data: [],
+    },
+  ],
+});
+
+const fetchData = async () => {
+  try {
+    const url = `http://172.18.100.240:6969/live_data/${props.dataFromParent}`;
+    const response = await axios.get(url);
+    const newData = response.data[0]; // Assuming only one data point is returned
+
+    const time = new Date(newData.created_at).toLocaleTimeString();
+
+    option.value.xAxis.data.push(time);
+    option.value.series[0].data.push(newData.current);
+    option.value.series[1].data.push(newData.voltage);
+
+    // Keep only the last 20 data points for better visualization
+    if (option.value.xAxis.data.length > 20) {
+      option.value.xAxis.data.shift();
+      option.value.series[0].data.shift();
+      option.value.series[1].data.shift();
+    }
+
+    option.value = { ...option.value }; // Trigger Vue reactivity
+  } catch (error) {
+    console.error('Error fetching data:', error);
   }
-  </style>
-  
+};
+
+onMounted(() => {
+  // Fetch data initially
+  fetchData();
+
+  // Fetch data every 2 seconds
+  setInterval(fetchData, 5000);
+});
+
+
+watch(() => props.dataFromParent, (newVal, oldVal) => {
+  console.log("+*+*+*+*+*+*+*+*+*");
+  console.log("from watch");
+  console.log('props.dataFromParent changed:', newVal, oldVal);
+  // You can perform additional actions based on the changes if needed
+});
+
+</script>

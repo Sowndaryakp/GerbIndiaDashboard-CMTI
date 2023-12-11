@@ -27,193 +27,50 @@ use([
 
 provide(THEME_KEY, 'light');
 
-var option;
+let option;
 
-var data = [];
-var dataCount = 10;
-var startTime = +new Date();
-var categories = ['7G', '7H', '7J', '7K', '7L', '27C', '27D', '27E'];
-var types = [
-  { name: 'OFF', color: '#7b9ce1' },
-  { name: 'IDLE', color: '#bd6d6c' },
-  { name: 'PRODUCTION', color: '#75d874' }
-];
+let startTime = +new Date();
+let categories = ['7G', '7H', '7J','7K', '7L', '27C','27D', '27E'];
+// let types = [
+//   { name: 'OFF', color: '#7b9ce1' },
+//   { name: 'IDLE', color: '#bd6d6c' },
+//   { name: 'PRODUCTION', color: '#75d874' }
+// ];
 
 const props = defineProps({
   chartData: {
-    type: Array,
-//     default: () => [
-//   {
-//     "name": "IDLE",
-//     "value": [
-//       0,
-//       1701154947163.3489,
-//       1701154956388.3489,
-//       9225
-//     ],
-//     "itemStyle": {
-//       "normal": {
-//         "color": "#bd6d6c"
-//       }
-//     }
-//   },
-//   {
-//     "name": "OFF",
-//     "value": [
-//       0,
-//       1701154948562.3489,
-//       1701154955786.3489,
-//       7224
-//     ],
-//     "itemStyle": {
-//       "normal": {
-//         "color": "#7b9ce1"
-//       }
-//     }
-//   },
-//   {
-//     "name": "OFF",
-//     "value": [
-//       0,
-//       1701154950375.3489,
-//       1701154952985.3489,
-//       2610
-//     ],
-//     "itemStyle": {
-//       "normal": {
-//         "color": "#7b9ce1"
-//       }
-//     }
-//   },
-//   {
-//     "name": "IDLE",
-//     "value": [
-//       0,
-//       1701154951977.3489,
-//       1701154957192.3489,
-//       5215
-//     ],
-//     "itemStyle": {
-//       "normal": {
-//         "color": "#bd6d6c"
-//       }
-//     }
-//   },
-//   {
-//     "name": "PRODUCTION",
-//     "value": [
-//       0,
-//       1701154953799.3489,
-//       1701154956870.3489,
-//       3071
-//     ],
-//     "itemStyle": {
-//       "normal": {
-//         "color": "#75d874"
-//       }
-//     }
-//   },
-//   {
-//     "name": "OFF",
-//     "value": [
-//       0,
-//       1701154954708.3489,
-//       1701154959146.3489,
-//       4438
-//     ],
-//     "itemStyle": {
-//       "normal": {
-//         "color": "#7b9ce1"
-//       }
-//     }
-//   },
-//   {
-//     "name": "PRODUCTION",
-//     "value": [
-//       0,
-//       1701154956614.3489,
-//       1701154964470.3489,
-//       7856
-//     ],
-//     "itemStyle": {
-//       "normal": {
-//         "color": "#75d874"
-//       }
-//     }
-//   },
-//   {
-//     "name": "PRODUCTION",
-//     "value": [
-//       0,
-//       1701154958601.3489,
-//       1701154966004.3489,
-//       7403
-//     ],
-//     "itemStyle": {
-//       "normal": {
-//         "color": "#75d874"
-//       }
-//     }
-//   },
-//   {
-//     "name": "IDLE",
-//     "value": [
-//       0,
-//       1701154959496.3489,
-//       1701154963237.3489,
-//       3741
-//     ],
-//     "itemStyle": {
-//       "normal": {
-//         "color": "#bd6d6c"
-//       }
-//     }
-//   },
-//   {
-//     "name": "OFF",
-//     "value": [
-//       0,
-//       1701154960803.3489,
-//       1701154965629.3489,
-//       4826
-//     ],
-//     "itemStyle": {
-//       "normal": {
-//         "color": "#7b9ce1"
-//       }
-//     }
-//   }
-// ]
-  },
+    type: Object,
+    default: () => ({ minimumTimestamp: 0, dataPoints: [] }),
+  }
 });
 
 // Generate mock data
-function generateChartData() {
-  categories.forEach(function (category, index) {
-    var baseTime = startTime;
-    for (var i = 0; i < dataCount; i++) {
-      var typeItem = types[Math.round(Math.random() * (types.length - 1))];
-      var duration = Math.round(Math.random() * 10000);
-      data.push({
-        name: typeItem.name,
-        value: [index, baseTime, (baseTime += duration), duration],
-        itemStyle: {
-          normal: {
-            color: typeItem.color
-          }
-        }
-      });
-      baseTime += Math.round(Math.random() * 2000);
-    }
-    console.log("okokok");
-    console.log(data);
-  });
-}
+// function generateChartData() {
+//   categories.forEach(function (category, index) {
+//     var baseTime = startTime;
+//     for (var i = 0; i < dataCount; i++) {
+//       var typeItem = types[Math.round(Math.random() * (types.length - 1))];
+//       var duration = Math.round(Math.random() * 10000);
+//       data.push({
+//         name: typeItem.name,
+//         value: [index, baseTime, (baseTime += duration), duration],
+//         itemStyle: {
+//           normal: {
+//             color: typeItem.color
+//           }
+//         }
+//       });
+//       baseTime += Math.round(Math.random() * 2000);
+//     }
+//     console.log("okokok");
+//     console.log(data);
+//   });
+// }
 
-generateChartData();
+// generateChartData();
 
-console.log("Graph DATA: ");
-console.log(data);
+// console.log("Graph DATA: ");
+// console.log(data);
 
 function renderItem(params, api) {
   let categoryIndex = api.value(0);
@@ -265,7 +122,7 @@ option = ref({
     }
   },
   title: {
-    text: '',
+    text: 'Stats Chart',
     left: 'center'
   },
   dataZoom: [
@@ -289,7 +146,7 @@ option = ref({
     bottom: 80
   },
   xAxis: {
-    min: startTime,
+    min: props.chartData.minimumTimestamp,
     scale: true,
     axisLabel: {
       formatter: function (val) {
@@ -304,37 +161,41 @@ option = ref({
     {
       type: 'custom',
       renderItem: renderItem,
-      itemStyle: {
+      itemstyle: {
         opacity: 1
       },
       encode: {
         x: [1, 2],
         y: 0
       },
-      data: props.chartData
+      data: props.chartData.dataPoints
     }
   ]
 });
 
-const fetchData = async () => {
-  try {
-    const response = await axios.get('http://172.18.7.76:6565/machines');
-    console.log("OKOKOKOKOKOK");
-    const newData = response.data;
-    // Assuming the structure of newData is similar to props.chartData
-    option.value.series[0].data = newData;
-    option.value = { ...option.value };  // Trigger Vue reactivity
-  } catch (error) {
-    console.error('Error fetching data:', error);
-  }
-};
-
+// const fetchData = async () => {
+//   try {
+//     const response = await axios.get('http://172.18.7.76:6565/machines');
+//     console.log("OKOKOKOKOKOK");
+//     const newData = response.data;
+//     // Assuming the structure of newData is similar to props.chartData
+//     option.value.series[0].data = newData;
+//     option.value = { ...option.value };  // Trigger Vue reactivity
+//   } catch (error) {
+//     console.error('Error fetching data:', error);
+//   }
+// };
+console.log("from script setup");
+console.log(option.value);
 watch(() => props.chartData, (newData, oldData) => {
   console.log("fsdfssssssssssssssssssssss");
   console.log('props.chartData changed:', newData);
   // You can update the series data here if needed
-  option.value.series[0].data = newData;
+  option.value.series[0].data = newData.dataPoints;
+  option.value.xAxis.min = newData.minimumTimestamp;
+
   option.value = { ...option.value }; // Trigger Vue reactivity
+  console.log(option.value);
 });
 
 // onMounted(() => {

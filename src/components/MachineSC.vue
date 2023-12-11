@@ -1,4 +1,5 @@
 <template>
+  <!-- <Navbar/> -->
   <div >
     <div class="flex">
       <!-- Add a button to open the "Create" form -->
@@ -6,6 +7,17 @@
         class="bg-blue-500 rounded-lg px-4 py-2 mt-2 mb-2 ml-3 text-white font-poppins flex flex-wrap">
         <img src="https://img.icons8.com/material-outlined/24/FFFFFF/add.png" alt="add" class="w-6 h-6 mr-2" />
         Add Schedule
+      </button>
+<!--add element type-->
+<button @click="showElementForm"
+        class="bg-blue-500 rounded-lg px-4 py-2 mt-2 mb-2 ml-3 text-white font-poppins flex flex-wrap">
+        <img src="https://img.icons8.com/material-outlined/24/FFFFFF/add.png" alt="add" class="w-6 h-6 mr-2" />
+        Add Element Type
+      </button>
+      <button @click="showWelderForm"
+        class="bg-blue-500 rounded-lg px-4 py-2 mt-2 mb-2 ml-3 text-white font-poppins flex flex-wrap">
+        <img src="https://img.icons8.com/material-outlined/24/FFFFFF/add.png" alt="add" class="w-6 h-6 mr-2" />
+        Add Welder
       </button>
 
 <!-- Add a filter button -->
@@ -19,10 +31,10 @@
         <img width="24" height="24" src="https://img.icons8.com/sf-black/64/FFFFFF/download.png" alt="download" class="flex flex-wrap"/>
         Download Table Data
       </button> -->
-      <button @click="downloadTablePDF" class="bg-blue-500 rounded-lg px-4 py-2 mt-2 mb-2 ml-3 text-white font-poppins flex flex-wrap">
+      <!-- <button @click="downloadTablePDF" class="bg-blue-500 rounded-lg px-4 py-2 mt-2 mb-2 ml-3 text-white font-poppins flex flex-wrap">
         <img width="24" height="24" src="https://img.icons8.com/sf-black/64/FFFFFF/download.png" alt="download" class="flex flex-wrap"/>
           Download Table Report
-        </button>
+        </button> -->
 
         <button @click="downloadTableDataExcel" class="bg-green-500 rounded-lg px-4 py-2 mt-2 mb-2 ml-3 text-white font-poppins flex flex-wrap">
   <img width="24" height="24" src="https://img.icons8.com/sf-black/64/FFFFFF/download.png" alt="download" class="flex flex-wrap"/>
@@ -58,7 +70,7 @@
             <td class="border px-4 py-2">{{ data.shift }}</td>
             <td class="border px-4 py-2">
               <button @click="editMachine(index)" class="bg-blue-500 text-white px-2 py-1 rounded-lg mr-2">Edit</button>
-              <button @click="deleteData(data.machine_name, data.start_time, data.end_time)"
+              <button @click="deleteData(data.machine_name, data.start_time, data.end_time,data.element,)"
                 class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
                 Delete
               </button>
@@ -66,11 +78,6 @@
           </tr>
         </tbody>
       </table>
-
-
-   
-
-
       <!-- create form -->
       <div v-if="isFormVisible" class="fixed inset-0 flex items-center justify-center z-50">
         <div class="w-96 p-4 bg-gray-100 border border-gray-300 rounded-lg shadow-md">
@@ -88,7 +95,7 @@
               <label class="block text-gray-800">element_type:</label>
               <select v-model="formData.element_type" required class="border border-gray-300 rounded-lg px-2 py-1 w-full"
                 @click="fetchElementTypes">
-                <option value="">Select Element Type</option>
+                <option value="" >Select Element Type</option>
                 <option v-for="elementType in elementTypes" :key="elementType">{{ elementType }}</option>
               </select>
             </div>
@@ -140,6 +147,84 @@
         </div>
       </div>
 
+      <!--add element type-->
+      <div v-if="isElementForm" class="modal fixed top-0 left-0 flex items-center justify-center w-full h-full bg-black bg-opacity-50">
+      <div class="modal-content bg-white p-6 rounded-lg shadow-lg">
+        <span @click="cancelElementForm" class="close absolute top-2 right-2 text-gray-600 cursor-pointer text-2xl">&times;</span>
+        <form @submit.prevent="submitElementForm">
+        <div class="mb-4">
+          <label for="elementType">Type:</label>
+          <input v-model="elementType" type="text" id="elementType" required />
+        </div>
+        <div class="mb-4">
+          <label for="elementRange">Range:</label>
+          <input v-model="elementRange" type="text" id="elementRange" required />
+        </div>
+        <div class="mb-4">
+          <label for="elementCurrent">Current:</label>
+          <input v-model="elementCurrent" type="text" id="elementCurrent" required />
+        </div>
+        <div class="mb-4">
+          <label for="elementVoltage">Voltage:</label>
+          <input v-model="elementVoltage" type="text" id="elementVoltage" required />
+        </div>
+        <div class="mb-4">
+          <label for="elementDescription">Element Description:</label>
+          <textarea v-model="elementDescription" id="elementDescription" required></textarea>
+        </div>
+        <div class="flex justify-end">
+            <button type="submit" class="bg-green-500 text-white px-4 py-2 mr-2 rounded">Create</button>
+            <button @click="cancelElementForm" type="button" class="bg-red-500 text-white px-4 py-2 rounded">Cancel</button>
+          </div>
+      </form>
+    </div>
+    </div>
+
+    <div v-if="isWelderForm" class="modal fixed top-0 left-0 flex items-center justify-center w-full h-full bg-black bg-opacity-50">
+      <div class="modal-content bg-white p-6 rounded-lg shadow-lg">
+        <span @click="cancelWelderForm" class="close absolute top-2 right-2 text-gray-600 cursor-pointer text-2xl">&times;</span>
+        <form @submit.prevent="submitWelderForm">
+        <div class="mb-4">
+          <label for="welderName">Welder Name:</label>
+          <input v-model="welderName" type="text" id="welderName" required />
+        </div>
+        <div class="mb-4">
+          <label for="welderNumber">Welder Number:</label>
+          <input v-model="welderNumber" type="text" id="welderNumber" required />
+        </div>
+        <div class="mb-4">
+          <label for="dateOfJoining">Date Of Joining:</label>
+          <input v-model="dateOfJoining" type="date" id="dateOfJoining" required />
+        </div>
+        <div class="mb-4">
+          <label for="welderQualification">Welder Qualification:</label>
+          <input v-model="welderQualification" type="text" id="welderQualification" required />
+        </div>
+        <div class="mb-4">
+          <label for="qualifiedThickness">Qualified Thickness:</label>
+          <input v-model="qualifiedThickness" type="text" id="qualifiedThickness" required />
+        </div>
+        <div class="mb-4">
+          <label for="iNo">I Number:</label>
+          <input v-model="iNo" type="text" id="iNo" required />
+        </div>
+        <div class="mb-4">
+          <label for="fcNo">Fc Number:</label>
+          <input v-model="fcNo" type="text" id="fcNo" required />
+        </div>
+        <div class="mb-4">
+          <label for="project">Project:</label>
+          <input v-model="project" type="text" id="project" required />
+        </div>
+        <div class="flex justify-end">
+            <button type="submit" class="bg-green-500 text-white px-4 py-2 mr-2 rounded">Create</button>
+            <button @click="cancelWelderForm" type="button" class="bg-red-500 text-white px-4 py-2 rounded">Cancel</button>
+          </div>
+      </form>
+    </div>
+    </div>
+
+      <!--edit table-->
       <div v-if="isEditFormVisible" class="fixed inset-0 flex items-center justify-center z-50">
         <div class="w-96 p-4 bg-gray-100 border border-gray-300 rounded-lg shadow-md">
           <h2 class="text-lg font-semibold text-gray-800">{{ isEditMode ? 'Edit Machine' : 'Create Machine' }}</h2>
@@ -155,10 +240,9 @@
             </div>
             <div class="mb-2">
   <label class="block text-gray-800">element_type:</label>
-  <select v-model="formData.element_type" required class="border border-gray-300 rounded-lg px-2 py-1 w-full"
-          @click="fetchElementTypes">
+  <select v-model="formData.element_type" required class="border border-gray-300 rounded-lg px-2 py-1 w-full" @click="fetchElementTypes">
     <option value="" >Select Element Type</option>
-    <option v-for="elementType in elementTypes" :key="elementType">{{ elementType }}</option>
+    <option v-for="elementType in elementTypes" :key="elementType" >{{ elementType }}</option>
   </select>
 </div>
 
@@ -263,6 +347,125 @@ import * as XLSX from 'xlsx';
 // import reporttable from '../views/reporttable.vue';
 import html2pdf from 'html2pdf.js';
 const isReport = ref(false);
+// import Navbar from '@/components/Navbar.vue'
+
+
+// Reactive variables for form fields
+const isElementForm = ref(false);
+const isWelderForm = ref(false);
+const elementType = ref('');
+const elementRange = ref('');
+const elementCurrent = ref('');
+const elementVoltage = ref('');
+const elementDescription = ref('');
+const elementPlateThickness = ref('');
+const elementPlateDescription = ref('');
+
+const welderName = ref('');
+const welderNumber = ref('');
+const dateOfJoining = ref('');
+const welderQualification = ref('');
+const qualifiedThickness = ref('');
+const iNo = ref('');
+const fcNo = ref('');
+const project = ref('');
+
+// Function to show the form
+const showElementForm = () => {
+  isElementForm.value = true;
+};
+
+const showWelderForm = () => {
+  isWelderForm.value = true;
+}
+// Function to hide the form and reset fields
+const cancelElementForm = () => {
+  isElementForm.value = false;
+  resetFormFields();
+};
+
+const cancelWelderForm = () => {
+  isWelderForm.value = false;
+  resetWelderFormFields();
+};
+
+// Function to reset form fields
+const resetFormFields = () => {
+  elementType.value = '';
+  elementRange.value = '';
+  elementCurrent.value = '';
+  elementVoltage.value = '';
+  elementDescription.value = '';
+  elementPlateThickness.value = '',
+  elementPlateDescription.value = ''
+};
+
+const submitElementForm = async () => {
+  try {
+    // Prepare the data to be sent to the backend
+    const formData = {
+      type: elementType.value,
+      range: elementRange.value,
+      standard_current: elementCurrent.value,
+      standard_voltage: elementVoltage.value,
+      element_description: elementDescription.value,
+      plate_thickness: elementPlateThickness.value,
+      plate_description: elementPlateDescription.value,
+    };
+
+    // Make the HTTP POST request to your FastAPI backend
+    const response = await axios.post('http://172.18.100.240:6969/elements/', formData);
+
+    // Handle the response as needed
+    console.log('Element created successfully:', response.data);
+
+    // Reset form fields and hide the form
+    resetFormFields();
+    isElementForm.value = false;
+  } catch (error) {
+    console.error('Error creating element:', error);
+  }
+};
+
+// Function to reset form fields
+const resetWelderFormFields = () => {
+  welderName.value = '';
+  welderNumber.value = '';
+  dateOfJoining.value = '';
+  welderQualification.value = '';
+  qualifiedThickness.value = '';
+  iNo.value = '',
+  fcNo.value = '',
+  project.value = ''
+};
+const submitWelderForm = async () => {
+  try {
+    // Prepare the data to be sent to the backend
+    const formData = {
+      welder_name: welderName.value,
+      welder_number: welderNumber.value,
+      // date_of_joining: moment.unix(dateOfJoining.value).format('YYYY-MM-DD HH:mm'), 
+      date_of_joining: dateOfJoining.value,
+      welder_qualification: welderQualification.value,
+      qualified_thickness: qualifiedThickness.value,
+      I_no: iNo.value,
+      Fc_no: fcNo.value,
+      project: project.value,
+    };
+
+    // Make the HTTP POST request to your FastAPI backend
+    const response = await axios.post('http://172.18.100.240:6969/welder/', formData);
+
+    // Handle the response as needed
+    console.log('Welder created successfully:', response.data);
+
+    // Reset form fields and hide the form
+    resetWelderFormFields();
+    isWelderForm.value = false;
+  } catch (error) {
+    console.error('Error creating welder:', error);
+  }
+};
 
 //Importing Store Statements
 const reportContainerTable = ref(null);
@@ -282,38 +485,33 @@ html2pdf(element, pdfOptions);
 function downloadTableDataAsExcel(){
   isReport.value = true;
 }
+const startDate = ref('');
+const data = ref(null);
+
+// Computed property for the Axios URL for op_shift data
+const axiosOpShiftUrl = computed(() => {
+  return `http://172.18.100.240:6969/op_shift/`;
+});
+
+// Function to fetch data from the API for op_shift
 const downloadTableDataExcel = async () => {
   try {
-    // Make a request to the backend to fetch the data
-    const response = await axios.get('http://localhost:6969/op_shift/');
+    const opShiftResponse = await axios.get(axiosOpShiftUrl.value);
 
-    // Assuming the API response has a 'Download' key containing the specific data
-    const dataToDownload = response.data.Download;
-console.log(dataToDownload)
-    // Convert JSON data to Excel workbook
-    const ws = XLSX.utils.json_to_sheet(dataToDownload);
+    console.log('Op Shift Response Data:', opShiftResponse.data);
 
-    // Add your previous code for combining data and generating Excel here
-    const header = ["machine_name", "element_type", "operator_name", "start_time","end_time","shift"];
-    XLSX.utils.sheet_add_aoa(ws, [header], { origin: -1 });
+    // Convert response data to arrays (if necessary)
+    const opShiftData = Array.isArray(opShiftResponse.data) ? opShiftResponse.data : [opShiftResponse.data];
 
-    // Add data rows
-    const dataRows = dataToDownload.map(item => [
-      item.machine_name, // Replace with the actual property names from your machine data
-      item.element_type,
-      item.operator_name,
-      item.start_time,
-      item.end_time,
-      item.shift,
-    ]);
+    data.value = opShiftData;
 
-    XLSX.utils.sheet_add_aoa(ws, dataRows, { origin: -1 });
-
+    // Generate and download Excel file
+    const ws = XLSX.utils.json_to_sheet(opShiftData);
     const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-    XLSX.writeFile(wb, 'tableData.xlsx');
+    XLSX.utils.book_append_sheet(wb, ws, 'DataSheet');
+    XLSX.writeFile(wb, 'tableExcel.xlsx');
   } catch (error) {
-    console.error('Error downloading table data as Excel:', error);
+    console.error('Error fetching data:', error);
   }
 };
 
@@ -350,12 +548,6 @@ console.log(dataToDownload)
 //   }
 // };
 
-
-
-
-
-
-
 const machineNames = [ '7G', '7H', '7J', '7K', '7L', '27C', '27D', '27E'];
 // const elementTypes = ['type-1', 'type-2', 'type-3'];
 const isFormVisible = ref(false);
@@ -380,6 +572,19 @@ const convertToEpoch = (field) => {
   formData[field] = epochTimestamp;
 };
 
+// const dojDateTime = computed({
+//   get: () => {
+//     if (formData.dateOfJoining) {
+//       return moment.unix(formData.dateOfJoining).local().format('YYYY-MM-DDTHH:mm');
+//     }
+//     return '';
+//   },
+//   set: (newValue) => {
+//     formData.dateOfJoining = moment(newValue).unix();
+//     console.log(formData.dateOfJoining );
+//   }
+// });
+
 const startDateTime = computed({
   get: () => {
     if (formData.start_time) {
@@ -389,7 +594,7 @@ const startDateTime = computed({
   },
   set: (newValue) => {
     formData.start_time = moment(newValue).unix();
-    console.log(formData.start_time );
+    // console.log(formData.start_time );
   }
 });
 
@@ -450,7 +655,7 @@ const fetchMachineNames = async () => {
   try {
     const response = await axios.get(machinesUrl);
     machineIds.value = response.data.Data.map((machine) => machine.machine_id);
-    console.log(machineIds.value);
+    // console.log(machineIds.value);
     // Extract "machine_id" property
   } catch (error) {
     console.error('Error fetching machine names:', error);
@@ -480,9 +685,11 @@ const fetchOperators = async () => {
   
   try {
     const response = await axios.get(machinesUrl);
-    console.log("++++++++++++++")
-    console.log(response.data)
+    // console.log("++++++++++++++")
+    // console.log(response.data)
     operators.value = response.data.Data.map((machine) => machine.welder_name);
+    // console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
+    // console.log(machine.welder_name)
      // Extract "machine_id" property
   } catch (error) {
     console.error('Error fetching machine names:', error);
@@ -529,7 +736,7 @@ const originalTableData = ref([]);
 // Function to fetch and display the data for all machines
 const fetchAndDisplayDataForAllMachines = () => {
   machineNames.forEach((machineId) => {
-    console.log(machineId);
+    // console.log(machineId);
     const url = `http://172.18.100.240:6969/op_shift/${machineId}`;
     
     axios
@@ -551,7 +758,7 @@ const fetchAndDisplayDataForAllMachines = () => {
 };
 
 
-const deleteData = (machineName, startTime, endTime) => {
+const deleteData = (machineName, startTime, endTime,element) => {
   // Convert local date and time to epoch timestamps
   const startTimeEpoch = moment(startTime, 'YYYY-MM-DDTHH:mm').unix();
   const endTimeEpoch = moment(endTime, 'YYYY-MM-DDTHH:mm').unix();
@@ -618,6 +825,34 @@ const deleteData = (machineName, startTime, endTime) => {
 //   }
 // };
 
+const fetchMachineData = async () => {
+  // Use the appropriate API endpoint to fetch data based on machine and operator names
+  const url = `http://172.18.100.240:6969/op_shift/machine-data?machineName=${formData.machineName}&operatorName=${formData.operator_name}`;
+  const response = await axios.get(url);
+
+
+
+
+ console.log("Insde the");
+//  const current = response.data[0]["current"];
+      // const voltage = response.data[0]["voltage"];
+      // console.log(current);
+      // console.log(voltage);
+
+      let element_type = response.formData.element_type;
+  console.log(element_type);
+
+  // Populate form data with the fetched data
+  formData.element_type = response.data.element_type;
+  console.log("######################################################")
+console.log( formData.element_type)
+  formData.start_time = response.data.start_time;
+  formData.end_time = response.data.end_time;
+  formData.shift = response.data.shift;
+};
+
+
+
 const saveMachine = async () => {
   if (isSaveMode.value) {
     // Update the existing machine data
@@ -655,7 +890,6 @@ const saveMachine = async () => {
           }
         }
       }
-
       // tableData.value.,map(updatedMachine);
       tableData.value = tableData.value.map((data) => {
   if (data.machine_id === machineNames && data.operator_name === operator_name) {
@@ -721,7 +955,12 @@ setTimeout(() => {
   }
 };
 
-
+// Call fetchMachineData when the form is visible and in edit mode
+onMounted(() => {
+  if (isEditFormVisible.value && isEditMode.value) {
+    fetchMachineData();
+  }
+});
 
 const cancelForm = () => {
   resetFormData();
@@ -819,4 +1058,38 @@ const resetFilters = () => {
 
 <style scoped>
 /* Add your Tailwind CSS classes or styles here if needed */
+/* .modal {
+  display: block;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 10% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer; */
+/* } */
 </style>

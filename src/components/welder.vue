@@ -1,4 +1,5 @@
 <template>
+  <!-- <Navbar/> -->
   <div>
      <h3 class="font-poppins text-purple-500 text-xl font-bold bg-blue-50 absolute left-1/2 transform -translate-x-1/2">Welder page</h3>
  </div>
@@ -61,13 +62,13 @@
                </td>
                <td>
                  <div class=" flex  flex-col items-center font-poppins ">
-                   <!-- <select v-model="row.element" @change="onOptionSelected($event)"
+                   <select v-model="row.element" @change="onOptionSelected($event)"
                      class="border border-gray-300  px-2 py-1 rounded-md mb-4">
                      <option disabled value="">Element Type</option>
                      <option v-for="element in elements" :key="element.value" :value="element.value">{{ element.label }}
                      </option>
-                   </select> -->
-                   <div class="text-center"><td class="bg-blue-100 border-1    w-36 font-bold rounded-lg shadow-lg  ">{{ row.element }}</td></div>
+                   </select>
+                   <!-- <div class="text-center"><td class="bg-blue-100 border-1    w-36 font-bold rounded-lg shadow-lg  ">{{ row.element }}</td></div> -->
                    
                  <div class="mt-2 mb-2"> 
                    <textarea v-model="row.element_description" class="border border-gray-300 px-1 py-1 rounded-md"
@@ -76,10 +77,10 @@
                  <div  v-if="!row.isEditing" type="text" class="border border-gray-300 rounded-md w-26 px-2 py-2 sm:px-4 sm:py-2 mb-2 w-40 text-center"><b> {{ row.range }}</b></div>
                  <div v-else><input v-model="row.range" class="border border-gray-300 px-4 py-2 rounded-md w-40 text-center" placeholder="range"></div>
                </div>
-               <div class="flex space-x-2 mt-2 ml-24">
+               <!-- <div class="flex space-x-2 mt-2 ml-24">
                    <button @click="toggleEdit(row)" v-if="!row.isEditing" class="glassmorphic-button bg-blue-500 text-white px-2 py-1 rounded-md w-8 h-8 mb-2 flex flex-wrap"><img width="21" height="21" src="https://img.icons8.com/fluency-systems-filled/48/FFFFFF/edit.png" alt="edit" class="flex flex-warp mr-3 mt-1"/></button>
                    <button @click="saveEditedData(row)" v-else class="glassmorphic-button bg-green-500 text-white px-2 py-1 rounded-md w-10 h-8 mb-2 flex flex-wrap" ><img width="24" height="24" src="https://img.icons8.com/material-outlined/24/FFFFFF/save.png" alt="save" class="flex flex-warp"/></button>
-                 </div>
+                 </div> -->
                </td>
                <!-- <td>
                  <div
@@ -110,48 +111,51 @@
                      <p class="text-sm text-black text-center font-bold mb-2 ">Range</p>
                      <div class="absolute  mr-4"><img width="24" height="24" src="https://img.icons8.com/material-rounded/24/lightning-bolt--v1.png" alt="lightning-bolt--v1 " class="-ml-1 mt-1"/></div>
                      <div v-if="!row.isEditing" type="text"  class="border border-gray-300 rounded-md ml-4 h-8 w-24">
-                       <p class="text-lg text-blue-800 text-center font-bold "> {{ row.standard.current }}A</p></div>
-                     <div v-else><input v-model="row.current" class="border border-gray-300 px-4 py-2 rounded-md ml-4 h-8 w-24 text-center" placeholder="current range"></div>
+                       <p class="text-lg text-blue-800 text-center font-bold "> {{ row.standard.standard_current }}A</p></div>
+                     <div v-else><input v-model=" row.standard.standard_current" class="border border-gray-300 px-4 py-2 rounded-md ml-4 h-8 w-24 text-center" placeholder="current range"></div>
                    </div>
                    <div class="border border-gray-300 px-4 py-6 rounded-md h-25 w-36 ">
                      <p class="text-lg text-black text-center font-bold -mb-2 ">Voltage</p>
                      <p class="text-sm text-black text-center font-bold mb-2 ">Range</p>
                      <div class="absolute  mr-4"><img width="24" height="24" src="https://img.icons8.com/ios-glyphs/30/speedometer.png" alt="speedometer" class="-ml-1 mt-1"/></div>
                      <div v-if="!row.isEditing" type="text" class="border border-gray-300 rounded-md ml-4 h-8 w-24">
-                       <p class="text-lg text-blue-800 text-center font-bold "> {{ row.standard.voltage }}V</p></div>
-                       <div v-else><input v-model="row.voltage" class="border border-gray-300 px-4 py-2 rounded-md ml-4 h-8 w-24 text-center" placeholder="voltage range"></div>
+                       <p class="text-lg text-blue-800 text-center font-bold "> {{ row.standard.standard_voltage }}V</p></div>
+                       <div v-else><input v-model="row.standard.standard_voltage" class="border border-gray-300 px-4 py-2 rounded-md ml-4 h-8 w-24 text-center" placeholder="voltage range"></div>
                      </div>
                  </div>
                </td>
                <td>
-                 <div class="mb-3 mt-3 font-poppins">
-                   <div class="flex space-y-2 flex-col items-center " v-if="dataLoaded">
-                     <div class="border border-gray-300 px-4 py-6 rounded-md h-25 w-36">
-                       <p class="text-lg text-black text-center font-bold -mb-2 ">Current</p>
-                       <p class="text-sm text-black text-center font-bold mb-2 ">Range</p>
-                       <div class="absolute  mr-4"><img width="24" height="24" src="https://img.icons8.com/material-rounded/24/lightning-bolt--v1.png" alt="lightning-bolt--v1 " class="-ml-1 mt-1"/></div>
-                       <div class="border border-gray-300 rounded-md ml-4 h-8 w-24">
-                         <p class="text-lg text-center font-bold text-lime-500"> {{ getMachineLiveCurrent(row.id) }}A</p>
-                       </div>
-                     </div>
-                     <div class="border border-gray-300 px-4 py-6 rounded-md h-25 w-36 ">
-                       <p class="text-lg text-black text-center font-bold -mb-2 ">Voltage</p>
-                       <p class="text-sm text-black text-center font-bold mb-2 ">Range</p>
-                       <div class="absolute  mr-4"><img width="24" height="24" src="https://img.icons8.com/ios-glyphs/30/speedometer.png" alt="speedometer" class="-ml-1 mt-1"/></div>
-                       <div class="border border-gray-300 rounded-md ml-4 h-8 w-24">
-                         <p class="text-lg text-lime-500 text-center font-bold "> {{ getMachineLiveVoltage(row.id) }}V</p>
-                       </div>
-                     </div>
-                   </div>
-                   <div v-else>
-                     Loading data...
-                   </div>
-                 </div>
+                <div class="mb-3 mt-3 font-poppins">
+    <div class="flex space-y-2 flex-col items-center" v-if="dataLoaded">
+      <div class="border border-gray-300 px-4 py-6 rounded-md h-25 w-36">
+        <p class="text-lg text-black text-center font-bold -mb-2">Current</p>
+        <p class="text-sm text-black text-center font-bold mb-2">Range</p>
+        <div class="absolute mr-4">
+          <img width="24" height="24" src="https://img.icons8.com/material-rounded/24/lightning-bolt--v1.png" alt="lightning-bolt--v1" class="-ml-1 mt-1" />
+        </div>
+        <div class="border border-gray-300 rounded-md ml-4 h-8 w-24">
+          <p class="text-lg text-center font-bold text-lime-500">{{ getMachineLiveCurrent(row.id) }}A</p>
+        </div>
+      </div>
+      <div class="border border-gray-300 px-4 py-6 rounded-md h-25 w-36">
+        <p class="text-lg text-black text-center font-bold -mb-2">Voltage</p>
+        <p class="text-sm text-black text-center font-bold mb-2">Range</p>
+        <div class="absolute mr-4">
+          <img width="24" height="24" src="https://img.icons8.com/ios-glyphs/30/speedometer.png" alt="speedometer" class="-ml-1 mt-1" />
+        </div>
+        <div class="border border-gray-300 rounded-md ml-4 h-8 w-24">
+          <p class="text-lg text-lime-500 text-center font-bold">{{ getMachineLiveVoltage(row.id) }}V</p>
+        </div>
+      </div>
+    </div>
+    <div v-else>
+      Loading data...
+    </div>
+  </div>
                </td>
                <td>
                  <div class="flex space-y-2 flex-col items-center font-poppins">
-                   <button @click="showUserPopup()"
-                     class="glassmorphic-button bg-blue-500 text-white px-2 py-1 rounded-md mr-4 w-16 ">
+                   <button @click="showUserPopup(row.itemno)" class="glassmorphic-button bg-blue-500 text-white px-2 py-1 rounded-md mr-4 w-16">
                      <img
                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsTAAALEwEAmpwYAAABWUlEQVR4nO2US0oDQRCGs5IIiaAkbjyAeolo5gjxAGrwsY6LoAg+F46HURfJzngBxcfSB7jSZGlMDvCHxm+gaXqGPARdpFbzVVX/NVM9VanU2P6VSZqTVBnhfMVoxAUnJd3px8pDiK9z1mikfQn7JLxLyg1RYEbSKxq7bnBaUpvgEr4VSYd9CB9IKvFcROPLaPo+7xqelfSNr5AgXiDH5ObxNfCt2YlXODfgU7gGT0g6l9SU9CkpND5iNXKP4S340i7wgnMefoKLsBF0LSQWwA/wAvxsF+jizMRw01OgRSwLd+AM3E0q0IGzsGmLax/EpqJ78HFcix7hIKFFZ06L7uFFX4uiS96ET+C6dckhX+Jecp3cI3gbvvD9pg04P+Bv2o6GU9INvtW4QVvGV4reKsnMMFqDFngHjeDeL6yKNzSqvoT0iMuuzNlb77Kz1vXOoOJ9reux/Zn1AHTH1NfLscaMAAAAAElFTkSuQmCC "
                        class="ml-3">
@@ -216,18 +220,33 @@
                      </select>
                  </div> -->
                  <!-- </div> -->
+
                  <div class=" flex space-y-2 flex-col items-center  sm:px-4 sm:py-16 font-poppins">
                    <div class="flex space-x-2">
-                     <input v-model="row.I_no" class="border border-gray-300 px-4 py-2 rounded-md w-24  text-center" placeholder="I_No">
+                    <div  v-if="!row.isEditing" type="text" class="border border-gray-300 rounded-md w-26 px-2 py-2 sm:px-4 sm:py-2 mb-2 w-36 text-center"><b> {{ row.I_no }}</b></div>
+                 <div v-else><input v-model="row.I_no" class="border border-gray-300 px-4 py-2 rounded-md w-40 text-center" placeholder="I_no"></div>
+                 </div>
+
+                 <div  v-if="!row.isEditing" type="text" class="border border-gray-300 rounded-md w-26 px-2 py-2 sm:px-4 sm:py-2 mb-2 w-36 text-center"><b> {{row.Fc_no }}</b></div>
+                 <div v-else><input v-model="row.Fc_no" class="border border-gray-300 px-4 py-2 rounded-md w-40 text-center" placeholder="Fc_no"></div>
+
+                 <div  v-if="!row.isEditing" type="text" class="border border-gray-300 rounded-md w-26 px-2 py-2 sm:px-4 sm:py-2 mb-2 w-36 text-center"><b> {{ row.project }}</b></div>
+                 <div v-else><input v-model="row.project" class="border border-gray-300 px-4 py-2 rounded-md w-40 text-center" placeholder="project"></div>
+
+
+                 <!-- <div class=" flex space-y-2 flex-col items-center  sm:px-4 sm:py-16 font-poppins">
+                   <div class="flex space-x-2">
+                  
+                     <input v-model="row.I_no" class="border border-gray-300 px-4 py-2 rounded-md w-24  text-center" placeholder="I_No" >
                    </div>
                    <div class="flex space-x-2 mt-2"><input v-model="row.Fc_no" class="border border-gray-300 px-4 py-2 rounded-md w-24 text-center" placeholder="Fc_No">
                    </div>
                    <div class="flex space-x-2 mt-2"><input v-model="row.project" class="border border-gray-300 px-4 py-2 rounded-md w-24 text-center" placeholder="Project">
-                   </div>
-                   <div class="flex space-x-2 mt-2">
+                   </div> -->
+                   <!-- <div class="flex space-x-2 mt-2">
                    <button @click="toggleEdit(row)" v-if="!row.isEditing" class="glassmorphic-button bg-blue-500 text-white px-2 py-1 rounded-md w-8 h-8 mb-2 flex flex-wrap"><img width="21" height="21" src="https://img.icons8.com/fluency-systems-filled/48/FFFFFF/edit.png" alt="edit" class="flex flex-warp mr-3 mt-1"/></button>
                    <button @click="saveEditedData(row)" v-else class="glassmorphic-button bg-green-500 text-white px-2 py-1 rounded-md w-10 h-8 mb-2 flex flex-wrap" ><img width="30" height="30" src="https://img.icons8.com/material-outlined/24/FFFFFF/save.png" alt="save" class="flex flex-warp"/></button>
-                 </div>
+                 </div> -->
                  <!-- <div class="mb-4">
            <label class="block text-gray-700 text-sm font-bold mb-2" placeholder="select shift">Select Shift:</label>
            <select v-model="row.selectedShift" class="block w-full bg-gray-100 border rounded p-2" >
@@ -272,7 +291,7 @@
              <!-- //PopUp Chart -->
              <div v-if="isUserPopupVisible" class="fixed inset-0 flex items-center justify-center z-50">
                <div class="bg-white p-8 rounded-lg shadow-lg w-1/2 h-1/2 relative">
-                 <Line/>
+                 <Line :dataFromParent="ParentData"/>
                  <!-- <Report/> -->
                  <button @click="hideUserPopup" class=" bg-white px-1 py-0 rounded-lg absolute top-2 right-0 -mt-1 mr-3">
                    <img width="20" height="20" src="https://img.icons8.com/ios-glyphs/30/delete-sign.png" alt="delete-sign"/>
@@ -287,7 +306,9 @@
                </div>
              <div v-if="isStackVisible" class="fixed inset-0 flex items-center justify-center z-50">
                <div class="bg-white p-8 rounded-lg shadow-lg w-1/2 h-1/2 relative">
-                 <Stack />
+                <div class="m-2 ">
+      <Stack class="h-96" :chartData="stateChartData" />
+    </div>
                  <!-- <Report/> -->
                  <button @click="hideStackPopup" class=" bg-white px-1 py-0 rounded-lg absolute top-2 right-0 -mt-1 mr-3"><img width="20" height="20" src="https://img.icons8.com/ios-glyphs/30/delete-sign.png" alt="delete-sign"/>
                  </button>
@@ -346,6 +367,7 @@
      import Notification from '@/components/Notification.vue'
      import { ref, onMounted } from 'vue'
      import axios from 'axios';
+    //  import Navbar from '@/components/Navbar.vue'
    
      const isReport = ref(false);
      const isUserPopupVisible = ref(false);
@@ -356,8 +378,30 @@
      const currentDate = ref('');
    const currentTime = ref('');
    const selectedShift = ref(null);
+const stateChartData= ref([]);
 
 //notification new updated one
+const fetchStateData = async () => {
+  try {
+    const response = await axios.get('http://172.18.100.240:6969/graph/get_graph_data');
+    const responseData = response.data;
+    //'http://172.18.7.76:6565/machines'
+    //172.18.100.240:6969/graph/get_graph_data
+
+    // Process the response data as needed
+    stateChartData.value = responseData;
+    // console.log("Fetched state data from the backend");
+    // console.log(stateChartData.value);
+  } catch (error) {
+    console.error('Error fetching state data:', error);
+  }
+};
+onMounted(() => {
+fetchStateData();
+
+// Fetch data every 2 seconds
+// setInterval(fetchStateData, 000);
+});
 
 const nisPopupOpen = ref(false);
 const npopupData = ref({
@@ -389,11 +433,12 @@ const npopupData = ref({
 async function nopenPopup(machineId){
   nisPopupOpen.value = true;
   npopupData.value.machineId = machineId;
-  console.log(npopupData.value.machineId)
+  // console.log(npopupData.value.machineId)
   try {
-    console.log(npopupData.value.machineId);
+    // console.log(npopupData.value.machineId);
     const popresponse = await axios.get(`http://172.18.100.240:6969/logs/${npopupData.value.machineId}`);
-    console.log("api called")
+    console.log(popresponse)
+    // console.log("api called")
     npopupData.value.current = popresponse.data.detail.current;
     npopupData.value.voltage = popresponse.data.detail.voltage;
     npopupData.value.createdat = popresponse.data.detail.createdat;
@@ -524,7 +569,7 @@ const nclosePopup = () => {
     //    element: "",
     //    element_description: "",
     //    plate: "",
-    //    standard: { current: "", voltage: "" },
+    //    standard: { standard_current: "", standard_voltage: "" },
     //    actual: { current: "", voltage: "" },
     //    remarks: "",
     //    machineimg: "./src/assets/ak400.png",
@@ -538,7 +583,7 @@ const nclosePopup = () => {
      //   element: "",
      //   element_description: "",
      //   plate: "",
-     //   standard: { current: "", voltage: "" },
+     //   standard: { standard_current: "", standard_voltage: "" },
      //   actual: { current: "", voltage: "" },
      //   remarks: "",
      //   machineimg: "./src/assets/ak400.png",
@@ -552,7 +597,7 @@ const nclosePopup = () => {
        element: "",
        element_description: "",
        plate: "",
-       standard: { current: "", voltage: "" },
+       standard: { standard_current: "", standard_voltage: "" },
        actual: { current: "", voltage: "" },
        remarks: "",
        machineimg: "./src/assets/ak600.png",
@@ -566,7 +611,7 @@ const nclosePopup = () => {
        element: "",
        element_description: "",
        plate: "",
-       standard: { current: "", voltage: "" },
+       standard: { standard_current: "", standard_voltage: "" },
        actual: { current: "", voltage: "" },
        remarks: "",
        machineimg: "./src/assets/ak600.png",
@@ -580,7 +625,7 @@ const nclosePopup = () => {
      //   element: "",
      //   element_description: "",
      //   plate: "",
-     //   standard: { current: "", voltage: "" },
+     //   standard: { standard_current: "", standard_voltage: "" },
      //   actual: { current: "", voltage: "" },
      //   remarks: "",
      //   machineimg: "./src/assets/I500.png",
@@ -594,7 +639,7 @@ const nclosePopup = () => {
        element: "",
        element_description: "",
        plate: "",
-       standard: { current: "", voltage: "" },
+       standard: { standard_current: "", standard_voltage: "" },
        actual: { current: "", voltage: "" },
        remarks: "",
        machineimg: "./src/assets/I500.png",
@@ -608,7 +653,7 @@ const nclosePopup = () => {
        element: "",
        element_description: "",
        plate: "",
-       standard: { current: "14", voltage: "" },
+       standard: { standard_current: "", standard_voltage: "" },
        actual: { current: "", voltage: "" },
        remarks: "",
        machineimg: "./src/assets/I500.png",
@@ -622,7 +667,7 @@ const nclosePopup = () => {
        element: "",
        element_description: "",
        plate: "",
-       standard: { current: "", voltage: "" },
+       standard: { standard_current: "", standard_voltage: "" },
        actual: { current: "", voltage: "" },
        remarks: "",
        machineimg: "./src/assets/I500.png",
@@ -636,7 +681,7 @@ const nclosePopup = () => {
      //   element: "",
      //   element_description: "",
      //   plate: "",
-     //   standard: { current: "", voltage: "" },
+     //   standard: { standard_current: "", standard_voltage: "" },
      //   actual: { current: "", voltage: "" },
      //   remarks: "",
      //   machineimg: "./src/assets/kr400.png",
@@ -650,7 +695,7 @@ const nclosePopup = () => {
        element: "",
        element_description: "",
        plate: "",
-       standard: { current: "", voltage: "" },
+       standard: { standard_current: "", standard_voltage: "" },
        actual: { current: "", voltage: "" },
        remarks: "",
        machineimg: "./src/assets/kr400.png",
@@ -664,7 +709,7 @@ const nclosePopup = () => {
        element: "",
        element_description: "",
        plate: "",
-       standard: { current: "", voltage: "" },
+       standard: { standard_current: "", standard_voltage: "" },
        actual: { current: "", voltage: "" },
        remarks: "",
        machineimg: "./src/assets/yd.webp",
@@ -678,7 +723,7 @@ const nclosePopup = () => {
        element: "",
        element_description: "",
        plate: "",
-       standard: { current: "", voltage: "" },
+       standard: { standard_current: "", standard_voltage: "" },
        actual: { current: "", voltage: "" },
        remarks: "",
        machineimg: "./src/assets/yd.webp",
@@ -812,6 +857,9 @@ onMounted(async () => {
       // Fetch element types based on row.itemno
       const typesResponse = await fetch(`http://172.18.100.240:6969/op_shift/${row.itemno}`);
       const typesData = await typesResponse.json();
+      // console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+      //  console.log(typesData)
+   
 
       // Assuming typesData is an array of types, for simplicity
       const elementTypes = typesData.map(item => item.element_type);
@@ -822,8 +870,8 @@ onMounted(async () => {
       for (const welderDetail of welderDetails) {
         const welderResponse = await fetch(`http://172.18.100.240:6969/welder/${welderDetail}`);
         const welderdata = await welderResponse.json();
-        console.log("_____________________________________________")
-        console.log(welderdata)
+        // console.log("_____________________________________________")
+        // console.log(welderdata)
         row.I_no=welderdata.I_no
         row.Fc_no=welderdata.Fc_no
         row.project=welderdata.project
@@ -836,28 +884,28 @@ onMounted(async () => {
         const elementResponse = await fetch(`http://172.18.100.240:6969/elements/${elementType}`);
         const elementData = await elementResponse.json();
 
-        console.log("Element Type:", elementType);
-        console.log("Element Data:", elementData);
+        // console.log("Element Type:", elementType);
+        // console.log("Element Data:", elementData);
 
         // Assuming the response contains only one item
-        const { current, voltage,range } = elementData;
+        const { standard_current, standard_voltage,range } = elementData;
         const operatorInfo = typesData[0];
 
         // Update the standard current and voltage for the current row
-        row.standard.current = current;
-        row.standard.voltage = voltage;
+        row.standard.standard_current = standard_current;
+        row.standard.standard_voltage = standard_voltage;
         row.range = range;
         // row.standard.voltage = element_description;
 
         // Display the standard current and voltage
-        console.log("Standard Current:", row.standard.current);
-        console.log("Standard Voltage:", row.standard.voltage);
+        // console.log("Standard Current:", row.standard.standard_current);
+        // console.log("Standard Voltage:", row.standard.standard_voltage);
 
         // Update the operator field for the current row
         if (operatorInfo) {
           row.operator = operatorInfo.operator_name;
           row.element = operatorInfo.element_type;
-          console.log(row.operator)
+          // console.log(row.operator)
         }
       }
     } catch (error) {
@@ -944,11 +992,11 @@ onMounted(async () => {
  
    async function onOeratorSelected(event) {
      const selectedValue = event.target.value;
-     console.log('Selected item:', selectedValue);
+    //  console.log('Selected item:', selectedValue);
    
      try {
        const response = await axios.get(`http://172.18.100.240:6969/welder/${selectedValue}`);
-       console.log('API Response:', response.data);
+      //  console.log('API Response:', response.data);
        dataRows.value.forEach((row) => {
          if (row.operator === selectedValue) {
            updateoperatorData(row.id, response.data.I_no, response.data.Fc_no, response.data.project);
@@ -994,65 +1042,158 @@ onMounted(async () => {
    }
  
     //machine live current vol select data getting
-   const machineLiveData = ref({});
+    const machineLiveData = ref({});
+const dataLoaded = ref(false);
+
+const fetchDataFromBackend = async () => {
+  try {
+    for (const row of dataRows.value) {
+      const response = await axios.get(`http://172.18.100.240:6969/live_data/${row.machine_name}`);
+      // console.log("Insde the");
+      const current = response.data[0]["current"];
+      const voltage = response.data[0]["voltage"];
+      
+      
+      // console.log(current);
+      // console.log(voltage);
+      updateMachineLiveData(row.id, current, voltage);
+    }
+    
+
+    dataLoaded.value = true;
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    dataLoaded.value = false;
+  }
+};
+
+function updateMachineLiveData(machineId, current, voltage) {
+  machineLiveData.value[machineId] = { current, voltage };
+}
+
+function getMachineLiveCurrent(machineId) {
+  return machineLiveData.value[machineId]?.current || "0.0";
+}
+
+function getMachineLiveVoltage(machineId) {
+  return machineLiveData.value[machineId]?.voltage || "0.0";
+}
+
+onMounted(() => {
+  fetchDataFromBackend();
+  setInterval(fetchDataFromBackend, 10000);
+});
+
+// Define the convertToEpochTime function
+function convertToEpochTime(dateTimeString) {
+  // Attempt to parse the date/time string
+  const parsedDate = Date.parse(dateTimeString);
+
+  // Check if the parsing was successful
+  if (!isNaN(parsedDate)) {
+    // If successful, return the epoch time
+    return parsedDate / 1000; // Convert milliseconds to seconds
+  } else {
+    // If parsing fails, log an error and return null or handle accordingly
+    console.error(`Error parsing date/time string: ${dateTimeString}`);
+    return null;
+  }
+}
+
+
+async function saveEditedData(row) {
+  try {
+    const response = await axios.put(`http://172.18.100.240:6969/edit/${row.element}/${row.operator}`, {
+      standard_current: row.standard.standard_current,
+      standard_voltage: row.standard.standard_voltage,
+      element_description: row.element_description,
+      range: row.range,
+      I_no: row.I_no,
+      Fc_no: row.Fc_no,
+      project: row.project,
+    });
+
+    // Handle successful response, if needed
+    // console.log('Data updated:', response.data);
+    console.log(row.element);
+
+    updateoperatorData(row.id, row.I_no, row.Fc_no, row.project, row.current, row.voltage, row.element_description, row.range);
+    console.log("TTTTTTTTTTTTTTTTTTTTTTTTTTTTT");
+    console.log(updateoperatorData);
+
+    // Toggle editing status
+    toggleEdit(row);
+
+    // Fetch recent data from the fast API endpoint
+    const machineId = row.machine_name; // Implement a function to get machineId
+    const recentDataResponse = await axios.get(`http://172.18.100.240:6969/op_shift/${machineId}`);
+    const recentData = recentDataResponse.data; // Assuming the data is an array
+
+    // Filter data for the specific operator
+    const operatorRecentData = recentData.filter(item => item.operator_name === row.operator);
+
+    if (operatorRecentData.length > 0) {
+      // Find the most recent data based on the timestamp
+      const mostRecentData = operatorRecentData.reduce((max, item) => (item.timestamp > max.timestamp ? item : max));
+
+      // Get the start time and end time from the most recent data and convert to epoch-time
+      const startTime = mostRecentData.start_time !== undefined ? convertToEpochTime(mostRecentData.start_time) : null;
+      const endTime = mostRecentData.end_time !== undefined ? convertToEpochTime(mostRecentData.end_time) : null;
+
+      // Continue with the rest of the code
+      console.log(row.operator);
+      console.log(row.element);
+      console.log(machineId);
+      console.log(mostRecentData.start_time);
+
+      const createEntryResponse = await axios.post("http://172.18.100.240:6969/op_shift/", {
+        operator_name: row.operator,
+        element_type: row.element, // Change this to the appropriate type
+        machine_name: machineId,
+        start_time: startTime,
+        end_time: endTime,
+      });
+
+      console.log("New entry created:", createEntryResponse.data);
+    } else {
+      console.log(`No recent data found for operator: ${row.operator}`);
+    }
+  } catch (error) {
+    console.error('Error updating data:', error);
+    // Handle error, if needed
+  }
+}
+
    
-   const dataLoaded = ref(false);
+// //all element type and operator edit/save
+// async function saveEditedData(row) {
+//      try {
+//        const response = await axios.put(`http://172.18.100.240:6969/edit/${row.element}/${row.operator}
+//        `, {
+//         standard_current: row.standard.standard_current, 
+//         standard_voltage: row.standard.standard_voltage, 
+//          element_description: row.element_description,
+//          range: row.range,
+//          I_no: row.I_no,
+//          Fc_no: row.Fc_no,
+//          project: row.project,
+         
+//        });
+      
+//        // Handle successful response, if needed
+//       //  console.log('Data updated:', response.data);
    
-   const fetchDataFromBackend = async () => {
-     try {
-       for (const row of dataRows.value) {
-         const response = await axios.get(`http://172.18.100.240:6969/live_data/${row.machine_name}`);
-         const { current, voltage } = response.data;
-         updateMachineLiveData(row.id, current, voltage);
-       }
+//        updateoperatorData(row.id, row.I_no, row.Fc_no, row.project, row.current,row.voltage, row.element_description,row.range);
+//        console.log("TTTTTTTTTTTTTTTTTTTTTTTTTTTTT")
+//        console.log(updateoperatorData)
    
-       dataLoaded.value = true;
-     } catch (error) {
-       console.error('Error fetching data:', error);
-       dataLoaded.value = false;
-     }
-   };
-   function updateMachineLiveData(machineId, current, voltage) {
-     machineLiveData.value[machineId] = { current, voltage };
-   }
-   
-   function getMachineLiveCurrent(machineId) {
-     return machineLiveData.value[machineId]?.current || "0.0";
-   }
-   
-   function getMachineLiveVoltage(machineId) {
-     return machineLiveData.value[machineId]?.voltage || "0.0";
-   }
-   onMounted(() => {
-     fetchDataFromBackend();
-     setInterval(fetchDataFromBackend, 10000);
-   });
-   
-   //all element type and operator edit/save
-   async function saveEditedData(row) {
-     try {
-       const response = await axios.put(`http://172.18.100.240:6969/edit/${row.element}/${row.operator}`, {
-         current: row.current, 
-         voltage: row.voltage, 
-         element_description: row.element_description,
-         range: row.range,
-         I_no: row.I_no,
-         Fc_no: row.Fc_no,
-         project: row.project,
-       });
-   
-       // Handle successful response, if needed
-       console.log('Data updated:', response.data);
-   
-       updateoperatorData(row.id, row.I_no, row.Fc_no, row.project, row.current,row.voltage, row.element_description,row.range);
-   
-       // Toggle editing status
-       toggleEdit(row);
-     } catch (error) {
-       console.error('Error updating data:', error);
-       // Handle error, if needed
-     }
-   }
+//        // Toggle editing status
+//        toggleEdit(row);
+//      } catch (error) {
+//        console.error('Error updating data:', error);
+//        // Handle error, if needed
+//      }
+//    }
  
    //only element type saveEditedDataType http://172.18.7.66:6060/edit/type-1/Bhimappa
    // async function saveEditedDataElement(row) {
@@ -1100,10 +1241,31 @@ onMounted(async () => {
    function hideReportPopup() {
      isReport.value = false;
    }
+
+   let ParentData = ref(null);
    
-   function showUserPopup() {
+   const graphData = ref({
+  machineId: '',
+});
+
+
+   function showUserPopup(machineId) {
      isUserPopupVisible.value = true;
+     graphData.value.machineId=machineId;
+    //  console.log("%%%%%%%%%%")
+     //console.log(graphData.value.machineId);
+
+     ParentData.value  = graphData.value.machineId;
+
+    //  console.log("inside")
+    //  for (const row of dataRows.value) {
+    //   const response = row.machine_name;
+    //   console.log(response)}
+      
    }
+  
+  
+
    function showUserPopupGraph() {
        isUserPopupVisibleGraph.value = true;
      }
