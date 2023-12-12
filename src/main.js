@@ -17,7 +17,7 @@ const app = createApp(App);
 
 // Configure global properties
 app.config.globalProperties.$axios = axios;
-axios.defaults.baseURL = "http://localhost:8000";
+axios.defaults.baseURL = "http://192.168.0.105:6969";
 
 // Use plugins
 app.use(CanvasJSChart, router);

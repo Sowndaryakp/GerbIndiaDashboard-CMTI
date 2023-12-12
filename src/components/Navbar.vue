@@ -73,9 +73,9 @@
 
     <!-- User Info Popup -->
     <div v-if="isUserPopupVisible" class="absolute top-16 right-8 bg-white p-4 rounded-lg shadow-lg">
-     <p>Name: {{ userInfo.name }}</p>
+     <!-- <p>Name: {{ userInfo.name }}</p>
      <p>Email: {{ userInfo.email }}</p>
-     <p>Position: {{ userInfo.position }}</p>
+     <p>Position: {{ userInfo.position }}</p> -->
      <div class="flex space-x-4"> 
        <button @click="logout" class="bg-red-500 text-white px-4 py- mt-4 rounded-lg">
          <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAACXBIWXMAAAsTAAALEwEAmpwYAAABcElEQVR4nO3WPU8VURDG8W0RKbkgWIiQ4Hcx9AKfALESPwxaEErwDSKEHigIRhtNxBJqiFGEAtD8zAlDckNy4cCeXCl4mt3sPjv/3XNmZqeqbnXThHuYwhJ2cIgDbGEFk7hfEtiLWRy7XCd4hb660Af4EUETeB5P4noHOjGMUczhKLz7GKkL3sViOs/wP8TbgP/Fs6qdcpoLfwI+8j/gSb9SYrYb/i7gL3MfaOAzVmuCByPhTtCfA/0ab7pZBxzxXkesp7nQdGwUAI9HvOVWhm58CVPqRr11oRE31XnS91aGT66n9UvAXeHbLw1eqwvuPrfURWoPjyLmt5uVXC3gH6ty5TSRY27Enm/UhA5lN5CSwvv42ul2Ql8E9GepnpALPfstPr5OgDQI7GEBA5l7era8CTpZavR5g7GYNO7gbtTpeNw7blreq39ps9CDmaZ56iKl7J0uuqdOp83n+IDtGG9/p46UmkOq07aWzK2qTP0DEPoYdQrQa0kAAAAASUVORK5CYII=">

@@ -120,7 +120,7 @@ const option = ref({
 
 const fetchData = async () => {
   try {
-    const url = `http://172.18.100.240:6969/live_data/${props.dataFromParent}`;
+    const url = `http://192.168.0.105:6969/live_data/${props.dataFromParent}`;
     const response = await axios.get(url);
     const newData = response.data[0]; // Assuming only one data point is returned
 

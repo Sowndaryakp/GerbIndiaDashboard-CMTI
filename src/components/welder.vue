@@ -62,12 +62,15 @@
                </td>
                <td>
                  <div class=" flex  flex-col items-center font-poppins ">
+                  <div  v-if="!row.isEditing" class="text-center"><td class="border border-gray-300  px-2 py-1 rounded-md mb-4 w-24">{{ row.element }}</td></div>
+                  <div v-else>
                    <select v-model="row.element" @change="onOptionSelected($event)"
                      class="border border-gray-300  px-2 py-1 rounded-md mb-4">
                      <option disabled value="">Element Type</option>
                      <option v-for="element in elements" :key="element.value" :value="element.value">{{ element.label }}
                      </option>
                    </select>
+                  </div>
                    <!-- <div class="text-center"><td class="bg-blue-100 border-1    w-36 font-bold rounded-lg shadow-lg  ">{{ row.element }}</td></div> -->
                    
                  <div class="mt-2 mb-2"> 
@@ -222,16 +225,35 @@
                  <!-- </div> -->
 
                  <div class=" flex space-y-2 flex-col items-center  sm:px-4 sm:py-16 font-poppins">
-                   <div class="flex space-x-2">
+                   <!-- <div class=" space-x-2 border border-gray-300 px-4 py-6 rounded-md h-25 w-36">
+                    <p class="text-lg text-black text-center font-bold -mb-2 ">I No</p>
                     <div  v-if="!row.isEditing" type="text" class="border border-gray-300 rounded-md w-26 px-2 py-2 sm:px-4 sm:py-2 mb-2 w-36 text-center"><b> {{ row.I_no }}</b></div>
-                 <div v-else><input v-model="row.I_no" class="border border-gray-300 px-4 py-2 rounded-md w-40 text-center" placeholder="I_no"></div>
-                 </div>
+                 <div v-else><input v-model="row.I_no" class="border border-gray-300 px-4 py-2 rounded-md w-24 text-center" placeholder="I_no"></div>
+                 </div> -->
 
-                 <div  v-if="!row.isEditing" type="text" class="border border-gray-300 rounded-md w-26 px-2 py-2 sm:px-4 sm:py-2 mb-2 w-36 text-center"><b> {{row.Fc_no }}</b></div>
-                 <div v-else><input v-model="row.Fc_no" class="border border-gray-300 px-4 py-2 rounded-md w-40 text-center" placeholder="Fc_no"></div>
+                 <div class="border border-gray-300 px-4 py-6 rounded-md h-20 w-36">
+                     <p class="text-lg text-black text-center font-bold -mt-4 ">I No</p>
+                     <div class="absolute  mr-4"></div>
+                     <div v-if="!row.isEditing" type="text"  class="border border-gray-300 rounded-md ml-3 h-8 w-24 mb-6">
+                       <p class="text-lg text-blue-800 text-center font-bold "> {{ row.I_no }}</p></div>
+                     <div v-else><input v-model=" row.I_no" class="border border-gray-300 px-4 py-2 rounded-md ml-4 h-8 w-24 text-center" placeholder="I No"></div>
+                   </div>
 
-                 <div  v-if="!row.isEditing" type="text" class="border border-gray-300 rounded-md w-26 px-2 py-2 sm:px-4 sm:py-2 mb-2 w-36 text-center"><b> {{ row.project }}</b></div>
-                 <div v-else><input v-model="row.project" class="border border-gray-300 px-4 py-2 rounded-md w-40 text-center" placeholder="project"></div>
+                   <div class="border border-gray-300 px-4 py-6 rounded-md h-20 w-36">
+                     <p class="text-lg text-black text-center font-bold -mt-4 ">Fc No</p>
+                     <div class="absolute  mr-4"></div>
+                     <div v-if="!row.isEditing" type="text"  class="border border-gray-300 rounded-md ml-3 h-8 w-24 mb-6">
+                       <p class="text-lg text-blue-800 text-center font-bold "> {{row.Fc_no}}</p></div>
+                     <div v-else><input v-model="row.Fc_no" class="border border-gray-300 px-4 py-2 rounded-md ml-4 h-8 w-24 text-center" placeholder="Fc No"></div>
+                   </div>
+
+                   <div class="border border-gray-300 px-4 py-6 rounded-md h-20 w-36">
+                     <p class="text-lg text-black text-center font-bold -mt-4 ">Project</p>
+                     <div class="absolute  mr-4"></div>
+                     <div v-if="!row.isEditing" type="text"  class="border border-gray-300 rounded-md  h-8 w-28 mb-6" placeholder="Project">
+                       <p class="text-lg text-blue-800 text-center font-bold "> {{row.project}}</p></div>
+                     <div v-else><input v-model="row.project" class="border border-gray-300 px-4 py-2 rounded-md h-8 w-28 text-center" placeholder="Project"></div>
+                   </div>
 
 
                  <!-- <div class=" flex space-y-2 flex-col items-center  sm:px-4 sm:py-16 font-poppins">
@@ -383,10 +405,10 @@ const stateChartData= ref([]);
 //notification new updated one
 const fetchStateData = async () => {
   try {
-    const response = await axios.get('http://172.18.100.240:6969/graph/get_graph_data');
+    const response = await axios.get('http://192.168.0.105:6969/graph/get_graph_data');
     const responseData = response.data;
     //'http://172.18.7.76:6565/machines'
-    //172.18.100.240:6969/graph/get_graph_data
+    //192.168.0.105:6969/graph/get_graph_data
 
     // Process the response data as needed
     stateChartData.value = responseData;
@@ -417,7 +439,7 @@ const npopupData = ref({
 //   console.log(npopupData.value.machineId)
 //   try {
 //     console.log(npopupData.value.machineId);
-//     const popresponse = await axios.get(`http://172.18.100.240:6969/logs/${npopupData.value.machineId}`);
+//     const popresponse = await axios.get(`http://192.168.0.105:6969/logs/${npopupData.value.machineId}`);
 //     console.log("api called")
 //     npopupData.value.current = popresponse.data.detail.current;
 //     npopupData.value.voltage = popresponse.data.detail.voltage;
@@ -436,7 +458,7 @@ async function nopenPopup(machineId){
   // console.log(npopupData.value.machineId)
   try {
     // console.log(npopupData.value.machineId);
-    const popresponse = await axios.get(`http://172.18.100.240:6969/logs/${npopupData.value.machineId}`);
+    const popresponse = await axios.get(`http://192.168.0.105:6969/logs/${npopupData.value.machineId}`);
     console.log(popresponse)
     // console.log("api called")
     npopupData.value.current = popresponse.data.detail.current;
@@ -453,7 +475,7 @@ async function nopenPopup(machineId){
 
 // onMounted(async () => {
 //   try {
-//     const popresponse = await axios.get(`http://172.18.100.240:6969/logs/${npopupData.value.machineId}`);
+//     const popresponse = await axios.get(`http://192.168.0.105:6969/logs/${npopupData.value.machineId}`);
 //     console.log("api called")
 //     data.value = popresponse.data;
 //     npopupData.value.machineId = data.value
@@ -766,7 +788,7 @@ const nclosePopup = () => {
 //   try {
 //     const rows = ['7H','7D'];
 //     for (const row of rows) {
-//       const response = await fetch(`http://172.18.100.240:6969/op_shift/${row}`);
+//       const response = await fetch(`http://192.168.0.105:6969/op_shift/${row}`);
 //       const data = await response.json();
 //       console.log(`Data for row ${row}:`, data);
 //       if (operatorData) {
@@ -787,7 +809,7 @@ const nclosePopup = () => {
 // onMounted(async () => {
 //   // Fetch operator data for each row
 //   for (const row of dataRows.value) {
-//     const response = await fetch(`http://172.18.100.240:6969/op_shift/${row.itemno}`);
+//     const response = await fetch(`http://192.168.0.105:6969/op_shift/${row.itemno}`);
 //     const operatorData = await response.json();
 //     console.log("++--==--")
 //     console.log(operatorData)
@@ -815,7 +837,7 @@ const nclosePopup = () => {
 //   for (const row of dataRows.value) {
 //     try {
 //       // Fetch element types based on row.itemno
-//       const typesResponse = await fetch(`http://172.18.100.240:6969/op_shift/${row.itemno}`);
+//       const typesResponse = await fetch(`http://192.168.0.105:6969/op_shift/${row.itemno}`);
 //       const typesData = await typesResponse.json();
 
 //       // Assuming typesData is an array of types, for simplicity
@@ -823,7 +845,7 @@ const nclosePopup = () => {
 
 //       // Fetch element data for each type
 //       for (const elementType of elementTypes) {
-//         const elementResponse = await fetch(`http://172.18.100.240:6969/elements/${elementType}`);
+//         const elementResponse = await fetch(`http://192.168.0.105:6969/elements/${elementType}`);
 //         const elementData = await elementResponse.json();
 
 //         console.log("Element Type:", elementType);
@@ -850,28 +872,42 @@ const nclosePopup = () => {
 
 
 
+
 onMounted(async () => {
   // Fetch operator data for each row
   for (const row of dataRows.value) {
     try {
       // Fetch element types based on row.itemno
-      const typesResponse = await fetch(`http://172.18.100.240:6969/op_shift/${row.itemno}`);
+      const typesResponse = await fetch(`http://192.168.0.105:6969/op_shift/${row.itemno}`);
       const typesData = await typesResponse.json();
-      // console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
-      //  console.log(typesData)
-   
+      console.log("filter dataaaaaaaaaaaaaaaaaaaaaaaaa")
 
-      // Assuming typesData is an array of types, for simplicity
-      const elementTypes = typesData.map(item => item.element_type);
-      const welderDetails = typesData.map(item => item.operator_name);
+      // Ensure typesData is an array
+      if (!Array.isArray(typesData)) {
+        console.error('Invalid response format. Expected an array.');
+        continue; // Skip to the next iteration
+      }
+
+      // Filter typesData based on the current time
+      const currentDate = new Date();
+      const filteredTypesData = typesData.filter(item => {
+        const startTime = new Date(item.start_time);
+        const endTime = new Date(item.end_time);
+        return startTime <= currentDate && currentDate <= endTime;
+      });
+      console.log("filter dataaaaaaaaaaaaaaaaaaaaaaaaa")
+
+      // Assuming filteredTypesData is an array of types, for simplicity
+      const elementTypes = filteredTypesData.map(item => item.element_type);
+      const welderDetails = filteredTypesData.map(item => item.operator_name);
 
       //operator
 
       for (const welderDetail of welderDetails) {
-        const welderResponse = await fetch(`http://172.18.100.240:6969/welder/${welderDetail}`);
+        const welderResponse = await fetch(`http://192.168.0.105:6969/welder/${welderDetail}`);
         const welderdata = await welderResponse.json();
-        // console.log("_____________________________________________")
-        // console.log(welderdata)
+        console.log("_____________________________________________")
+        console.log(welderdata)
         row.I_no=welderdata.I_no
         row.Fc_no=welderdata.Fc_no
         row.project=welderdata.project
@@ -881,31 +917,31 @@ onMounted(async () => {
 
       // Fetch element data for each type
       for (const elementType of elementTypes) {
-        const elementResponse = await fetch(`http://172.18.100.240:6969/elements/${elementType}`);
+        const elementResponse = await fetch(`http://192.168.0.105:6969/elements/${elementType}`);
         const elementData = await elementResponse.json();
 
-        // console.log("Element Type:", elementType);
-        // console.log("Element Data:", elementData);
+        console.log("Element Type:", elementType);
+        console.log("Element Data:", elementData);
 
         // Assuming the response contains only one item
-        const { standard_current, standard_voltage,range } = elementData;
+        const { current, voltage,range } = elementData;
         const operatorInfo = typesData[0];
 
         // Update the standard current and voltage for the current row
-        row.standard.standard_current = standard_current;
-        row.standard.standard_voltage = standard_voltage;
+        row.standard.current = current;
+        row.standard.voltage = voltage;
         row.range = range;
         // row.standard.voltage = element_description;
 
         // Display the standard current and voltage
-        // console.log("Standard Current:", row.standard.standard_current);
-        // console.log("Standard Voltage:", row.standard.standard_voltage);
+        console.log("Standard Current:", row.standard.current);
+        console.log("Standard Voltage:", row.standard.voltage);
 
         // Update the operator field for the current row
         if (operatorInfo) {
           row.operator = operatorInfo.operator_name;
           row.element = operatorInfo.element_type;
-          // console.log(row.operator)
+          console.log(row.operator)
         }
       }
     } catch (error) {
@@ -914,7 +950,7 @@ onMounted(async () => {
   }
 });
 
-//http://172.18.100.240:6969/welder/
+//http://192.168.0.105:6969/welder/
 
 // console.log("************************************")
       // console.log(operatorInfo.element_type);
@@ -922,7 +958,7 @@ onMounted(async () => {
       // // row.element = operatorInfo.element_type;
       // // row.element = operatorInfo.element_type;
       // row.current = operatorInfo.current;
-      // const responseelem = await fetch(`//172.18.100.240:6969/elements/${operatorInfo.element_type}`);
+      // const responseelem = await fetch(`//192.168.0.105:6969/elements/${operatorInfo.element_type}`);
       // console.log("+++++++++++++++++++++++")
       // console.log(responseelem)
 
@@ -940,7 +976,7 @@ onMounted(async () => {
    
   //    try {
   //     for (const row of dataRows.value){
-  //      const response = await axios.get(`http://172.18.100.240:6969/elements/${row.element}`);
+  //      const response = await axios.get(`http://192.168.0.105:6969/elements/${row.element}`);
   //      console.log('API Response:', response.data);
   //      dataRows.value.forEach((row) => {
   //        if (row.element) {
@@ -957,7 +993,7 @@ onMounted(async () => {
   //    console.log('Selected item:', selectedValue);
    
   //    try {
-  //      const response = await axios.get(`http://172.18.100.240:6969/elements/${selectedValue}`);
+  //      const response = await axios.get(`http://192.168.0.105:6969/elements/${selectedValue}`);
   //      console.log('API Response:', response.data);
   //      dataRows.value.forEach((row) => {
   //        if (row.element === selectedValue) {
@@ -995,7 +1031,7 @@ onMounted(async () => {
     //  console.log('Selected item:', selectedValue);
    
      try {
-       const response = await axios.get(`http://172.18.100.240:6969/welder/${selectedValue}`);
+       const response = await axios.get(`http://192.168.0.105:6969/welder/${selectedValue}`);
       //  console.log('API Response:', response.data);
        dataRows.value.forEach((row) => {
          if (row.operator === selectedValue) {
@@ -1012,7 +1048,7 @@ onMounted(async () => {
   //    console.log('Selected item:', selectedValue);
    
   //    try {
-  //      const response = await axios.get(`http://172.18.100.240:6969/welder/${selectedValue}`);
+  //      const response = await axios.get(`http://192.168.0.105:6969/welder/${selectedValue}`);
   //      console.log('API Response:', response.data);
   //      dataRows.value.forEach((row) => {
   //        if (row.operator === selectedValue) {
@@ -1048,7 +1084,7 @@ const dataLoaded = ref(false);
 const fetchDataFromBackend = async () => {
   try {
     for (const row of dataRows.value) {
-      const response = await axios.get(`http://172.18.100.240:6969/live_data/${row.machine_name}`);
+      const response = await axios.get(`http://192.168.0.105:6969/live_data/${row.machine_name}`);
       // console.log("Insde the");
       const current = response.data[0]["current"];
       const voltage = response.data[0]["voltage"];
@@ -1103,7 +1139,7 @@ function convertToEpochTime(dateTimeString) {
 
 async function saveEditedData(row) {
   try {
-    const response = await axios.put(`http://172.18.100.240:6969/edit/${row.element}/${row.operator}`, {
+    const response = await axios.put(`http://192.168.0.105:6969/edit/${row.element}/${row.operator}`, {
       standard_current: row.standard.standard_current,
       standard_voltage: row.standard.standard_voltage,
       element_description: row.element_description,
@@ -1126,7 +1162,7 @@ async function saveEditedData(row) {
 
     // Fetch recent data from the fast API endpoint
     const machineId = row.machine_name; // Implement a function to get machineId
-    const recentDataResponse = await axios.get(`http://172.18.100.240:6969/op_shift/${machineId}`);
+    const recentDataResponse = await axios.get(`http://192.168.0.105:6969/op_shift/${machineId}`);
     const recentData = recentDataResponse.data; // Assuming the data is an array
 
     // Filter data for the specific operator
@@ -1146,7 +1182,7 @@ async function saveEditedData(row) {
       console.log(machineId);
       console.log(mostRecentData.start_time);
 
-      const createEntryResponse = await axios.post("http://172.18.100.240:6969/op_shift/", {
+      const createEntryResponse = await axios.post("http://192.168.0.105:6969/op_shift/", {
         operator_name: row.operator,
         element_type: row.element, // Change this to the appropriate type
         machine_name: machineId,
@@ -1168,7 +1204,7 @@ async function saveEditedData(row) {
 // //all element type and operator edit/save
 // async function saveEditedData(row) {
 //      try {
-//        const response = await axios.put(`http://172.18.100.240:6969/edit/${row.element}/${row.operator}
+//        const response = await axios.put(`http://192.168.0.105:6969/edit/${row.element}/${row.operator}
 //        `, {
 //         standard_current: row.standard.standard_current, 
 //         standard_voltage: row.standard.standard_voltage, 
