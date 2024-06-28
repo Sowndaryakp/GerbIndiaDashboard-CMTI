@@ -12,8 +12,9 @@ import {
 import * as echarts from 'echarts/core';
 
 import VChart, { THEME_KEY } from 'vue-echarts';
-import { ref, provide, onMounted, watch } from 'vue';
+import { ref, provide, watch } from 'vue';
 import axios from 'axios';
+import Datepicker from 'vue3-datepicker';
 
 use([
   CanvasRenderer,
@@ -31,63 +32,23 @@ let option;
 
 let startTime = +new Date();
 let categories = ['7G', '7H', '7J','7K', '7L', '27C','27D', '27E'];
-// let types = [
-//   { name: 'OFF', color: '#7b9ce1' },
-//   { name: 'IDLE', color: '#bd6d6c' },
-//   { name: 'PRODUCTION', color: '#75d874' }
-// ];
 
-// Generate mock data
-// function generateChartData() {
-//   categories.forEach(function (category, index) {
-//     var baseTime = startTime;
-//     for (var i = 0; i < dataCount; i++) {
-//       var typeItem = types[Math.round(Math.random() * (types.length - 1))];
-//       var duration = Math.round(Math.random() * 10000);
-//       data.push({
-//         name: typeItem.name,
-//         value: [index, baseTime, (baseTime += duration), duration],
-//         itemStyle: {
-//           normal: {
-//             color: typeItem.color
-//           }
-//         }
-//       });
-//       baseTime += Math.round(Math.random() * 2000);
-//     }
-//     console.log("okokok");
-//     console.log(data);
-//   });
-// }
-
-// generateChartData();
-
-// console.log("Graph DATA: ");
-// console.log(data);
-// Define props for the component
 const props = defineProps({
-  // 1. Define the chartData prop with default values
   chartData: {
     type: Object,
     default: () => ({ minimumTimestamp: 0, dataPoints: [] }),
   }
 });
 
-// 2. Define the renderItem function with parameters 'params' and 'api'
+const startDate = ref('');
+const endDate = ref('');
+
 function renderItem(params, api) {
-  // 3. Extract category index from the value at index 0
   let categoryIndex = api.value(0);
-
-  // 4. Calculate the start coordinate based on the value at index 1 and category index
   let start = api.coord([api.value(1), categoryIndex]);
-
-  // 5. Calculate the end coordinate based on the value at index 2 and category index
   let end = api.coord([api.value(2), categoryIndex]);
-
-  // 6. Calculate the height as a fraction of the total height
   let height = api.size([0, 1])[1] * 0.3;
 
-  // 7. Create a clipped rectangle shape using echarts.graphic.clipRectByRect
   let rectShape = echarts.graphic.clipRectByRect(
     {
       x: start[0],
@@ -103,7 +64,6 @@ function renderItem(params, api) {
     }
   );
 
-  // 8. Return a rectangle shape if rectShape exists, with style and transition information
   return (
     rectShape && {
       type: 'rect',
@@ -114,25 +74,23 @@ function renderItem(params, api) {
   );
 }
 
-
 function epochToDateTimeString(epochTimestamp) {
-  const date = new Date(epochTimestamp); // Convert seconds to milliseconds
+  const date = new Date(epochTimestamp);
   const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0'); // Month is zero-based
+  const month = String(date.getMonth() + 1).padStart(2, '0');
   const day = String(date.getDate()).padStart(2, '0');
   const hours = String(date.getHours()).padStart(2, '0');
   const minutes = String(date.getMinutes()).padStart(2, '0');
   const seconds = String(date.getSeconds()).padStart(2, '0');
 
-  // Return the formatted date-time string
   return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 }
 
 option = ref({
   tooltip: {
     formatter: function (params) {
-      return params.marker + params.name + ', ' + 'Start Time: ' +  epochToDateTimeString(params.value[1]) +
-       ', End Time: ' + epochToDateTimeString(params.value[2]) + ', Duration: ' + params.value[3] + ' ms' ;
+      return params.marker + params.name + ', ' + 'Start Time: ' + epochToDateTimeString(params.value[1]) +
+        ', End Time: ' + epochToDateTimeString(params.value[2]) + ', Duration: ' + params.value[3] + ' ms';
     }
   },
   title: {
@@ -144,15 +102,15 @@ option = ref({
       type: 'slider',
       filterMode: 'weakFilter',
       showDataShadow: false,
-      bottom: 20, // Change to the desired position (e.g., bottom or top)
-      start: 0, // Initial start value (e.g., 0%)
-      end: 100, // Initial end value (e.g., 100%)
+      bottom: 20,
+      start: 0,
+      end: 100,
     },
     {
       type: 'inside',
       filterMode: 'weakFilter',
-      start: 0, // Initial start value (e.g., 0%)
-      end: 100, // Initial end value (e.g., 100%)
+      start: 0,
+      end: 100,
     }
   ],
   grid: {
@@ -187,54 +145,54 @@ option = ref({
   ]
 });
 
-// const fetchData = async () => {
-//   try {
-//     const response = await axios.get('http://172.18.100.33:6565/machines');
-//     console.log("OKOKOKOKOKOK");
-//     const newData = response.data;
-//     // Assuming the structure of newData is similar to props.chartData
-//     option.value.series[0].data = newData;
-//     option.value = { ...option.value };  // Trigger Vue reactivity
-//   } catch (error) {
-//     console.error('Error fetching data:', error);
-//   }
-// };
-console.log("from script setup");
-console.log(option.value);
-watch(() => props.chartData, (newData, oldData) => {
-  console.log("fsdfssssssssssssssssssssss");
-  console.log('props.chartData changed:', newData);
-  // You can update the series data here if needed
-  option.value.series[0].data = newData.dataPoints;
-  option.value.xAxis.min = newData.minimumTimestamp;
+const fetchData = async (startEpoch, endEpoch) => {
+  try {
+    const response = await axios.get(`http://172.18.100.33:6969/graph/get_graph_data_new?start_time=${startEpoch}&end_time=${endEpoch}`);
+    const newData = response.data;
+    option.value.series[0].data = newData.dataPoints;
+    option.value.xAxis.min = newData.minimumTimestamp;
+    option.value = { ...option.value };  // Trigger Vue reactivity
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+};
 
-  option.value = { ...option.value }; // Trigger Vue reactivity
-  console.log(option.value);
-});
-
-// onMounted(() => {
-//   setInterval(() => {
-//     generateChartData();
-//     option.value.series[0].data = data;
-//     option.value = { ...option.value };  // Trigger Vue reactivity
-//   }, 2000);
-// });
-
-// onMounted(() => {
-//   // Fetch data initially
-//   fetchData();
-
-//   // Fetch data every 2 seconds
-//   setInterval(fetchData, 2000);
-// });
-
+const submitDate = () => {
+  if (startDate.value && endDate.value) {
+    const startEpoch = Math.floor(new Date(startDate.value).getTime() / 1000);
+    const endEpoch = Math.floor(new Date(endDate.value).getTime() / 1000);
+    fetchData(startEpoch, endEpoch);
+  } else {
+    console.error('Please select both start date and end date.');
+  }
+};
 </script>
+
 
 <template>
   <div>
-    <div class="flex justify-center">
-      <span class="text-blue-600 font-montserrat font-bold  ">All Machines Production Stats</span>
+    <div class="flex justify-center mb-4">
+      <span class="text-blue-600 font-montserrat font-bold">All Machines Production Stats</span>
     </div>
-  <v-chart class="chart" :option="option" autoresize />
+    <div class="flex justify-center mb-4 items-center">
+      <div class="mr-4 ml-12">
+        <label for="start-date" class="mr-2 text-sm font-medium text-gray-700">
+          Start Date:
+          <input type="date" v-model="startDate" id="start-date" class="border border-gray-300 rounded-lg px-2 py-1" />
+        </label>
+      </div>
+      <div class="mr-4">
+        <label for="end-date" class="mr-2 text-sm font-medium text-gray-700">
+          End Date:
+          <input type="date" v-model="endDate" id="end-date" class="border border-gray-300 rounded-lg px-2 py-1" />
+        </label>
+      </div>
+      <button @click="submitDate" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 ml-2 px-4 rounded shadow mb-1">Submit</button>
+    </div>
+    <v-chart class="chart" :option="option" autoresize />
   </div>
 </template>
+
+
+
+

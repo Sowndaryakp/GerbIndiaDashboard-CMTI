@@ -423,7 +423,7 @@
                </div>
              </div>
              <div v-if="isUserLiveCurrentPopupVisible" class="fixed inset-0 flex items-center justify-center z-50">
-               <div class="bg-white p-8 rounded-lg shadow-lg w-1/2 h-2/3 relative">
+               <div class="bg-white p-8 rounded-lg shadow-lg w-1/2 h-1/2 relative">
                 <LineGraph :dataFromParent="graphData"/>
                 <!-- <LiveCurrent/> -->
                  <!-- <Report/> -->
@@ -440,7 +440,7 @@
                </div>
                <div v-if="isStackVisible" class="fixed inset-0 flex items-center justify-center z-50">
                 <!-- 1. Popup Container -->
-                  <div class="bg-white p-8 rounded-lg shadow-lg w-1/2 h-2/3 relative">
+                  <div class="bg-white p-8 rounded-lg shadow-lg w-1/2 h-1/2 relative">
                 <!-- 2. Chart Display Section -->
                   <div class="m-2">
                     <!-- 3. Render Stack Chart Component -->
@@ -455,7 +455,7 @@
               </div>
 
              <div v-if="isProductionVisible" class="fixed inset-0 flex items-center justify-center z-50">
-               <div class="bg-white p-8 rounded-lg shadow-lg w-1/2 h-2/3 relative">
+               <div class="bg-white p-8 rounded-lg shadow-lg w-1/2 h-1/2 relative">
                 <div class="m-2 ">
                   <Production :dataFromParentProduction="ParentProductionData" class="h-96"  />
                 </div>
@@ -629,7 +629,7 @@ const handleSubmit = async (machineId) => {
 //notification new updated one
 const fetchStateData = async () => {
   try {
-    const response = await axios.get('http://172.18.100.33:6969/graph/get_graph_data_new');
+    const response = await axios.get('http://172.18.100.33:6969/graph/get_graph_data');
     const responseData = response.data;
     //'http://172.18.100.33:6565/machines'
     //172.18.100.33:6969/graph/get_graph_data
@@ -643,8 +643,7 @@ const fetchStateData = async () => {
   }
 };
 onMounted(() => {
-  //this is fetchining all the data when you change end point also http://172.18.100.33:6969/graph/get_graph_data
-// fetchStateData();
+fetchStateData();
 
 // Fetch data every 2 seconds
 // setInterval(fetchStateData, 000);
