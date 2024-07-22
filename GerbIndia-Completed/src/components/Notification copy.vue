@@ -16,7 +16,7 @@ let alertMessage = "";
 const openPopup = async () => {
   try {
     // Make an Axios request to fetch data from the specified URL
-    const response = await axios.get("http://172.18.100.33:6969/logs/");
+    const response = await axios.get("http://192.168.0.105:6969/logs/");
     const data = response.data.Data; // Access the "Data" property
 
     // Assuming the response is an array of JSON objects

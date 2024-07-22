@@ -147,7 +147,7 @@ option = ref({
 
 const fetchData = async (startEpoch, endEpoch) => {
   try {
-    const response = await axios.get(`http://172.18.100.33:6969/graph/get_graph_data_new?start_time=${startEpoch}&end_time=${endEpoch}`);
+    const response = await axios.get(`http://192.168.0.105:6969/graph/get_graph_data_new?start_time=${startEpoch}&end_time=${endEpoch}`);
     const newData = response.data;
     option.value.series[0].data = newData.dataPoints;
     option.value.xAxis.min = newData.minimumTimestamp;

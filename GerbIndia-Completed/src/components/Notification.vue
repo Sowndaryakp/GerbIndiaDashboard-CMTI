@@ -58,7 +58,7 @@ const router = useRouter(); // Initialize Vue Router
 const calculateRanges = async () => {
   try {
     // Make an Axios request to fetch data from the specified URL
-    const response = await axios.get(`http://172.18.100.33:6969/logs/${'7H'}`);
+    const response = await axios.get(`http://192.168.0.105:6969/logs/${'7H'}`);
     responseData.value = response.data; // Store the entire response
 
     // Extract and process data, similar to your previous code

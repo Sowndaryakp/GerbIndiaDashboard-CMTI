@@ -177,7 +177,7 @@ option = ref({
 
 // const fetchData = async () => {
 //   try {
-//     const response = await axios.get('http://172.18.100.33:6565/machines');
+//     const response = await axios.get('http://192.168.0.105:6565/machines');
 //     console.log("OKOKOKOKOKOK");
 //     const newData = response.data;
 //     // Assuming the structure of newData is similar to props.chartData
@@ -220,11 +220,11 @@ watch(() => props.chartData, (newData, oldData) => {
 const productChartData = ref([]);
 const fetchProductData = async () => {
   try {
-    const response = await axios.get('http://172.18.100.33:6969/graph/${props.dataFromParentProduction}');
+    const response = await axios.get('http://192.168.0.105:6969/graph/${props.dataFromParentProduction}');
     const responseData = response.data;
     console.log("%%%%%%%%%%%%%%%%%%%%%%%%%")
-    //'http://172.18.100.33:6565/machines'
-    //172.18.100.33:6969/graph/get_graph_data
+    //'http://192.168.0.105:6565/machines'
+    //192.168.0.105:6969/graph/get_graph_data
 
     // Process the response data as needed
     productChartData.value = responseData;

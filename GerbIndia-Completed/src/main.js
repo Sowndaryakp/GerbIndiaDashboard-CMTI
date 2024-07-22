@@ -17,7 +17,7 @@ const app = createApp(App);
 
 // Configure global properties
 app.config.globalProperties.$axios = axios;
-axios.defaults.baseURL = "http://172.18.100.33:6969";
+axios.defaults.baseURL = "http://192.18.100.33:6969";
 
 // Use plugins
 app.use(CanvasJSChart, router);
@@ -27,17 +27,17 @@ app.component('apexchart', VueApexCharts);
 // Global navigation guard to check if the user is authenticated before accessing protected routes
 router.beforeEach((to, from, next) => {
   const isAuthenticated = !!localStorage.getItem("authToken");
-  console.log("autenticatioooooom")
-  console.log(isAuthenticated)
-  console.log(to.meta)
-  console.log(to.meta.requiresAuth)
-  console.log(!isAuthenticated)
+  // console.log("autenticatioooooom")
+  // console.log(isAuthenticated)
+  // console.log(to.meta)
+  // console.log(to.meta.requiresAuth)
+  // console.log(!isAuthenticated)
 
   if (to.meta.requiresAuth && !isAuthenticated) {
     // If the route requires authentication and the user is not authenticated, redirect to the login page
-    console.log("iside function")
-    console.log(to.meta.requiresAuth)
-    console.log(!isAuthenticated)
+    // console.log("iside function")
+    // console.log(to.meta.requiresAuth)
+    // console.log(!isAuthenticated)
     next("/error404");
   } else {
     next();

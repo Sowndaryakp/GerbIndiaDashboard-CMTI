@@ -83,7 +83,7 @@ function epochToDateTimeString(epochTimestamp) {
 
 const fetchData = async () => {
   try {
-    const response = await axios.get(`http://172.18.100.33:6969/graph/get_production_data?machine_id=${props.dataFromParentProduction}&date=${selectedDate.value}`);
+    const response = await axios.get(`http://192.168.0.105:6969/graph/get_production_data?machine_id=${props.dataFromParentProduction}&date=${selectedDate.value}`);
     const newData = response.data;
 
     // Calculate total duration for IDLE and PRODUCTION states

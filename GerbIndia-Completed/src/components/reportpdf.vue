@@ -232,7 +232,7 @@ const stateChartData = ref([]);
 // Function to fetch state data from the endpoint
 const fetchStateData = async () => {
   try {
-    const response = await axios.get('http://172.18.100.33:6565/machines');
+    const response = await axios.get('http://192.168.0.105:6565/machines');
     const responseData = response.data;
 
     // Process the response data as needed

@@ -198,7 +198,7 @@ const submitWelderForm = async () => {
       qualified_thickness: qualifiedThickness.value,
     };
 
-    const response = await axios.post('http://172.18.100.33:6969/welder/', formData);
+    const response = await axios.post('http://192.168.0.105:6969/welder/', formData);
 
     alertMessage.value = `Welder ${welderName.value} created successfully`;
     resetWelderFormFields();
@@ -224,7 +224,7 @@ onMounted(() => {
 
 const fetchData = async () => {
   try {
-    const response = await fetch("http://172.18.100.33:6969/welder/", {
+    const response = await fetch("http://192.168.0.105:6969/welder/", {
       redirect: 'follow',
     });
     const result = await response.json();
@@ -252,7 +252,7 @@ const saveEditedWelder = async (index) => {
   };
 
   try {
-    const url = `http://172.18.100.33:6969/welder/${editedWelder.welder_name}?welder_number=${editedWelder.welder_number}`;
+    const url = `http://192.168.0.105:6969/welder/${editedWelder.welder_name}?welder_number=${editedWelder.welder_number}`;
     alertMessage.value = `Welder "${editedWelder.welder_name}" edited successfully`;
     await axios.put(url, postData);
     tableData.value[globalIndex].isEditing = false;
@@ -264,7 +264,7 @@ const saveEditedWelder = async (index) => {
 
 const deleteWelder = async (welder) => {
   try {
-    const url = `http://172.18.100.33:6969/welder/${welder.welder_name}?welder_number=${welder.welder_number}`;
+    const url = `http://192.168.0.105:6969/welder/${welder.welder_name}?welder_number=${welder.welder_number}`;
     alertMessage.value = `Welder "${welder.welder_name}" deleted successfully`;
     await axios.delete(url);
     fetchData();

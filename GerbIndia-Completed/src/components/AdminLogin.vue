@@ -46,7 +46,7 @@ const loggedIn = ref(false); // Add a reactive variable to track login state
 
 const handleLogin = async () => {
   try {
-    const response = await axios.get('http://172.18.100.33:6969/users/2');
+    const response = await axios.get('http://192.168.0.105:6969/users/2');
     const user = response.data;
     if (email.value === user.email && password.value === user.password) {
       loggedIn.value = true; // Set login state to true
@@ -62,7 +62,7 @@ const handleLogin = async () => {
 
 // const handleLogin = async () => {
 //   try {
-//     const response = await axios.get('http://172.18.100.33:6969/users/2', {
+//     const response = await axios.get('http://192.168.0.105:6969/users/2', {
 //       headers: {
 //         'Authorization': `Bearer ${token}`,
 //       },

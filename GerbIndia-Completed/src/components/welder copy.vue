@@ -706,7 +706,7 @@ onMounted(() => {
   const fetchDataFromBackend = async () => {
     try {
       for (const row of dataRows.value) {
-        const response = await axios.get(`http://172.18.100.33:9999/live_data/${row.machine_name}`);
+        const response = await axios.get(`http://192.168.0.105:9999/live_data/${row.machine_name}`);
         const { current, voltage } = response.data;
         updateMachineLiveData(row.id, current, voltage);
       }

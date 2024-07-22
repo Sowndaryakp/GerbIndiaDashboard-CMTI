@@ -130,54 +130,49 @@
    </div>
    
    <!-- Instruction Popup -->
-   <div v-if="isInstructionPopupVisible" class="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
-  <div class="bg-white p-6 rounded-lg shadow-lg relative">
-    <button @click="hideInstructionPopup" class="absolute top-2 right-2 text-gray-600 hover:text-gray-800">
-      <img width="20" height="20" src="https://img.icons8.com/ios-glyphs/30/delete-sign.png" alt="delete-sign" />
-    </button>
-    <h2 class="text-xl font-semibold mb-4">Instructions</h2>
-    <button @click="showAddInstruction"
-        class="bg-blue-500 glassmorphic-button rounded-lg px-2 py-2 mt-2 mb-2 ml-3 text-white font-poppins flex flex-wrap">
-        <img src="https://img.icons8.com/material-outlined/24/FFFFFF/add.png" alt="add" class="w-6 h-6 mr-2" />
-        Add Instruction
-      </button>
-    <div v-for="instruction in instructions" :key="instruction.id" class="flex justify-between items-center mb-4">
-      <!-- Editing View -->
-      <div v-if="editingInstructionId === instruction.id" class="w-full">
-        <textarea v-model="editingInstructionText" class="border border-gray-300 p-2 rounded-lg w-full"></textarea>
-        <button @click="updateInstruction(instruction.id)" class="bg-green-500 text-white px-4 py-2 rounded-lg mt-2">Save</button>
-        <button @click="cancelEdit" class="bg-gray-500 text-white px-4 py-2 rounded-lg mt-2 ml-2">Cancel</button>
+   <!-- <div v-if="isInstructionPopupVisible" class="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
+      <div class="bg-white p-6 rounded-lg shadow-lg relative">
+        <button @click="hideInstructionPopup" class="absolute top-2 right-2 text-gray-600 hover:text-gray-800">
+          <img width="20" height="20" src="https://img.icons8.com/ios-glyphs/30/delete-sign.png" alt="delete-sign" />
+        </button>
+        <h2 class="text-lg font-semibold mb-4">Instructions</h2>
+        <p class="text-gray-700">The shift is scheduled from the specified start time to the designated end time.</p>
+        <p class="text-gray-700">On the welder's page, the scheduled shift will be displayed for the allotted duration.</p>
+        <p class="text-gray-700">Once the shift has concluded, it will no longer be visible on the welder's page.</p>
       </div>
-      <!-- Display View -->
-      <div v-else class="flex justify-between w-full">
-        <p class="text-gray-700">{{ instruction.instruction }}</p>
-        <div class="flex space-x-2">
-          <button @click="editInstruction(instruction)" class="bg-yellow-500 text-white px-1 py-2 rounded-lg">
-            <img width="20" height="20" src="https://img.icons8.com/sf-black-filled/64/FFFFFF/edit.png" alt="edit"/>
-          </button>
-          <button @click="deleteInstruction(instruction.id)" class="bg-red-500 text-white px-1 py-2 rounded-lg">
-            <img width="20" height="20" src="https://img.icons8.com/sf-black-filled/64/FFFFFF/delete-forever.png" alt="delete-forever"/>
-          </button>
+    </div> -->
+
+    <div v-if="isInstructionPopupVisible" class="fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50 flex items-center justify-center">
+      <div class="bg-white p-6 rounded-lg shadow-lg">
+        <h2 class="text-xl font-semibold mb-4">Instructions</h2>
+        <p class="mb-4">Here are some instructions...</p>
+
+        <!-- CRUD Buttons -->
+        <div class="flex space-x-4 mb-4">
+          <button @click="createInstruction" class="bg-green-500 text-white px-4 py-2 rounded-lg">Create</button>
+          <button @click="readInstruction" class="bg-blue-500 text-white px-4 py-2 rounded-lg">Read</button>
+          <button @click="updateInstruction" class="bg-yellow-500 text-white px-4 py-2 rounded-lg">Update</button>
+          <button @click="deleteInstruction" class="bg-red-500 text-white px-4 py-2 rounded-lg">Delete</button>
+          <h2 class="text-lg font-semibold mb-4">Instructions</h2>
+        <p class="text-gray-700">The shift is scheduled from the specified start time to the designated end time.</p>
+        <!-- <p class="text-gray-700">On the welder's page, the scheduled shift will be displayed for the allotted duration.</p>
+        <p class="text-gray-700">Once the shift has concluded, it will no longer be visible on the welder's page.</p> -->
+        
         </div>
+
+        <div v-if="instruction" class="mt-4">
+          <h3 class="text-lg font-semibold">Instruction Details</h3>
+          <pre>{{ instruction }}</pre>
+          
+        </div>
+
+        <!-- <button @click="hideInstructionPopup" class="bg-blue-500 text-white px-4 py-2 rounded-lg">Close</button> -->
+        <button @click="hideInstructionPopup" class="absolute top-2 right-2 text-gray-600 hover:text-gray-800">
+          <img width="20" height="20" src="https://img.icons8.com/ios-glyphs/30/delete-sign.png" alt="delete-sign" />
+        </button>
       </div>
     </div>
-    <div v-if="addingNewInstruction" class="w-full mb-4">
-        <textarea v-model="newInstructionText" class="border border-gray-300 p-2 rounded-lg w-full"></textarea>
-        <button @click="addInstruction" class="bg-green-500 text-white px-4 py-2 rounded-lg mt-2">Save</button>
-        <button @click="cancelAdd" class="bg-gray-500 text-white px-4 py-2 rounded-lg mt-2 ml-2">Cancel</button>
-      </div>
-    </div>
-    
-</div>
 
-   
-
-    <div v-if="alertMessage" class="fixed inset-0 flex items-center justify-center z-50">
-    <div class="w-96 p-4 bg-gray-100 border text-center border-gray-300 rounded-lg shadow-md">
-      <p class="text-center text-xl text-green-600">{{ alertMessage }}</p>
-      <button @click="closeAlert" class="bg-blue-500 text-white px-2 py-1 rounded-lg mt-2">OK</button>
-    </div>
-  </div>
  </nav>
 </template>
 
@@ -190,28 +185,13 @@ import { defineProps } from 'vue';
 import axios from 'axios';
 
 const router = useRouter()
-const alertMessage = ref('');
+
 const currentDate = ref('');
 const currentTime = ref('');
 const isUserPopupVisible = ref(false);
 const isLoginPopupVisible = ref(false);
 const isInstructionPopupVisible = ref(false);
 const instruction = ref(null);
-// const showInstructionPopup = ref(true);
-const instructions = ref([]);
-const editingInstructionId = ref(null);
-const editingInstructionText = ref('');
-const addingNewInstruction = ref(false);
-const newInstructionText = ref('');
-
-const showAlert = (message) => {
-  alertMessage.value = message;
-};
-
-const closeAlert = () => {
-  alertMessage.value = '';
-};
-
 
 const openUserLink = () => {
   window.open('https://app.tango.us/app/workflow/Managing-GerbIndia---IOT-Based-Machine-Monitoring-Dashboard----Powered-by---CMTI-445599c6dc614f309049a065bb2ab472', '_blank');
@@ -286,7 +266,6 @@ const showInstructionPopup = () => {
 
 const hideInstructionPopup = () => {
   isInstructionPopupVisible.value = false;
-  fetchInstructions();
 };
 // const hideUserPopup = () => {
 //   try {
@@ -351,115 +330,48 @@ onMounted(() => {
    currentTime.value = now.toLocaleTimeString();
  }, 1000);
 });
-const fetchInstructions = () => {
-  axios.get('http://192.168.0.105:6969/instruction/get_instructions/')
-    .then(response => {
-      instructions.value = response.data;
-    })
-    .catch(error => {
-      console.error('Error fetching instructions:', error);
-    });
-};
 
 // Inside the Navbar.vue component
 onMounted(() => {
-  fetchInstructions();
   // console.log("enteredUsername in Navbar:", props.enteredUsername);
 });
 
 // CRUD operations
-const editInstruction = (instruction) => {
-  editingInstructionId.value = instruction.id;
-  editingInstructionText.value = instruction.instruction;
+const createInstruction = async () => {
+  try {
+    const response = await axios.post('http://localhost:8000/instructions', { /* data */ });
+    alert('Instruction created successfully!');
+  } catch (error) {
+    console.error('Error creating instruction:', error);
+  }
 };
 
-const cancelEdit = () => {
-  editingInstructionId.value = null;
-  editingInstructionText.value = '';
+const readInstruction = async () => {
+  try {
+    const response = await axios.get('http://localhost:8000/instructions');
+    instruction.value = response.data;
+  } catch (error) {
+    console.error('Error reading instruction:', error);
+  }
 };
 
-const updateInstruction = (instructionId) => {
-  axios.put(`http://192.168.0.105:6969/instruction/put_instructions/instruction_id?instruction_id=${instructionId}`, {
-    instruction: editingInstructionText.value
-  })
-    .then(response => {
-      fetchInstructions(); // Refresh instructions after update
-      // alert('Instruction updated successfully!');
-      alertMessage.value = `Instruction updated successfully!`;
-      cancelEdit();
-    })
-    .catch(error => {
-      console.error('Error updating instruction:', error);
-    });
+const updateInstruction = async () => {
+  try {
+    const response = await axios.put('http://localhost:8000/instructions/{id}', { /* data */ });
+    alert('Instruction updated successfully!');
+  } catch (error) {
+    console.error('Error updating instruction:', error);
+  }
 };
 
-const deleteInstruction = (instructionId) => {
-  axios.delete(`http://192.168.0.105:6969/instruction/delete_instructions/instruction_id?instruction_id=${instructionId}`)
-    .then(response => {
-      fetchInstructions(); // Refresh instructions after deletion
-      // alert('Instruction deleted successfully!');
-      alertMessage.value = `Instruction deleted successfully!`;
-    })
-    .catch(error => {
-      console.error('Error deleting instruction:', error);
-    });
+const deleteInstruction = async () => {
+  try {
+    const response = await axios.delete('http://localhost:8000/instructions/{id}');
+    alert('Instruction deleted successfully!');
+  } catch (error) {
+    console.error('Error deleting instruction:', error);
+  }
 };
-
-const showAddInstruction = () => {
-  addingNewInstruction.value = true;
-};
-
-// const addInstruction = async () => {
-//   const response = await fetch('http://192.168.0.105:6969/instruction/post_instructions/', {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-//     body: JSON.stringify({ instruction: newInstructionText.value }),
-//   });
-//   const data = await response.json();
-//   instructions.value.push(data);
-//   addingNewInstruction.value = false;
-//   newInstructionText.value = '';
-// };
-
-
-const addInstruction = () => {
-  fetch('http://192.168.0.105:6969/instruction/post_instructions/', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ instruction: newInstructionText.value }),
-  })
-  .then(response => {
-    if (!response.ok) {
-      throw new Error('Failed to add instruction');
-    }
-    return response.json();
-  })
-  .then(data => {
-    instructions.value.push(data);
-    addingNewInstruction.value = false;
-    newInstructionText.value = '';
-    alertMessage.value =  `Instruction added successfully!`;
-    fetchInstructions(); // Fetch updated instructions after adding
-  })
-  .catch(error => {
-    console.error('Error adding instruction:', error);
-    // alert('Failed to add instruction. Please try again.');
-  });
-};
-
-
-const cancelAdd = () => {
-  addingNewInstruction.value = false;
-  newInstructionText.value = '';
-};
-onMounted(() => {
-  fetchInstructions();
-});
-
 </script>
 
 <style>

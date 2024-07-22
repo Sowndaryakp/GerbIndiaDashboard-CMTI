@@ -174,7 +174,7 @@ const chartInstance = (chart) => {
 
 const updateChart = async (chart) => {
   try {
-    const url = `http://172.18.100.33:6969/live_data/${props.dataFromParent.machineId}`;
+    const url = `http://192.168.0.105:6969/live_data/${props.dataFromParent.machineId}`;
     const response = await axios.get(url);
     const newData = response.data[0];
 

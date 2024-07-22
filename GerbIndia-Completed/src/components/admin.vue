@@ -389,7 +389,7 @@ const npopupData = ref({
 //   console.log(npopupData.value.machineId)
 //   try {
 //     console.log(npopupData.value.machineId);
-//     const popresponse = await axios.get(`http://172.18.100.33:6969/logs/${npopupData.value.machineId}`);
+//     const popresponse = await axios.get(`http://192.168.0.105:6969/logs/${npopupData.value.machineId}`);
 //     console.log("api called")
 //     npopupData.value.current = popresponse.data.detail.current;
 //     npopupData.value.voltage = popresponse.data.detail.voltage;
@@ -408,7 +408,7 @@ async function nopenPopup(machineId){
   console.log(npopupData.value.machineId)
   try {
     console.log(npopupData.value.machineId);
-    const popresponse = await axios.get(`http://172.18.100.33:6969/logs/${npopupData.value.machineId}`);
+    const popresponse = await axios.get(`http://192.168.0.105:6969/logs/${npopupData.value.machineId}`);
     console.log("api called")
     npopupData.value.current = popresponse.data.detail.current;
     npopupData.value.voltage = popresponse.data.detail.voltage;
@@ -424,7 +424,7 @@ async function nopenPopup(machineId){
 
 // onMounted(async () => {
 //   try {
-//     const popresponse = await axios.get(`http://172.18.100.33:6969/logs/${npopupData.value.machineId}`);
+//     const popresponse = await axios.get(`http://192.168.0.105:6969/logs/${npopupData.value.machineId}`);
 //     console.log("api called")
 //     data.value = popresponse.data;
 //     npopupData.value.machineId = data.value
@@ -737,7 +737,7 @@ const nclosePopup = () => {
 //   try {
 //     const rows = ['7H','7D'];
 //     for (const row of rows) {
-//       const response = await fetch(`http://172.18.100.33:6969/op_shift/${row}`);
+//       const response = await fetch(`http://192.168.0.105:6969/op_shift/${row}`);
 //       const data = await response.json();
 //       console.log(`Data for row ${row}:`, data);
 //       if (operatorData) {
@@ -758,7 +758,7 @@ const nclosePopup = () => {
 // onMounted(async () => {
 //   // Fetch operator data for each row
 //   for (const row of dataRows.value) {
-//     const response = await fetch(`http://172.18.100.33:6969/op_shift/${row.itemno}`);
+//     const response = await fetch(`http://192.168.0.105:6969/op_shift/${row.itemno}`);
 //     const operatorData = await response.json();
 //     console.log("++--==--")
 //     console.log(operatorData)
@@ -786,7 +786,7 @@ const nclosePopup = () => {
 //   for (const row of dataRows.value) {
 //     try {
 //       // Fetch element types based on row.itemno
-//       const typesResponse = await fetch(`http://172.18.100.33:6969/op_shift/${row.itemno}`);
+//       const typesResponse = await fetch(`http://192.168.0.105:6969/op_shift/${row.itemno}`);
 //       const typesData = await typesResponse.json();
 
 //       // Assuming typesData is an array of types, for simplicity
@@ -794,7 +794,7 @@ const nclosePopup = () => {
 
 //       // Fetch element data for each type
 //       for (const elementType of elementTypes) {
-//         const elementResponse = await fetch(`http://172.18.100.33:6969/elements/${elementType}`);
+//         const elementResponse = await fetch(`http://192.168.0.105:6969/elements/${elementType}`);
 //         const elementData = await elementResponse.json();
 
 //         console.log("Element Type:", elementType);
@@ -826,7 +826,7 @@ onMounted(async () => {
   for (const row of dataRows.value) {
     try {
       // Fetch element types based on row.itemno
-      const typesResponse = await fetch(`http://172.18.100.33:6969/op_shift/${row.itemno}`);
+      const typesResponse = await fetch(`http://192.168.0.105:6969/op_shift/${row.itemno}`);
       const typesData = await typesResponse.json();
 
       // Assuming typesData is an array of types, for simplicity
@@ -836,7 +836,7 @@ onMounted(async () => {
       //operator
 
       for (const welderDetail of welderDetails) {
-        const welderResponse = await fetch(`http://172.18.100.33:6969/welder/${welderDetail}`);
+        const welderResponse = await fetch(`http://192.168.0.105:6969/welder/${welderDetail}`);
         const welderdata = await welderResponse.json();
         console.log("_____________________________________________")
         console.log(welderdata)
@@ -849,7 +849,7 @@ onMounted(async () => {
 
       // Fetch element data for each type
       for (const elementType of elementTypes) {
-        const elementResponse = await fetch(`http://172.18.100.33:6969/elements/${elementType}`);
+        const elementResponse = await fetch(`http://192.168.0.105:6969/elements/${elementType}`);
         const elementData = await elementResponse.json();
 
         console.log("Element Type:", elementType);
@@ -882,7 +882,7 @@ onMounted(async () => {
   }
 });
 
-//http://172.18.100.33:6969/welder/
+//http://192.168.0.105:6969/welder/
 
 // console.log("************************************")
       // console.log(operatorInfo.element_type);
@@ -890,7 +890,7 @@ onMounted(async () => {
       // // row.element = operatorInfo.element_type;
       // // row.element = operatorInfo.element_type;
       // row.current = operatorInfo.current;
-      // const responseelem = await fetch(`//172.18.100.33:6969/elements/${operatorInfo.element_type}`);
+      // const responseelem = await fetch(`//192.168.0.105:6969/elements/${operatorInfo.element_type}`);
       // console.log("+++++++++++++++++++++++")
       // console.log(responseelem)
 
@@ -908,7 +908,7 @@ onMounted(async () => {
    
   //    try {
   //     for (const row of dataRows.value){
-  //      const response = await axios.get(`http://172.18.100.33:6969/elements/${row.element}`);
+  //      const response = await axios.get(`http://192.168.0.105:6969/elements/${row.element}`);
   //      console.log('API Response:', response.data);
   //      dataRows.value.forEach((row) => {
   //        if (row.element) {
@@ -925,7 +925,7 @@ onMounted(async () => {
   //    console.log('Selected item:', selectedValue);
    
   //    try {
-  //      const response = await axios.get(`http://172.18.100.33:6969/elements/${selectedValue}`);
+  //      const response = await axios.get(`http://192.168.0.105:6969/elements/${selectedValue}`);
   //      console.log('API Response:', response.data);
   //      dataRows.value.forEach((row) => {
   //        if (row.element === selectedValue) {
@@ -963,7 +963,7 @@ onMounted(async () => {
      console.log('Selected item:', selectedValue);
    
      try {
-       const response = await axios.get(`http://172.18.100.33:6969/welder/${selectedValue}`);
+       const response = await axios.get(`http://192.168.0.105:6969/welder/${selectedValue}`);
        console.log('API Response:', response.data);
        dataRows.value.forEach((row) => {
          if (row.operator === selectedValue) {
@@ -980,7 +980,7 @@ onMounted(async () => {
   //    console.log('Selected item:', selectedValue);
    
   //    try {
-  //      const response = await axios.get(`http://172.18.100.33:6969/welder/${selectedValue}`);
+  //      const response = await axios.get(`http://192.168.0.105:6969/welder/${selectedValue}`);
   //      console.log('API Response:', response.data);
   //      dataRows.value.forEach((row) => {
   //        if (row.operator === selectedValue) {
@@ -1017,7 +1017,7 @@ onMounted(async () => {
    const fetchDataFromBackend = async () => {
      try {
        for (const row of dataRows.value) {
-         const response = await axios.get(`http://172.18.100.33:6969/live_data/${row.machine_name}`);
+         const response = await axios.get(`http://192.168.0.105:6969/live_data/${row.machine_name}`);
          const { current, voltage } = response.data;
          updateMachineLiveData(row.id, current, voltage);
        }
@@ -1048,7 +1048,7 @@ onMounted(async () => {
 //all element type and operator edit/save
 async function saveEditedData(row) {
      try {
-       const response = await axios.put(`http://172.18.100.33:6969/edit/${row.element}/${row.operator}`, {
+       const response = await axios.put(`http://192.168.0.105:6969/edit/${row.element}/${row.operator}`, {
          current: row.standard.current, 
          voltage: row.standard.voltage, 
          element_description: row.element_description,

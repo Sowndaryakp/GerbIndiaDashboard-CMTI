@@ -171,7 +171,7 @@ const submitElementForm = async () => {
       element_description: "N/A",
     };
 
-    const response = await axios.post('http://172.18.100.33:6969/elements/', formData);
+    const response = await axios.post('http://192.168.0.105:6969/elements/', formData);
     alertMessage.value = `Element ${elementType.value} created successfully`;
 
     resetFormFields();
@@ -184,7 +184,7 @@ const submitElementForm = async () => {
 
 const fetchData = async () => {
   try {
-    const response = await fetch("http://172.18.100.33:6969/elements");
+    const response = await fetch("http://192.168.0.105:6969/elements");
     const result = await response.json();
     tableData.value = result.Data.map(data => ({ ...data, isEditing: false }));
   } catch (error) {
@@ -216,7 +216,7 @@ const toggleEdit = (index) => {
 //   };
 
 //   try {
-//     const url = `http://172.18.100.33:6969/elements/${editedElement.type}`;
+//     const url = `http://192.168.0.105:6969/elements/${editedElement.type}`;
 //     await axios.put(url, postData);
 //     tableData.value[globalIndex].isEditing = false;
 //     alertMessage.value = `Element ${editedElement.type} edited successfully`;
@@ -241,10 +241,11 @@ const saveEditedElement = async (index) => {
   try {
     let convertedstring = editedElement.type
     const encodedString = encodeURIComponent(convertedstring);
-    const url = `http://172.18.100.33:6969/elements/type?string=${encodedString}&encoding=utf-8&errors=replace`;
+    const url = `http://192.168.0.105:6969/elements/type?string=${encodedString}&encoding=utf-8&errors=replace`;
 
-    // const url = `http://172.18.100.33:6969/elements/${encodedString}`;
+    // const url = `http://192.168.0.105:6969/elements/${encodedString}`;
     await axios.put(url, postData);
+
     tableData.value[globalIndex].isEditing = false;
     alertMessage.value = `Element ${editedElement.type} edited successfully`;
   } catch (error) {
@@ -255,7 +256,7 @@ const saveEditedElement = async (index) => {
 
 // const deleteElement = async (element) => {
 //   try {
-//     const url = `http://172.18.100.33:6969/elements/${element.type}`;
+//     const url = `http://192.168.0.105:6969/elements/${element.type}`;
 //     await axios.delete(url);
 //     tableData.value = tableData.value.filter(data => data.type !== element.type);
 //     alertMessage.value = `Element ${element.type} deleted successfully`;
@@ -269,7 +270,7 @@ const deleteElement = async (element) => {
     // Encode the type parameter
     const encodedType = encodeURIComponent(element.type);
     // Construct the URL with the encoded type in the query string
-    const url = `http://172.18.100.33:6969/elements/type?string=${encodedType}&encoding=utf-8&errors=replace`;
+    const url = `http://192.168.0.105:6969/elements/type?string=${encodedType}&encoding=utf-8&errors=replace`;
     await axios.delete(url);
     // Update the table data by removing the deleted element
     tableData.value = tableData.value.filter(data => data.type !== element.type);

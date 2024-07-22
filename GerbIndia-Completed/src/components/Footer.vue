@@ -1,9 +1,9 @@
 <!-- Footer.vue -->
 
 <template>
-  <footer class="bg-blue-700 text-center text-white p-3 fixed bottom-0 w-full">
+  <footer class="bg-blue-700 text-center text-white p-3  fixed bottom-0 w-full">
     <!-- Your footer content goes here -->
-    <p>&copy; 2023 CMTI</p>
+    <p>&copy; 2023 CMTI. All rights reserved.</p>
   </footer>
 </template>
 

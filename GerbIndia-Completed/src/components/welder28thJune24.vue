@@ -602,7 +602,7 @@ const datePickerConfig = {
 const handleSubmit = async (machineId) => {
   try {
     // Fetch data from the specified URL
-    const url = `http://172.18.100.33:6969/all_logs/${machineId}/${startDate.value}/${endDate.value}`;
+    const url = `http://192.168.0.105:6969/all_logs/${machineId}/${startDate.value}/${endDate.value}`;
     const response = await axios.get(url);
 
     // Check if the response has a "detail" property and it's an array
@@ -629,10 +629,10 @@ const handleSubmit = async (machineId) => {
 //notification new updated one
 const fetchStateData = async () => {
   try {
-    const response = await axios.get('http://172.18.100.33:6969/graph/get_graph_data');
+    const response = await axios.get('http://192.168.0.105:6969/graph/get_graph_data');
     const responseData = response.data;
-    //'http://172.18.100.33:6565/machines'
-    //172.18.100.33:6969/graph/get_graph_data
+    //'http://192.168.0.105:6565/machines'
+    //192.168.0.105:6969/graph/get_graph_data
 
     // Process the response data as needed
     stateChartData.value = responseData;
@@ -653,10 +653,10 @@ fetchStateData();
 // const productChartData = ref([]);
 // const fetchProductData = async () => {
 //   try {
-//     const response = await axios.get('http://172.18.100.33:6969/graph/get_graph_data');
+//     const response = await axios.get('http://192.168.0.105:6969/graph/get_graph_data');
 //     const responseData = response.data;
-//     //'http://172.18.100.33:6565/machines'
-//     //172.18.100.33:6969/graph/get_graph_data
+//     //'http://192.168.0.105:6565/machines'
+//     //192.168.0.105:6969/graph/get_graph_data
 
 //     // Process the response data as needed
 //     productChartData.value = responseData;
@@ -687,7 +687,7 @@ const npopupData = ref({
 //   console.log(npopupData.value.machineId)
 //   try {
 //     console.log(npopupData.value.machineId);
-//     const popresponse = await axios.get(`http://172.18.100.33:6969/logs/${npopupData.value.machineId}`);
+//     const popresponse = await axios.get(`http://192.168.0.105:6969/logs/${npopupData.value.machineId}`);
 //     console.log("api called")
 //     npopupData.value.current = popresponse.data.detail.current;
 //     npopupData.value.voltage = popresponse.data.detail.voltage;
@@ -706,7 +706,7 @@ async function nopenPopup(machineId){
   // console.log(npopupData.value.machineId)
   try {
     // console.log(npopupData.value.machineId);
-    const popresponse = await axios.get(`http://172.18.100.33:6969/logs/${npopupData.value.machineId}`);
+    const popresponse = await axios.get(`http://192.168.0.105:6969/logs/${npopupData.value.machineId}`);
     console.log(popresponse)
     // console.log("api called")
     npopupData.value.current = popresponse.data.detail.current;
@@ -723,7 +723,7 @@ async function nopenPopup(machineId){
 
 // onMounted(async () => {
 //   try {
-//     const popresponse = await axios.get(`http://172.18.100.33:6969/logs/${npopupData.value.machineId}`);
+//     const popresponse = await axios.get(`http://192.168.0.105:6969/logs/${npopupData.value.machineId}`);
 //     console.log("api called")
 //     data.value = popresponse.data;
 //     npopupData.value.machineId = data.value
@@ -1037,7 +1037,7 @@ const nclosePopup = () => {
 //   try {
 //     const rows = ['7H','7D'];
 //     for (const row of rows) {
-//       const response = await fetch(`http://172.18.100.33:6969/op_shift/${row}`);
+//       const response = await fetch(`http://192.168.0.105:6969/op_shift/${row}`);
 //       const data = await response.json();
 //       console.log(`Data for row ${row}:`, data);
 //       if (operatorData) {
@@ -1058,7 +1058,7 @@ const nclosePopup = () => {
 // onMounted(async () => {
 //   // Fetch operator data for each row
 //   for (const row of dataRows.value) {
-//     const response = await fetch(`http://172.18.100.33:6969/op_shift/${row.itemno}`);
+//     const response = await fetch(`http://192.168.0.105:6969/op_shift/${row.itemno}`);
 //     const operatorData = await response.json();
 //     console.log("++--==--")
 //     console.log(operatorData)
@@ -1086,7 +1086,7 @@ const nclosePopup = () => {
 //   for (const row of dataRows.value) {
 //     try {
 //       // Fetch element types based on row.itemno
-//       const typesResponse = await fetch(`http://172.18.100.33:6969/op_shift/${row.itemno}`);
+//       const typesResponse = await fetch(`http://192.168.0.105:6969/op_shift/${row.itemno}`);
 //       const typesData = await typesResponse.json();
 
 //       // Assuming typesData is an array of types, for simplicity
@@ -1094,7 +1094,7 @@ const nclosePopup = () => {
 
 //       // Fetch element data for each type
 //       for (const elementType of elementTypes) {
-//         const elementResponse = await fetch(`http://172.18.100.33:6969/elements/${elementType}`);
+//         const elementResponse = await fetch(`http://192.168.0.105:6969/elements/${elementType}`);
 //         const elementData = await elementResponse.json();
 
 //         console.log("Element Type:", elementType);
@@ -1125,7 +1125,7 @@ onMounted(async () => {
   for (const row of dataRows.value) {
     try {
       // Fetch element types based on row.itemno
-      const typesResponse = await fetch(`http://172.18.100.33:6969/op_shift/${row.itemno}`);
+      const typesResponse = await fetch(`http://192.168.0.105:6969/op_shift/${row.itemno}`);
       const typesData = await typesResponse.json();
       console.log(typesData)
 
@@ -1158,7 +1158,7 @@ onMounted(async () => {
 
       // Fetch welder data for the most recent operator
       const mostRecentOperatorName = mostRecentElement ? mostRecentElement.operator_name : null;
-      const welderResponse = await fetch(`http://172.18.100.33:6969/welder/${mostRecentOperatorName}`);
+      const welderResponse = await fetch(`http://192.168.0.105:6969/welder/${mostRecentOperatorName}`);
       const welderData = await welderResponse.json();
 
       // Update row with welder data
@@ -1178,7 +1178,7 @@ onMounted(async () => {
 ;
 
       // Fetch element data for the most recent type
-      const elementResponse = await fetch(`http://172.18.100.33:6969/elements/${mostRecentElementType}`);
+      const elementResponse = await fetch(`http://192.168.0.105:6969/elements/${mostRecentElementType}`);
       const elementData = await elementResponse.json();
 
       // Assuming the response contains only one item
@@ -1212,7 +1212,7 @@ onMounted(async () => {
 //   for (const row of dataRows.value) {
 //     try {
 //       // Fetch element types based on row.itemno
-//       const typesResponse = await fetch(`http://172.18.100.33:6969/op_shift/${row.itemno}`);
+//       const typesResponse = await fetch(`http://192.168.0.105:6969/op_shift/${row.itemno}`);
 //       const typesData = await typesResponse.json();
 
 //       // Assuming typesData is an array of types, for simplicity
@@ -1222,7 +1222,7 @@ onMounted(async () => {
 //       //operator
 
 //       for (const welderDetail of welderDetails) {
-//         const welderResponse = await fetch(`http://172.18.100.33:6969/welder/${welderDetail}`);
+//         const welderResponse = await fetch(`http://192.168.0.105:6969/welder/${welderDetail}`);
 //         const welderdata = await welderResponse.json();
 //         console.log("_____________________________________________")
 //         console.log(welderdata)
@@ -1235,7 +1235,7 @@ onMounted(async () => {
 
 //       // Fetch element data for each type
 //       for (const elementType of elementTypes) {
-//         const elementResponse = await fetch(`http://172.18.100.33:6969/elements/${elementType}`);
+//         const elementResponse = await fetch(`http://192.168.0.105:6969/elements/${elementType}`);
 //         const elementData = await elementResponse.json();
 
 //         console.log("Element Type:", elementType);
@@ -1268,7 +1268,7 @@ onMounted(async () => {
 //   }
 // });
 
-//http://172.18.100.33:6969/welder/
+//http://192.168.0.105:6969/welder/
 
 // console.log("************************************")
       // console.log(operatorInfo.element_type);
@@ -1276,7 +1276,7 @@ onMounted(async () => {
       // // row.element = operatorInfo.element_type;
       // // row.element = operatorInfo.element_type;
       // row.current = operatorInfo.current;
-      // const responseelem = await fetch(`//172.18.100.33:6969/elements/${operatorInfo.element_type}`);
+      // const responseelem = await fetch(`//192.168.0.105:6969/elements/${operatorInfo.element_type}`);
       // console.log("+++++++++++++++++++++++")
       // console.log(responseelem)
 
@@ -1294,7 +1294,7 @@ onMounted(async () => {
    
   //    try {
   //     for (const row of dataRows.value){
-  //      const response = await axios.get(`http://172.18.100.33:6969/elements/${row.element}`);
+  //      const response = await axios.get(`http://192.168.0.105:6969/elements/${row.element}`);
   //      console.log('API Response:', response.data);
   //      dataRows.value.forEach((row) => {
   //        if (row.element) {
@@ -1311,7 +1311,7 @@ onMounted(async () => {
   //    console.log('Selected item:', selectedValue);
    
   //    try {
-  //      const response = await axios.get(`http://172.18.100.33:6969/elements/${selectedValue}`);
+  //      const response = await axios.get(`http://192.168.0.105:6969/elements/${selectedValue}`);
   //      console.log('API Response:', response.data);
   //      dataRows.value.forEach((row) => {
   //        if (row.element === selectedValue) {
@@ -1349,7 +1349,7 @@ onMounted(async () => {
     //  console.log('Selected item:', selectedValue);
    
      try {
-       const response = await axios.get(`http://172.18.100.33:6969/welder/${selectedValue}`);
+       const response = await axios.get(`http://192.168.0.105:6969/welder/${selectedValue}`);
       //  console.log('API Response:', response.data);
        dataRows.value.forEach((row) => {
          if (row.operator === selectedValue) {
@@ -1366,7 +1366,7 @@ onMounted(async () => {
   //    console.log('Selected item:', selectedValue);
    
   //    try {
-  //      const response = await axios.get(`http://172.18.100.33:6969/welder/${selectedValue}`);
+  //      const response = await axios.get(`http://192.168.0.105:6969/welder/${selectedValue}`);
   //      console.log('API Response:', response.data);
   //      dataRows.value.forEach((row) => {
   //        if (row.operator === selectedValue) {
@@ -1405,7 +1405,7 @@ const dataLoaded = ref(false);
 
 
 const connectToWebSocket = () => {
-  const socket = new WebSocket('ws://172.18.100.33:6969/live_recent_ws');
+  const socket = new WebSocket('ws://192.168.0.105:6969/live_recent_ws');
 
   socket.onmessage = (event) => {
     const data = JSON.parse(event.data);
@@ -1472,7 +1472,7 @@ onMounted(() => {
 // const fetchDataFromBackend = async () => {
 //   try {
 //     for (const row of dataRows.value) {
-//       const response = await axios.get(`http://172.18.100.33:6969/live_data/${row.machine_name}`);
+//       const response = await axios.get(`http://192.168.0.105:6969/live_data/${row.machine_name}`);
 //       // console.log("Insde the");
 //       const current = response.data[0]["current"];
 //       const voltage = response.data[0]["voltage"];
@@ -1528,7 +1528,7 @@ function convertToEpochTime(dateTimeString) {
 async function saveEditedData(row) {
   try {
     const originalType = row.element; // Store the original type
-    const response = await axios.put(`http://172.18.100.33:6969/edit/${row.element}/${row.operator}?machine_id=${row.itemno}`, {
+    const response = await axios.put(`http://192.168.0.105:6969/edit/${row.element}/${row.operator}?machine_id=${row.itemno}`, {
       // standard_current: row.standard.standard_current,
       // standard_voltage: row.standard.standard_voltage,
       // element_type: row.element,
@@ -1565,7 +1565,7 @@ async function saveEditedData(row) {
 
     // Fetch recent data from the fast API endpoint
     const machineId = row.machine_name; // Implement a function to get machineId
-    const recentDataResponse = await axios.get(`http://172.18.100.33:6969/op_shift/${machineId}`);
+    const recentDataResponse = await axios.get(`http://192.168.0.105:6969/op_shift/${machineId}`);
     const recentData = recentDataResponse.data; // Assuming the data is an array
 
     // Filter data for the specific operator
@@ -1598,7 +1598,7 @@ async function saveEditedData(row) {
        console.log("afer clicking")
        console.log(originaltype2)
        if (originaltype2 !== row.element) {
-        const createEntryResponse = await axios.post("http://172.18.100.33:6969/op_shift/", {
+        const createEntryResponse = await axios.post("http://192.168.0.105:6969/op_shift/", {
           operator_name: row.operator,
           element_type: row.element,
           machine_name: machineId,
@@ -1625,7 +1625,7 @@ async function saveEditedData(row) {
 // //all element type and operator edit/save
 // async function saveEditedData(row) {
 //      try {
-//        const response = await axios.put(`http://172.18.100.33:6969/edit/${row.element}/${row.operator}
+//        const response = await axios.put(`http://192.168.0.105:6969/edit/${row.element}/${row.operator}
 //        `, {
 //         standard_current: row.standard.standard_current, 
 //         standard_voltage: row.standard.standard_voltage, 
@@ -1711,7 +1711,7 @@ function showUserPopup(machineId) {
   isUserPopupVisible.value = true;
   graphData.value.machineId = machineId;
 
-  axios.get(`http://172.18.100.33:6969/live_data/live_type/${machineId}`)
+  axios.get(`http://192.168.0.105:6969/live_data/live_type/${machineId}`)
     .then(response => {
       // Check if there is data in the response
       if (response.data && response.data.length > 0) {
@@ -1744,7 +1744,7 @@ function showUserLiveCurrentPopup(machineId) {
   graphData.value.machineId = machineId;
 
   // 3. Make an HTTP GET request to fetch live data for the specified machineId
-  axios.get(`http://172.18.100.33:6969/live_data/live_type/${machineId}`)
+  axios.get(`http://192.168.0.105:6969/live_data/live_type/${machineId}`)
     .then(response => {
       // 4. Check if there is data in the response
       if (response.data && response.data.length > 0) {
@@ -1779,7 +1779,7 @@ function showUserLiveCurrentPopup(machineId) {
 // async function sendata(machineId) {
 //   try {
 //     console.log(machineId)
-//     const response = await axios.put(`http://172.18.100.33:6969/edit/${machineId.element}/${machineId.operator}`);
+//     const response = await axios.put(`http://192.168.0.105:6969/edit/${machineId.element}/${machineId.operator}`);
 //     const recentData = response.data;
 //     console.log("77777777777777777");
 
@@ -1815,7 +1815,7 @@ const machine1 = ref([]);
 
 const fetchDatastate = async () => {
   try {
-    const response = await axios.get('http://172.18.100.33:6969/machine_color/');
+    const response = await axios.get('http://192.168.0.105:6969/machine_color/');
     machine1.value = response.data;
   } catch (error) {
     console.error('Error fetching data:', error);

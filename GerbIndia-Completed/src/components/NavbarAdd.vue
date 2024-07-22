@@ -131,24 +131,59 @@
    
    <!-- Instruction Popup -->
    <div v-if="isInstructionPopupVisible" class="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
-  <div class="bg-white p-6 rounded-lg shadow-lg relative">
-    <button @click="hideInstructionPopup" class="absolute top-2 right-2 text-gray-600 hover:text-gray-800">
-      <img width="20" height="20" src="https://img.icons8.com/ios-glyphs/30/delete-sign.png" alt="delete-sign" />
-    </button>
-    <h2 class="text-xl font-semibold mb-4">Instructions</h2>
-    <button @click="showAddInstruction"
+    <div class="bg-white p-6 rounded-lg shadow-lg relative">
+      <button @click="hideInstructionPopup" class="absolute top-2 right-2 text-gray-600 hover:text-gray-800">
+        <img width="20" height="20" src="https://img.icons8.com/ios-glyphs/30/delete-sign.png" alt="delete-sign" />
+      </button>
+      <h2 class="text-xl font-semibold mb-4">Instructions</h2>
+      <button @click="showAddInstruction"
         class="bg-blue-500 glassmorphic-button rounded-lg px-2 py-2 mt-2 mb-2 ml-3 text-white font-poppins flex flex-wrap">
         <img src="https://img.icons8.com/material-outlined/24/FFFFFF/add.png" alt="add" class="w-6 h-6 mr-2" />
         Add Instruction
       </button>
+      <div v-for="instruction in instructions" :key="instruction.id" class="flex justify-between items-center mb-4">
+        <!-- Editing View -->
+        <div v-if="editingInstructionId === instruction.id" class="w-full">
+          <textarea v-model="editingInstructionText" class="border border-gray-300 p-2 rounded-lg w-full"></textarea>
+          <button @click="updateInstruction(instruction.id)" class="bg-green-500 text-white px-4 py-2 rounded-lg mt-2">Save</button>
+          <button @click="cancelEdit" class="bg-gray-500 text-white px-4 py-2 rounded-lg mt-2 ml-2">Cancel</button>
+        </div>
+        <!-- Display View -->
+        <div v-else class="flex justify-between w-full">
+          <p class="text-gray-700">{{ instruction.instruction }}</p>
+          <div class="flex space-x-2">
+            <button @click="editInstruction(instruction)" class="bg-yellow-500 text-white px-1 py-2 rounded-lg">
+              <img width="20" height="20" src="https://img.icons8.com/sf-black-filled/64/FFFFFF/edit.png" alt="edit"/>
+            </button>
+            <button @click="deleteInstruction(instruction.id)" class="bg-red-500 text-white px-1 py-2 rounded-lg">
+              <img width="20" height="20" src="https://img.icons8.com/sf-black-filled/64/FFFFFF/delete-forever.png" alt="delete-forever"/>
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Add New Instruction -->
+      <div v-if="addingNewInstruction" class="w-full mb-4">
+        <textarea v-model="newInstructionText" class="border border-gray-300 p-2 rounded-lg w-full"></textarea>
+        <button @click="addInstruction" class="bg-green-500 text-white px-4 py-2 rounded-lg mt-2">Save</button>
+        <button @click="cancelAdd" class="bg-gray-500 text-white px-4 py-2 rounded-lg mt-2 ml-2">Cancel</button>
+      </div>
+    
+      <!-- <button @click="showAddInstruction" class="bg-blue-500 text-white px-4 py-2 rounded-lg"><img width="24" height="24" src="https://img.icons8.com/glyph-neue/64/FFFFFF/add--v1.png" alt="add--v1"/>Add Instruction</button> -->
+    </div>
+  </div>
+
+   <!-- <div v-if="isInstructionPopupVisible" class="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
+  <div class="bg-white p-6 rounded-lg shadow-lg relative">
+    <button @click="hideInstructionPopup" class="absolute top-2 right-2 text-gray-600 hover:text-gray-800">
+      <img width="20" height="20" src="https://img.icons8.com/ios-glyphs/30/delete-sign.png" alt="delete-sign" />
+    </button>
+    <h2 class="text-2xl font-semibold mb-4">Instructions</h2>
     <div v-for="instruction in instructions" :key="instruction.id" class="flex justify-between items-center mb-4">
-      <!-- Editing View -->
       <div v-if="editingInstructionId === instruction.id" class="w-full">
         <textarea v-model="editingInstructionText" class="border border-gray-300 p-2 rounded-lg w-full"></textarea>
         <button @click="updateInstruction(instruction.id)" class="bg-green-500 text-white px-4 py-2 rounded-lg mt-2">Save</button>
         <button @click="cancelEdit" class="bg-gray-500 text-white px-4 py-2 rounded-lg mt-2 ml-2">Cancel</button>
       </div>
-      <!-- Display View -->
       <div v-else class="flex justify-between w-full">
         <p class="text-gray-700">{{ instruction.instruction }}</p>
         <div class="flex space-x-2">
@@ -161,16 +196,65 @@
         </div>
       </div>
     </div>
-    <div v-if="addingNewInstruction" class="w-full mb-4">
-        <textarea v-model="newInstructionText" class="border border-gray-300 p-2 rounded-lg w-full"></textarea>
-        <button @click="addInstruction" class="bg-green-500 text-white px-4 py-2 rounded-lg mt-2">Save</button>
-        <button @click="cancelAdd" class="bg-gray-500 text-white px-4 py-2 rounded-lg mt-2 ml-2">Cancel</button>
-      </div>
-    </div>
-    
-</div>
+  </div>
+</div> -->
 
-   
+   <!-- <div v-if="isInstructionPopupVisible" class="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
+      <div class="bg-white p-6 rounded-lg shadow-lg relative">
+        <button @click="hideInstructionPopup" class="absolute top-2 right-2 text-gray-600 hover:text-gray-800">
+          <img width="20" height="20" src="https://img.icons8.com/ios-glyphs/30/delete-sign.png" alt="delete-sign" />
+        </button>
+        <h2 class="text-xl font-semibold mb-4">Instructions</h2>
+        <div v-for="instruction in instructions" :key="instruction.id" class="flex justify-between items-center mb-4">
+          <p class="text-gray-700">{{ instruction.instruction }}</p>
+          <div>
+            <button @click="editInstruction(instruction)" class="bg-yellow-500 text-white px-4 py-2 rounded-lg mr-2">Edit</button>
+            <button @click="deleteInstruction(instruction.id)" class="bg-red-500 text-white px-4 py-2 rounded-lg">Delete</button>
+          </div>
+        </div>
+      </div>
+    </div> -->
+   <!-- <div v-if="isInstructionPopupVisible" class="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
+      <div class="bg-white p-6 rounded-lg shadow-lg relative">
+        <button @click="hideInstructionPopup" class="absolute top-2 right-2 text-gray-600 hover:text-gray-800">
+          <img width="20" height="20" src="https://img.icons8.com/ios-glyphs/30/delete-sign.png" alt="delete-sign" />
+        </button>
+        CRUD Buttons
+        <div class="flex space-x-4 mb-4">
+          <button @click="createInstruction" class="bg-green-500 text-white px-4 py-2 rounded-lg">Create</button>
+          <button @click="updateInstruction" class="bg-yellow-500 text-white px-4 py-2 rounded-lg">Update</button>
+          <button @click="deleteInstruction" class="bg-red-500 text-white px-4 py-2 rounded-lg">Delete</button>
+          </div>
+        <h2 class="text-lg font-semibold mb-4">Instructions</h2>
+        <p class="text-gray-700">The shift is scheduled from the specified start time to the designated end time.</p>
+        <p class="text-gray-700">On the welder's page, the scheduled shift will be displayed for the allotted duration.</p>
+        <p class="text-gray-700">Once the shift has concluded, it will no longer be visible on the welder's page.</p>
+      
+        <h2 class="text-xl font-semibold mb-4">Instructions</h2>
+    <div v-for="instruction in instructions" :key="instruction.id" class="">
+      <p class="text-gray-700">{{ instruction.instruction }}</p>
+    </div>
+      
+      </div>
+    </div> -->
+
+     <!-- <div v-if="isInstructionPopupVisible" class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-4 rounded-lg shadow-lg z-50">
+      <div class="absolute inset-0 bg-gray-900 opacity-50 rounded-lg"></div>
+      <div class="relative bg-white p-4 rounded-lg shadow-lg z-50">
+        <h2 class="text-lg font-bold mb-2">Instructions</h2>
+        <ul>
+          <li v-for="instruction in instructions" :key="instruction.id" class="flex justify-between items-center mb-2">
+            <span>{{ instruction.text }}</span>
+            <button @click="deleteInstruction(instruction.id)" class="text-red-500 hover:text-red-700">Delete</button>
+          </li>
+        </ul>
+        <div class="flex mt-4">
+          <input v-model="newInstruction" type="text" placeholder="New instruction" class="flex-grow border border-gray-300 rounded-l-lg p-2">
+          <button @click="addInstruction" class="bg-blue-500 text-white p-2 rounded-r-lg">Add</button>
+        </div>
+        <button @click="hideInstructionPopup" class="bg-blue-500 text-white px-4 py-2 mt-4 rounded-lg">Close</button>
+      </div>
+    </div> -->
 
     <div v-if="alertMessage" class="fixed inset-0 flex items-center justify-center z-50">
     <div class="w-96 p-4 bg-gray-100 border text-center border-gray-300 rounded-lg shadow-md">
@@ -286,7 +370,6 @@ const showInstructionPopup = () => {
 
 const hideInstructionPopup = () => {
   isInstructionPopupVisible.value = false;
-  fetchInstructions();
 };
 // const hideUserPopup = () => {
 //   try {
@@ -409,48 +492,19 @@ const showAddInstruction = () => {
   addingNewInstruction.value = true;
 };
 
-// const addInstruction = async () => {
-//   const response = await fetch('http://192.168.0.105:6969/instruction/post_instructions/', {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-//     body: JSON.stringify({ instruction: newInstructionText.value }),
-//   });
-//   const data = await response.json();
-//   instructions.value.push(data);
-//   addingNewInstruction.value = false;
-//   newInstructionText.value = '';
-// };
-
-
-const addInstruction = () => {
-  fetch('http://192.168.0.105:6969/instruction/post_instructions/', {
+const addInstruction = async () => {
+  const response = await fetch('http://192.168.0.105:6969/instruction/post_instructions/', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ instruction: newInstructionText.value }),
-  })
-  .then(response => {
-    if (!response.ok) {
-      throw new Error('Failed to add instruction');
-    }
-    return response.json();
-  })
-  .then(data => {
-    instructions.value.push(data);
-    addingNewInstruction.value = false;
-    newInstructionText.value = '';
-    alertMessage.value =  `Instruction added successfully!`;
-    fetchInstructions(); // Fetch updated instructions after adding
-  })
-  .catch(error => {
-    console.error('Error adding instruction:', error);
-    // alert('Failed to add instruction. Please try again.');
   });
+  const data = await response.json();
+  instructions.value.push(data);
+  addingNewInstruction.value = false;
+  newInstructionText.value = '';
 };
-
 
 const cancelAdd = () => {
   addingNewInstruction.value = false;

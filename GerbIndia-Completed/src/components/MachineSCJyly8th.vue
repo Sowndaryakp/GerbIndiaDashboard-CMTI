@@ -60,10 +60,8 @@
             <td class="border px-4 py-2">{{ data.machine_name }}</td>
             <td class="border px-4 py-2">{{ data.element_type }}</td>
             <td class="border px-4 py-2">{{ data.operator_name }}</td>
-            <!-- <td class="border px-4 py-2">{{ data.start_time }}</td>
-            <td class="border px-4 py-2">{{ data.end_time }}</td> -->
-            <td class="border px-4 py-2">{{ formatDateTime(data.start_time) }}</td>
-        <td class="border px-4 py-2">{{ formatDateTime(data.end_time) }}</td>
+            <td class="border px-4 py-2">{{ data.start_time }}</td>
+            <td class="border px-4 py-2">{{ data.end_time }}</td>
             <!--<td class="border px-4 py-2">{{ data.shift }}</td>-->
             <td class="border px-4 py-2">{{ data.I_no }}</td>
             <td class="border px-4 py-2">{{ data.Fc_no }}</td>
@@ -129,8 +127,6 @@
               <input v-model="startDateTime" type="datetime-local" required
                 class="border border-gray-300 rounded-lg px-2 py-1 w-full" />
             </div>
-
-          
 
             <div class="mb-2">
               <label class="block text-gray-800">end_time:</label>
@@ -476,7 +472,7 @@
       </div>
       
     </div>
-    <!-- <div v-if="isFilterFormVisible" class="fixed inset-0 flex items-center justify-center z-50">
+    <div v-if="isFilterFormVisible" class="fixed inset-0 flex items-center justify-center z-50">
   <div class="w-96 p-4 bg-gray-100 border border-gray-300 rounded-lg shadow-md">
     <h2 class="text-lg font-semibold text-gray-800">Filter Table</h2>
     <form @submit.prevent="applyFilters">
@@ -505,6 +501,7 @@
       <div v-if="isReport" class="fixed inset-0 flex items-center justify-center z-50">
                <div class="bg-white p-8 rounded-lg shadow-lg w-1\/2 h-1\/2 relative">
                  <MachineSCTable />
+                 <!-- <Report/> -->
                  <button @click="hideReportPopup" class=" bg-white px-1 py-0 rounded-lg absolute top-2 right-0 -mt-1 mr-1">
                    <img width="20" height="20" src="https://img.icons8.com/ios-glyphs/30/delete-sign.png" alt="delete-sign"/>
                    </button>
@@ -512,37 +509,7 @@
              </div>
     </form>
   </div>
-</div> -->
-
-<div v-if="isFilterFormVisible" class="fixed inset-0 flex items-center justify-center z-50">
-    <div class="w-96 p-4 bg-gray-100 border border-gray-300 rounded-lg shadow-md">
-      <h2 class="text-lg font-semibold text-gray-800">Filter Table</h2>
-      <form @submit.prevent="applyFilters">
-        <div class="mb-2">
-          <label class="block text-gray-800">operator_name:</label>
-          <select v-model="filterData.operator_name" class="border border-gray-300 rounded-lg px-2 py-1 w-full" @click="fetchOperators">
-            <option value="">Select Operator Type</option>
-            <option v-for="operator in operators" :key="operator">{{ operator }}</option>
-          </select>
-        </div>
-        <div class="mb-2">
-          <label class="block text-gray-800">Machine ID:</label>
-          <select v-model="filterData.machineId" class="border border-gray-300 rounded-lg px-2 py-1 w-full">
-            <option value="">Select Machine Name</option>
-            <option v-for="machineId in machineIds" :key="machineId">{{ machineId }}</option>
-          </select>
-        </div>
-        <div class="mb-2">
-          <label class="block text-gray-800">Start Date:</label>
-          <input v-model="filterData.startDate" type="date" class="border border-gray-300 rounded-lg px-2 py-1 w-full" />
-        </div>
-        <div class="mt-2 flex justify-end">
-          <button type="submit" class="bg-blue-500 text-white px-2 py-1 rounded-lg mr-2">Apply Filters</button>
-          <button @click="resetFilters" class="bg-gray-300 text-gray-700 px-2 py-1 rounded-lg">Reset Filters</button>
-        </div>
-      </form>
-    </div>
-  </div>
+</div>
 
   </div>
   <div v-if="alertMessage" class="fixed inset-0 flex items-center justify-center z-50 ">
@@ -575,19 +542,6 @@ const nextPage = () => {
     currentPage.value++;
   }
 };
-
-const formatDateTime = (dateTime) => {
-  const date = new Date(dateTime);
-  const day = date.getDate().toString().padStart(2, '0');
-  const month = (date.getMonth() + 1).toString().padStart(2, '0');
-  const year = date.getFullYear();
-  const hours = date.getHours().toString().padStart(2, '0');
-  const minutes = date.getMinutes().toString().padStart(2, '0');
-  const seconds = date.getSeconds().toString().padStart(2, '0');
-  return `${day}-${month}-${year} ${hours}:${minutes}:${seconds}`;
-};
-
-
 
 // Function to go to previous page
 const prevPage = () => {
@@ -1049,52 +1003,28 @@ const originalTableData = ref([]);
 
 
 // Function to fetch and display the data for all machines
-// const fetchAndDisplayDataForAllMachines = () => {
-//   machineNames.forEach((machineId) => {
-//     // console.log(machineId);
-//     const url = `http://192.168.0.105:6969/op_shift/${machineId}`;
+const fetchAndDisplayDataForAllMachines = () => {
+  machineNames.forEach((machineId) => {
+    // console.log(machineId);
+    const url = `http://192.168.0.105:6969/op_shift/${machineId}`;
     
-//     axios
-//       .get(url)
-//       .then((response) => {
-//         if (tableHeaders.value.length === 0) {
-//           // Set the headers based on the first machine's response
-//           tableHeaders.value = Object.keys(response.data[0]);
-//         }
-//         // Append the data to the existing tableData
-//         tableData.value = [...tableData.value, ...response.data];
-//         // TO EXTRA LINE
-//         originalTableData.value = [...originalTableData.value, ...response.data]; // Store original data
-//       })
-//       .catch((error) => {
-//         console.error(`Error fetching data for machine ${machineId}:`, error);
-//       });
-//   });
-// };
-
-// Function to fetch and display the data for all machines
-const fetchAndDisplayDataForAllMachines = async () => {
-  try {
-    // Fetch data from the endpoint for all machines
-    const url = 'http://192.168.0.105:6969/op_shift/';
-    const response = await axios.get(url);
-
-    // Check if the response contains data
-    if (response.data && response.data.length > 0) {
-      // Set table headers based on the first item in the response
-      tableHeaders.value = Object.keys(response.data[0]);
-
-      // Append the data to existing tableData and originalTableData
-      tableData.value = [...tableData.value, ...response.data];
-      originalTableData.value = [...originalTableData.value, ...response.data];
-    } else {
-      console.warn('No data received from the server.');
-    }
-  } catch (error) {
-    console.error('Error fetching data from the server:', error);
-  }
+    axios
+      .get(url)
+      .then((response) => {
+        if (tableHeaders.value.length === 0) {
+          // Set the headers based on the first machine's response
+          tableHeaders.value = Object.keys(response.data[0]);
+        }
+        // Append the data to the existing tableData
+        tableData.value = [...tableData.value, ...response.data];
+        // TO EXTRA LINE
+        originalTableData.value = [...originalTableData.value, ...response.data]; // Store original data
+      })
+      .catch((error) => {
+        console.error(`Error fetching data for machine ${machineId}:`, error);
+      });
+  });
 };
-
 
 
 const deleteData = (machineName, startTime, endTime, elementName, operatorName) => {
@@ -1386,12 +1316,11 @@ const editMachine = async (index) => {
   isEditFormVisible.value = true;
 };
 
-const filterData = ref({
+const filterData = reactive({
   operator_name: '',
   machineId: '',
-  startDate: ''
+  startDate: '',
 });
-
 const updateFilterData = () => {
   filterData.operator_name = formData.operator_name;
   filterData.machineId = filterData.machineId;
@@ -1403,26 +1332,24 @@ const showFilterForm = () => {
   isFilterFormVisible.value = true;
 };
 
-// const applyFilters = () => {
-//   // Filter the tableData based on the filterData values (operatorName, machineId, startDate)
-//   const filteredData = tableData.value.filter((data) => {
-//    const operatorNameMatch = !filterData.operator_name || data.operator_name === filterData.operator_name;
-//     const machineIdMatch = !filterData.machineId || data.machine_name === filterData.machineId;
+const applyFilters = () => {
+  // Filter the tableData based on the filterData values (operatorName, machineId, startDate)
+  const filteredData = tableData.value.filter((data) => {
+   const operatorNameMatch = !filterData.operator_name || data.operator_name === filterData.operator_name;
+    const machineIdMatch = !filterData.machineId || data.machine_name === filterData.machineId;
 
-//     // Extract the date part from the timestamp and compare it with the filter date
-//     // const startDateMatch = !filterData.startDate || moment(data.start_time).format('YYYY-MM-DD') === filterData.startDate;
-//     const startDateMatch = !filterData.startDate || 
-//     (moment(filterData.startDate).isBetween(moment(data.start_time), moment(data.end_time), 'day', '[]'));
+    // Extract the date part from the timestamp and compare it with the filter date
+    const startDateMatch = !filterData.startDate || moment(data.start_time).format('YYYY-MM-DD') === filterData.startDate;
 
-//     return operatorNameMatch && machineIdMatch && startDateMatch;
-//   });
+    return operatorNameMatch && machineIdMatch && startDateMatch;
+  });
 
-//   // Update the tableData with the filtered results
-//   tableData.value = filteredData;
+  // Update the tableData with the filtered results
+  tableData.value = filteredData;
 
-//   // Hide the filter form
-//   isFilterFormVisible.value = false;
-// };
+  // Hide the filter form
+  isFilterFormVisible.value = false;
+};
 
 // Add this variable to store the original data
 
@@ -1431,50 +1358,18 @@ onMounted(() => {
   originalTableData.value = [...tableData.value]; // Store the original data
 });
 
-// const resetFilters = () => {
-//   // Reset the filterData values
-//   filterData.operator_name = '';
-//   filterData.machineId = '';
-//   filterData.startDate = '';
-
-//   // Reset tableData to the original unfiltered data
-//   tableData.value = [...originalTableData.value];
-
-//   // Hide the filter form
-//   isFilterFormVisible.value = false;
-// };
-const applyFilters = async () => {
-  try {
-    const response = await axios.get('http://192.168.0.105:6969/scheduling_filter/shift_ops', {
-      params: {
-        machine_name: filterData.value.machineId,
-        welder_name: filterData.value.operator_name,
-        specific_date: filterData.value.startDate
-      }
-    });
-    tableData.value = response.data;
-    isFilterFormVisible.value = false;
-  } catch (error) {
-    console.error('Error fetching filtered data:', error);
-  }
-};
-
 const resetFilters = () => {
-  filterData.value = {
-    operator_name: '',
-    machineId: '',
-    startDate: ''
-  };
+  // Reset the filterData values
+  filterData.operator_name = '';
+  filterData.machineId = '';
+  filterData.startDate = '';
+
+  // Reset tableData to the original unfiltered data
   tableData.value = [...originalTableData.value];
+
+  // Hide the filter form
   isFilterFormVisible.value = false;
 };
-
-// onMounted(async () => {
-//   await fetchAndDisplayDataForAllMachines();
-//   await fetchOperators();
-//   await fetchMachineIds();
-// });
-
 const showProductionForm = () => {
   isProductionFormVisible.value = true;
   // resetFormData();

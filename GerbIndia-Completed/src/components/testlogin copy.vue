@@ -51,7 +51,7 @@ export default {
         formData.append("password", this.password);
 
         // Use Axios to send login request to the FastAPI backend
-        const response = await this.$axios.post("http://172.18.100.33:6969/login", formData, {
+        const response = await this.$axios.post("http://192.168.0.105:6969/login", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },

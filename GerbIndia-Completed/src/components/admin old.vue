@@ -632,7 +632,7 @@
      console.log('Selected item:', selectedValue);
    
      try {
-       const response = await axios.get(`http://172.18.100.33:6969/elements/${selectedValue}`);
+       const response = await axios.get(`http://192.168.0.105:6969/elements/${selectedValue}`);
        console.log('API Response:', response.data);
        dataRows.value.forEach((row) => {
          if (row.element === selectedValue) {
@@ -670,7 +670,7 @@
      console.log('Selected item:', selectedValue);
    
      try {
-       const response = await axios.get(`http://172.18.100.33:6969/welder/${selectedValue}`);
+       const response = await axios.get(`http://192.168.0.105:6969/welder/${selectedValue}`);
        console.log('API Response:', response.data);
        dataRows.value.forEach((row) => {
          if (row.operator === selectedValue) {
@@ -707,7 +707,7 @@
    const fetchDataFromBackend = async () => {
      try {
        for (const row of dataRows.value) {
-         const response = await axios.get(`http://172.18.100.33:6969/live_data/${row.machine_name}`);
+         const response = await axios.get(`http://192.168.0.105:6969/live_data/${row.machine_name}`);
          const { current, voltage } = response.data;
          updateMachineLiveData(row.id, current, voltage);
        }
@@ -737,7 +737,7 @@
    //all element type and operator edit/save
    async function saveEditedData(row) {
      try {
-       const response = await axios.put(`http://172.18.100.33:6969/edit/${row.element}/${row.operator}`, {
+       const response = await axios.put(`http://192.168.0.105:6969/edit/${row.element}/${row.operator}`, {
          current: row.current, 
          voltage: row.voltage, 
          element_description: row.element_description,

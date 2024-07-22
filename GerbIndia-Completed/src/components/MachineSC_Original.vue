@@ -272,7 +272,7 @@ const endDateTime = computed({
 const machineIds = ref([]); // Store machine IDs
 
 const fetchMachineNames = async () => {
-  const machinesUrl = 'http://172.18.100.33:6969/machines'; // Replace with the actual endpoint
+  const machinesUrl = 'http://192.168.0.105:6969/machines'; // Replace with the actual endpoint
   try {
     const response = await axios.get(machinesUrl);
     machineIds.value = response.data.Data.map((machine) => machine.machine_id);
@@ -289,7 +289,7 @@ onMounted(() => {
 const elementTypes = ref([]); // Store machine IDs
 
 const fetchElementTypes = async () => {
-  const machinesUrl = 'http://172.18.100.33:6969/elements'; // Replace with the actual endpoint
+  const machinesUrl = 'http://192.168.0.105:6969/elements'; // Replace with the actual endpoint
   try {
     const response = await axios.get(machinesUrl);
     elementTypes.value = response.data.Data.map((machine) => machine.type);
@@ -302,7 +302,7 @@ const fetchElementTypes = async () => {
 const operators = ref([]); // Store machine IDs
 
 const fetchOperators = async () => {
-  const machinesUrl = 'http://172.18.100.33:6969/welder'; // Replace with the actual endpoint
+  const machinesUrl = 'http://192.168.0.105:6969/welder'; // Replace with the actual endpoint
   try {
     const response = await axios.get(machinesUrl);
     operators.value = response.data.Data.map((machine) => machine.welder_name);
@@ -315,7 +315,7 @@ const fetchOperators = async () => {
 // const operatorIds = ref([]); // Store machine IDs
 
 // const fetchOperatorIds = async () => {
-//   const machinesUrl = 'http://172.18.100.33:6969/welder'; // Replace with the actual endpoint
+//   const machinesUrl = 'http://192.168.0.105:6969/welder'; // Replace with the actual endpoint
 //   try {
 //     const response = await axios.get(machinesUrl);
 //     operatorIds.value = response.data.Data.map((machine) => machine.id);
@@ -328,7 +328,7 @@ const fetchOperators = async () => {
 const shiftTypes = ref([]); // Store machine IDs
 
 const fetchShiftTypes = async () => {
-  const machinesUrl = 'http://172.18.100.33:6969/shift'; // Replace with the actual endpoint
+  const machinesUrl = 'http://192.168.0.105:6969/shift'; // Replace with the actual endpoint
   try {
     const response = await axios.get(machinesUrl);
     shiftTypes.value = response.data.Data.map((machine) => machine.shift);
@@ -353,7 +353,7 @@ const originalTableData = ref([]);
 const fetchAndDisplayDataForAllMachines = () => {
   machineNames.forEach((machineId) => {
     console.log(machineId);
-    const url = `http://172.18.100.33:6969/op_shift/${machineId}`;
+    const url = `http://192.168.0.105:6969/op_shift/${machineId}`;
     
     axios
       .get(url)
@@ -380,7 +380,7 @@ const deleteData = (machineName, startTime, endTime) => {
   const endTimeEpoch = moment(endTime, 'YYYY-MM-DDTHH:mm').unix();
 
   // Make the delete request to the backend
-  const url = `http://172.18.100.33:6969/op_shift/?machine_name=${machineName}&start_time=${startTimeEpoch}&end_time=${endTimeEpoch}`;
+  const url = `http://192.168.0.105:6969/op_shift/?machine_name=${machineName}&start_time=${startTimeEpoch}&end_time=${endTimeEpoch}`;
 
   axios
     .delete(url)
@@ -427,7 +427,7 @@ const deleteData = (machineName, startTime, endTime) => {
 
 //     try {
 //       // Make a POST request to save the new machine data to the backend
-//       await axios.post('http://172.18.100.33:6969/op_shift/', newMachine); // Updated URL
+//       await axios.post('http://192.168.0.105:6969/op_shift/', newMachine); // Updated URL
 //       // Add the new machine to the table data
 //       console.log(newMachine);
 //       tableData.value.push(newMachineString);
@@ -455,7 +455,7 @@ const saveMachine = async () => {
 
     try {
       // Make a PUT request to update the machine data
-      const url = `http://172.18.100.33:6969/op_shift/shiftops/update?machine_id=${formData.machineName}&operator_name=${formData.operator_name}`;
+      const url = `http://192.168.0.105:6969/op_shift/shiftops/update?machine_id=${formData.machineName}&operator_name=${formData.operator_name}`;
       const response = await axios.put(url, updatedMachine);
 
       // Check the response for any error messages
@@ -512,7 +512,7 @@ const saveMachine = async () => {
 
     try {
       // Make a POST request to save the new machine data to the backend
-      const url = 'http://172.18.100.33:6969/op_shift/';
+      const url = 'http://192.168.0.105:6969/op_shift/';
       await axios.post(url, newMachine);
 
       // Add the new machine to the table data
