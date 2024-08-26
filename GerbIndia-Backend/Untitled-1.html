@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>WebSocket Messages</title>
+</head>
+<body>
+  <div id="messagesContainer">
+    <h1>WebSocket Messages:</h1>
+    <ul id="messagesList"></ul>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const messagesList = document.getElementById('messagesList');
+
+      const socket = new WebSocket('ws://172.18.100.240:6969/ws');
+      console.log("+++++++++++++++++++++")
+
+      console.log(socket)
+
+
+      socket.onopen = function() {
+        console.log('WebSocket connected');
+      };
+
+      socket.onmessage = function(event) {
+        const newMessage = event.data;
+        console.log(newMessage)
+        const listItem = document.createElement('li');
+        listItem.textContent = newMessage;
+        messagesList.appendChild(listItem);
+      };
+
+      socket.onclose = function(event) {
+        console.log('WebSocket connection closed:', event);
+      };
+
+      window.onbeforeunload = function() {
+        socket.close();
+      };
+    });
+  </script>
+</body>
+</html>

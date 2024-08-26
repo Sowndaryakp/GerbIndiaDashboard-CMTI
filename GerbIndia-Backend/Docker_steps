@@ -1,0 +1,17 @@
+DOCKER STEPS
+
+1. docker build -t <img_name>:<tag_name> .
+
+2. docker tag <img_name>:<tag_name> <username>/<repo_name>:<tag>
+
+3. login before pushing(website)
+
+4. docker push <user_name>/<repo_name>:<tag_name>
+
+5. docker run -e IP_ADDRESS=172.18.100.240 --name <container_name> -p 6969:6969 <user_name>/<repo_name>:<tag_name>
+
+
+OTHER COMMANDS
+
+1. docker-compose up -d #to rebuild the image
+PdnejoHAkjjyglC6!
