@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="img/favicon.ico">
+
+    
+    <title>Troubleshooting - Gerb documentation</title>
+    
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
+    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href="css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="css/base.min.css" rel="stylesheet">
+    <link href="css/cinder.min.css" rel="stylesheet">
+
+    
+        
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
+        
+    
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+            <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+        <![endif]-->
+
+    
+
+     
+</head>
+
+<body>
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+
+            <!-- Main title -->
+
+            
+              <a class="navbar-brand" href="index.html">Gerb documentation</a>
+            
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                
+                
+                    <li >
+                        <a href="index.html">Home</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="backend.html">Backend services</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="frontend.html">Frontend services</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="ui.html">User Interface</a>
+                    </li>
+                
+                
+                
+                    <li class="active">
+                        <a href="troubleshoot.html">Troubleshooting</a>
+                    </li>
+                
+                
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <i class="fas fa-search"></i> Search
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="prev" href="ui.html">
+                            <i class="fas fa-arrow-left"></i> Previous
+                        </a>
+                    </li>
+                    <li class="disabled">
+                        <a rel="next" >
+                            Next <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+    <div class="container">
+        
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="first-level active"><a href="#introduction">Introduction</a></li>
+            <li class="second-level"><a href="#how-to-add-a-new-machine">How to add a new machine?</a></li>
+                
+                <li class="third-level"><a href="#backend">Backend</a></li>
+                <li class="third-level"><a href="#frontend">Frontend</a></li>
+            <li class="second-level"><a href="#how-to-use-docker">How to use docker?</a></li>
+                
+                <li class="third-level"><a href="#using-docker-for-containerized-deployment">Using Docker for Containerized Deployment</a></li>
+    </ul>
+</div></div>
+        <div class="col-md-9" role="main">
+
+<h2 id="introduction">Introduction</h2>
+<p>In this section of the documentation, you will find solutions addressing common issues that may arise.</p>
+<h3 id="how-to-add-a-new-machine">How to add a new machine?</h3>
+<h4 id="backend">Backend</h4>
+<ol>
+<li>Navigate to the database, select the 'Schemas' tab, locate the 'Table' (Machine), right-click, and choose 'Script' to generate and insert the script.</li>
+</ol>
+<p><img alt="Image Alt Text" src="images/mac1.png" /></p>
+<p>2.Modify the values to reflect the appropriate data for the 'Machine' table.</p>
+<p><img alt="Image Alt Text" src="images/mac2.png" /></p>
+<h4 id="frontend">Frontend</h4>
+<p>To add a new machine to the existing <code>dataRows</code> array in your JavaScript code, follow these steps:</p>
+<p><img alt="Image Alt Text" src="images/addMachine.png" /></p>
+<p><strong>1.  Identify the Next Available ID:</strong></p>
+<ul>
+<li>Find the last item in the <code>dataRows</code> array and determine its ID.</li>
+<li>Assign the new machine's ID as the next number after the last ID.</li>
+</ul>
+<p><strong>2. Create a New Machine Object:</strong></p>
+<ul>
+<li>Copy one of the commented-out machine objects (e.g., the commented-out block for the 7D machine) as a template.</li>
+<li>Replace the placeholder values (e.g., '7D', 'AK-400-2-7D', etc.) with the actual values for the new machine.</li>
+</ul>
+<p><strong>3. Update Image Path:</strong></p>
+<ul>
+<li>Replace the <code>machineimg</code> value with the correct path to the image for the new machine.</li>
+</ul>
+<p><strong>4. Add the New Machine Object to dataRows:</strong></p>
+<ul>
+<li>Uncomment the copied machine object by removing the // from the beginning of each line.</li>
+<li>Add the new machine object to the <code>dataRows</code> array.</li>
+</ul>
+<p><strong>5. Update Data Binding:</strong></p>
+<ul>
+<li>
+<p>If your application relies on data binding, make sure to update the corresponding bindings in your application code to include the new machine data.</p>
+<p><img alt="Image Alt Text" src="images/newMachineAdded.png" /></p>
+</li>
+</ul>
+<h3 id="how-to-use-docker">How to use docker?</h3>
+<h4 id="using-docker-for-containerized-deployment">Using Docker for Containerized Deployment</h4>
+<p>Follow these steps to build, tag, push, and run your Docker container:</p>
+<ol>
+<li>
+<p><strong>Build the Docker Image</strong>:</p>
+<pre><code> docker build -t &lt;img_name&gt;:&lt;tag_name&gt; .
+</code></pre>
+<p>This command builds a Docker image using the Dockerfile in the current directory, tagging it with the specified image name and version.</p>
+</li>
+<li>
+<p><strong>Tag the Docker Image:</strong></p>
+<pre><code> docker tag &lt;img_name&gt;:&lt;tag_name&gt; &lt;username&gt;/&lt;repo_name&gt;:&lt;tag&gt;
+</code></pre>
+<p>Tag the previously built image with your Docker Hub username, repository name, and desired version tag.</p>
+</li>
+<li>
+<p><strong>Login to Docker Hub:</strong></p>
+<p>Ensure you are logged in to Docker Hub before pushing the image. Use the following command and follow the prompts.</p>
+<pre><code>docker login
+</code></pre>
+</li>
+<li>
+<p><strong>Push the Docker Image:</strong></p>
+<pre><code>docker push &lt;username&gt;/&lt;repo_name&gt;:&lt;tag_name&gt;
+</code></pre>
+<p>Upload the tagged Docker image to your Docker Hub repository.</p>
+</li>
+<li>
+<p><strong>Run the Docker Container:</strong></p>
+<pre><code>docker run -e --name &lt;container_name&gt; -p &lt;p_num&gt;:&lt;p_num&gt; &lt;username&gt;/&lt;repo_name&gt;:&lt;tag_name&gt;
+</code></pre>
+</li>
+</ol>
+<p>Deploy a container from the specified image, setting environment variables and mapping ports as needed.</p>
+<h5 id="key-points">Key Points:</h5>
+<ul>
+<li>Ensure you replace placeholders such as img_name, tag_name, username, repo_name, and container_name with your actual values.</li>
+<li>The -e option in the docker run command sets an environment variable in the container.</li>
+<li>Adjust the IP address, port mappings, and any other parameters based on your specific requirements.</li>
+</ul></div>
+        
+        
+    </div>
+
+    
+      <footer class="col-md-12 text-center">
+          
+          
+            <hr>
+            <p>
+            <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small>
+            </p>
+          
+
+          
+          
+      </footer>
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="js/bootstrap-3.0.3.min.js"></script>
+
+    
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
+        
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    <script>var base_url = "."</script>
+    
+    <script src="js/base.js"></script>
+    <script src="search/main.js"></script>
+
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+    </body>
+
+</html>

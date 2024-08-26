@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="img/favicon.ico">
+
+    
+    <title>Backend services - Gerb documentation</title>
+    
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
+    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href="css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="css/base.min.css" rel="stylesheet">
+    <link href="css/cinder.min.css" rel="stylesheet">
+
+    
+        
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
+        
+    
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+            <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+        <![endif]-->
+
+    
+
+     
+</head>
+
+<body>
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+
+            <!-- Main title -->
+
+            
+              <a class="navbar-brand" href="index.html">Gerb documentation</a>
+            
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                
+                
+                    <li >
+                        <a href="index.html">Home</a>
+                    </li>
+                
+                
+                
+                    <li class="active">
+                        <a href="backend.html">Backend services</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="frontend.html">Frontend services</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="ui.html">User Interface</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="troubleshoot.html">Troubleshooting</a>
+                    </li>
+                
+                
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <i class="fas fa-search"></i> Search
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="prev" href="index.html">
+                            <i class="fas fa-arrow-left"></i> Previous
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="next" href="frontend.html">
+                            Next <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+    <div class="container">
+        
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="first-level active"><a href="#introduction">Introduction</a></li>
+            <li class="second-level"><a href="#prerequisites">Prerequisites</a></li>
+                
+            <li class="second-level"><a href="#database">Database</a></li>
+                
+                <li class="third-level"><a href="#tables-in-the-database">Tables in the Database</a></li>
+                <li class="third-level"><a href="#foreign-keys-in-tables">Foreign Keys in Tables</a></li>
+            <li class="second-level"><a href="#technical-stack">Technical stack</a></li>
+                
+                <li class="third-level"><a href="#packages-to-be-installed">Packages to be installed</a></li>
+                <li class="third-level"><a href="#project-layout">Project layout</a></li>
+            <li class="second-level"><a href="#fastapi-endpoints-through-swagger">FastAPI endpoints through swagger</a></li>
+                
+            <li class="second-level"><a href="#fastapi-crud-operations-guide">FastAPI CRUD Operations Guide</a></li>
+                
+                <li class="third-level"><a href="#import-necessary-modules">Import Necessary Modules</a></li>
+                <li class="third-level"><a href="#define-a-pydantic-model">Define a Pydantic Model</a></li>
+                <li class="third-level"><a href="#1-create-post-add-a-new-item">1. Create (POST) - Add a New Item</a></li>
+                <li class="third-level"><a href="#2-read-get-retrieve-a-list-of-items">2. Read (GET) - Retrieve a List of Items</a></li>
+                <li class="third-level"><a href="#3-read-get-retrieve-a-single-item-by-id">3. Read (GET) - Retrieve a Single Item by ID</a></li>
+                <li class="third-level"><a href="#4-update-put-update-an-existing-item">4. Update (PUT) - Update an Existing Item</a></li>
+                <li class="third-level"><a href="#5-delete-delete-delete-an-item">5. Delete (DELETE) - Delete an Item</a></li>
+            <li class="second-level"><a href="#usage-of-jwt-tokens">Usage of JWT tokens</a></li>
+                
+                <li class="third-level"><a href="#post-end-point-for-the-token">Post end point for the token</a></li>
+            <li class="second-level"><a href="#usage-of-websockets">Usage of WebSockets</a></li>
+                
+                <li class="third-level"><a href="#key-features">Key Features</a></li>
+                <li class="third-level"><a href="#how-it-works">How It Works</a></li>
+                <li class="third-level"><a href="#closing-the-connection">Closing the Connection</a></li>
+                <li class="third-level"><a href="#endpoint-for-websocket">Endpoint for websocket</a></li>
+    </ul>
+</div></div>
+        <div class="col-md-9" role="main">
+
+<h1 id="introduction">Introduction</h1>
+<p>In this system's backend architecture, Python serves as the primary language, FastAPI facilitates API services, while PostgreSQL handles the database and its management.</p>
+<h3 id="prerequisites">Prerequisites</h3>
+<ol>
+<li>
+<p>install python</p>
+</li>
+<li>
+<p>install pycharm or visual studio code </p>
+</li>
+<li>
+<p>install PostgreSQL</p>
+</li>
+</ol>
+<h3 id="database">Database</h3>
+<p>For data storage and management, PostgreSQL was employed as the database system, and an Entity-Relationship Diagram (ERD) illustrating the relationships between all the tables is provided below.</p>
+<p><img alt="Image Alt Text" src="images/erd3.png" /></p>
+<h4 id="tables-in-the-database">Tables in the Database</h4>
+<ol>
+<li>
+<p><strong>"Admin login"</strong></p>
+<ul>
+<li>Manages administrative login credentials. </li>
+<li>Fields: email, password, created_at.</li>
+</ul>
+</li>
+<li>
+<p><strong>"Element Type"</strong></p>
+<ul>
+<li>Categorizes different types of elements.</li>
+<li>Fields: type, range, standard_current, standard_voltage, element_description.</li>
+</ul>
+</li>
+<li>
+<p><strong>"Live_recent"</strong></p>
+<ul>
+<li>Stores real-time data including current, voltage, timestamps, and machine state.</li>
+<li>Fields: current, voltage, created_at, state, machine_state, machine_id.</li>
+</ul>
+</li>
+<li>
+<p><strong>"Machine"</strong></p>
+<ul>
+<li>Stores machine details such as ID, name, model, maker, capacity_in_amp, date_of_purchase.</li>
+<li>Fields: machine_id, name, model, maker, capacity_in_amp, date_of_purchase.</li>
+</ul>
+</li>
+</ol>
+<h4 id="foreign-keys-in-tables">Foreign Keys in Tables</h4>
+<ol>
+<li>
+<p><strong>"Live_recent"</strong></p>
+<ul>
+<li>Foreign Key: "Live_recent_machine_id_fkey"</li>
+<li>References: "Machine" table's "machine_id" column.</li>
+</ul>
+</li>
+<li>
+<p><strong>"ON_data"</strong></p>
+<ul>
+<li>Foreign Key: "ON_data_machine_id_fkey"</li>
+<li>References: "Machine" table's "machine_id" column.</li>
+</ul>
+</li>
+<li>
+<p><strong>"Production_data"</strong></p>
+<ul>
+<li>Foreign Key: "Production_data_machine_id_fkey"</li>
+<li>References: "Machine" table's "machine_id" column.</li>
+</ul>
+</li>
+<li>
+<p><strong>"graph_data"</strong></p>
+<ul>
+<li>Foreign Key: "graph_data_machine_id_fkey"</li>
+<li>References: "Machine" table's "machine_id" column.</li>
+</ul>
+</li>
+<li>
+<p><strong>"live_data"</strong> and <strong>"vol_cur_logs"</strong></p>
+<ul>
+<li>Foreign Keys: "live_data_machine_id_fkey" and "vol_cur_logs_machine_id_fkey"</li>
+<li>References: "Machine" table's "machine_id" column.</li>
+</ul>
+</li>
+<li>
+<p><strong>"operator_shift"</strong>, <strong>"plate"</strong>, <strong>"std_cur_vol"</strong>, and <strong>"remarks"</strong> Tables</p>
+<ul>
+<li>Include foreign key constraints referencing specific columns in other tables for data integrity and consistency.</li>
+</ul>
+</li>
+</ol>
+<h3 id="technical-stack">Technical stack</h3>
+<h4 id="packages-to-be-installed">Packages to be installed</h4>
+<p>The following is a comprehensive list of packages utilized and required for the backend services:</p>
+<pre><code>annotated-types==0.5.0
+anyio==3.7.1
+bcrypt==4.0.1
+cffi==1.15.1
+click==8.1.6
+colorama==0.4.6
+cryptography==41.0.3
+distro==1.8.0
+dnspython==2.3.0
+ecdsa==0.18.0
+email-validator==2.0.0.post2
+fastapi==0.100.1
+greenlet==2.0.2
+h11==0.14.0
+idna==3.4
+passlib==1.7.4
+psycopg2==2.9.6
+pyasn1==0.5.0
+pycparser==2.21
+pydantic==2.1.1
+pydantic-settings==2.0.3
+pydantic_core==2.4.0
+python-dotenv==0.21.1
+python-jose==3.3.0
+python-multipart==0.0.6
+rsa==4.9
+six==1.16.0
+sniffio==1.3.0
+SQLAlchemy==2.0.19
+starlette==0.27.0
+toml==0.10.2
+typing_extensions==4.7.1
+uvicorn==0.22.0
+</code></pre>
+<h4 id="project-layout">Project layout</h4>
+<pre><code>main.py                        # The main entry point for the fastapi backend application.
+
+background_tasks.py            # This handles the background tasks for live data 
+                               # handling idle and production data
+
+graph_tasks.py                 # This consists of the logic for handling the live data 
+                               # for the graph
+
+main_machine_monitoring/       
+├── database                   # This python package consist of modules related to database.
+│     ├── db_setup.py          # This module contains the connections for the database  
+│     ├── orm_class.py         # This module consists of the ORM module of the tables
+│
+├── pydantic_schema             
+│     ├── request_schema.py    # This python module consist of pydantic modules which are
+│                              # used for the response body.
+│  
+└── routers                    # This python package consist of all the API endpoints.
+</code></pre>
+<h3 id="fastapi-endpoints-through-swagger">FastAPI endpoints through swagger</h3>
+<ul>
+<li>
+<p>To verify the endpoints, the initial step is to execute the following command in the terminal</p>
+<pre><code>uvicorn main:app --reload --host &lt;ip_address&gt; --port &lt;port_number&gt;
+</code></pre>
+</li>
+<li>
+<p>After executing the command, proceed to open any web browser and enter the specified IP address and port number provided in the command followed by '/docs'.</p>
+<pre><code>&lt;ip_address&gt;:&lt;port_number&gt;/docs
+</code></pre>
+</li>
+</ul>
+<h3 id="fastapi-crud-operations-guide">FastAPI CRUD Operations Guide</h3>
+<h4 id="import-necessary-modules">Import Necessary Modules</h4>
+<pre><code>from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel
+from typing import List
+
+app = FastAPI()
+</code></pre>
+<h4 id="define-a-pydantic-model">Define a Pydantic Model</h4>
+<p>Create a Pydantic model to define the structure of the data.</p>
+<p><strong>Example:</strong></p>
+<pre><code>class Item(BaseModel):
+    name: str
+    description: str = None
+</code></pre>
+<h4 id="1-create-post-add-a-new-item">1. Create (POST) - Add a New Item</h4>
+<p><strong>Endpoint:</strong> POST /items/</p>
+<p><strong>Description:</strong> This endpoint allows you to add a new item to the collection.</p>
+<p><strong>Example Request Body:</strong></p>
+<pre><code>{
+"name": "Example Item",
+"description": "This is an example item."
+}
+</code></pre>
+<p><strong>Implementation:</strong></p>
+<pre><code>@app.post("/items/", response_model=Item)
+async def create_item(item: Item):
+items_db.append(item)
+return item
+</code></pre>
+<h4 id="2-read-get-retrieve-a-list-of-items">2. Read (GET) - Retrieve a List of Items</h4>
+<p><strong>Endpoint:</strong> GET /items/</p>
+<p><strong>Description:</strong> This endpoint retrieves a list of all items in the collection.</p>
+<p><strong>Implementation:</strong></p>
+<pre><code>@app.get("/items/", response_model=List[Item])
+async def read_items():
+return items_db
+</code></pre>
+<h4 id="3-read-get-retrieve-a-single-item-by-id">3. Read (GET) - Retrieve a Single Item by ID</h4>
+<p><strong>Endpoint:</strong> GET /items/{item_id}</p>
+<p><strong>Description:</strong> This endpoint retrieves a single item from the collection based on its ID.</p>
+<p><strong>Example Request:</strong> GET /items/0</p>
+<p><strong>Implementation:</strong></p>
+<pre><code>@app.get("/items/{item_id}", response_model=Item)
+async def read_item(item_id: int):
+if item_id &lt; 0 or item_id &gt;= len(items_db):
+raise HTTPException(status_code=404, detail="Item not found")
+return items_db[item_id]
+</code></pre>
+<h4 id="4-update-put-update-an-existing-item">4. Update (PUT) - Update an Existing Item</h4>
+<p><strong>Endpoint:</strong> PUT /items/{item_id}</p>
+<p><strong>Description:</strong> This endpoint allows you to update an existing item in the collection.</p>
+<p><strong>Example Request Body:</strong></p>
+<pre><code>{
+  "name": "Updated Item",
+  "description": "This item has been updated."
+}
+</code></pre>
+<p><strong>Implementation:</strong></p>
+<pre><code>@app.put("/items/{item_id}", response_model=Item)
+async def update_item(item_id: int, updated_item: Item):
+if item_id &lt; 0 or item_id &gt;= len(items_db):
+raise HTTPException(status_code=404, detail="Item not found")
+items_db[item_id] = updated_item
+return updated_item
+</code></pre>
+<h4 id="5-delete-delete-delete-an-item">5. Delete (DELETE) - Delete an Item</h4>
+<p><strong>Endpoint:</strong> DELETE /items/{item_id}</p>
+<p><strong>Description:</strong> This endpoint allows you to delete an item from the collection based on its ID.</p>
+<p><strong>Example Request:</strong> DELETE /items/1</p>
+<p><strong>Implementation:</strong></p>
+<pre><code>@app.delete("/items/{item_id}", response_model=Item)
+async def delete_item(item_id: int):
+if item_id &lt; 0 or item_id &gt;= len(items_db):
+raise HTTPException(status_code=404, detail="Item not found")
+deleted_item = items_db.pop(item_id)
+return deleted_item
+</code></pre>
+<h3 id="usage-of-jwt-tokens">Usage of JWT tokens</h3>
+<p>Upon client authentication with valid credentials, the API issues a JWT token. Now, the client uses this token in its further requests. 
+When the token is sent back to the API, it'll verify if the token is valid then allow the access to requested data</p>
+<pre><code>  Client                                       API
+     |                                          |
+     |       /login(username + password)        |
+     | ---------------------------------------&gt; | If the credeantials valid, sends the token
+     |        {JWT Token}                       |
+     | &lt;--------------------------------------- |
+     |       /post{JWT Token}                   |
+     | ---------------------------------------&gt; | Verify if token is valid
+     |       Data                               |
+     | &lt;--------------------------------------- |
+</code></pre>
+<h4 id="post-end-point-for-the-token">Post end point for the token</h4>
+<p><strong>Authentication/login</strong> : This end point is used to login a user and give JWT token for the session.</p>
+<ul>
+<li>
+<p><strong>Request Body</strong></p>
+<pre><code>  {
+      "username": "user_name",
+      "password": "user_password"
+  }
+</code></pre>
+</li>
+<li>
+<p><strong>Response Body</strong></p>
+<pre><code>  {
+       "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+       "token_type": "bearer"
+  }
+</code></pre>
+</li>
+</ul>
+<p>In the response body </p>
+<pre><code>     {
+           "access_token": "JWT Token",
+           "token_type": "type of the token"
+     }
+</code></pre>
+<h3 id="usage-of-websockets">Usage of WebSockets</h3>
+<p>In the context of live data presentation, WebSockets enable a persistent, bidirectional connection that remains open until either the server or the client decides to close it.</p>
+<h4 id="key-features">Key Features</h4>
+<ul>
+<li>
+<p><strong>Persistent Connection</strong>: Unlike traditional HTTP requests, WebSockets maintain an open connection throughout the session, allowing for continuous and instant data exchange.</p>
+</li>
+<li>
+<p><strong>Real-time Updates</strong>: The bidirectional nature of WebSockets allows the server to push updates to connected clients instantly, ensuring that live data is presented in real-time.</p>
+</li>
+<li>
+<p><strong>Efficient Communication</strong>: WebSockets minimize the overhead associated with repeatedly opening and closing connections for each data request. Once established, the connection persists, reducing latency and improving efficiency.</p>
+</li>
+</ul>
+<h4 id="how-it-works">How It Works</h4>
+<ul>
+<li>
+<p><strong>Client Request</strong>: The client initiates the WebSocket connection by sending a request to the server. This request is typically upgraded from a standard HTTP request.</p>
+</li>
+<li>
+<p><strong>Connection Establishment</strong>: Upon receiving the WebSocket request, the server establishes a persistent connection with the client.</p>
+</li>
+<li>
+<p><strong>Bi-Directional Communication</strong>: Both the client and server can send messages to each other at any time during the connection. This facilitates real-time updates and interaction between the two.</p>
+</li>
+<li>
+<p><strong>Continuous Data Flow</strong>: Live data that is live current and voltage values, are seamlessly transmitted over the open WebSocket connection.</p>
+</li>
+<li>
+<p><strong>Connection Closure</strong>: The connection remains open until either the server or the client decides to close it. This allows for dynamic control over the duration of the live data presentation session.</p>
+</li>
+</ul>
+<h4 id="closing-the-connection">Closing the Connection</h4>
+<ul>
+<li>
+<p><strong>Client-Side Closure</strong>: The client can send a close frame to the server, indicating the intention to end the connection.</p>
+</li>
+<li>
+<p><strong>Server-Side Closure</strong>: Alternatively, the server can initiate the closure of the WebSocket connection, signaling to the client that the live data presentation session has concluded.</p>
+</li>
+</ul>
+<h4 id="endpoint-for-websocket">Endpoint for websocket</h4>
+<pre><code>ws://localhost/live_recent_ws
+</code></pre>
+<p><em>Location of the websocket</em>:</p>
+<p>The main functionality involving Websockets is implemented in the  <em>'main.py'</em>  file, refer to this file to understand the integration and usage of Websockets within the project.</p></div>
+        
+        
+    </div>
+
+    
+      <footer class="col-md-12 text-center">
+          
+          
+            <hr>
+            <p>
+            <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small>
+            </p>
+          
+
+          
+          
+      </footer>
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="js/bootstrap-3.0.3.min.js"></script>
+
+    
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
+        
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    <script>var base_url = "."</script>
+    
+    <script src="js/base.js"></script>
+    <script src="search/main.js"></script>
+
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+    </body>
+
+</html>

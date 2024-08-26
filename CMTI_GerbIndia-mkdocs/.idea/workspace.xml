@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="f994dd26-589d-4c60-a098-2a34f831b9d7" name="Changes" comment="first commit">
+      <change beforePath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/src/Router.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/src/Router.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/src/components/ApprovedRequestsAdminBoxCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/src/components/ApprovedRequestsAdminBoxCard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/src/components/PendingRequestsAdminBoxCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/src/components/PendingRequestsAdminBoxCard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/src/components/RejectedRequestsAdminBoxCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/src/components/RejectedRequestsAdminBoxCard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/src/components/ToolsAvailableHomeBoxCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/src/components/ToolsAvailableHomeBoxCard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/src/components/ToolsInUseHomeBoxCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/src/components/ToolsInUseHomeBoxCard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/src/components/TotalRequestsAdminBoxCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/src/components/TotalRequestsAdminBoxCard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/src/components/TotalToolsHomeBoxCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/src/components/TotalToolsHomeBoxCard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/src/components/allcards/CategoryCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/src/components/allcards/CategoryCard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/src/components/allcards/ToolCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/src/components/allcards/ToolCard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/src/components/charts/MonthlyToolRequestsLineChart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/src/components/charts/MonthlyToolRequestsLineChart.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/src/components/charts/MostRequestedToolsChart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/src/components/charts/MostRequestedToolsChart.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/src/components/charts/RequestStatusDistributionChart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/src/components/charts/RequestStatusDistributionChart.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/src/components/charts/RequestsByDepartmentChart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/src/components/charts/RequestsByDepartmentChart.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/src/components/charts/ToolAvailabilityAndUsageChart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/src/components/charts/ToolAvailabilityAndUsageChart.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/src/components/forms/CreateTool.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/src/components/forms/CreateTool.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/src/components/layouts/Header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/src/components/layouts/Header.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/src/components/tables/BatchTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/src/components/tables/BatchTable.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/src/components/tables/CategoryTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/src/components/tables/CategoryTable.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/src/components/tables/DepartmentTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/src/components/tables/DepartmentTable.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/src/components/tables/HomeTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/src/components/tables/HomeTable.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/src/components/tables/LocationTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/src/components/tables/LocationTable.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/src/components/tables/SearchBatchId.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/src/components/tables/SearchBatchId.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/src/components/tables/SearchLocationId.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/src/components/tables/SearchLocationId.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/src/components/tables/ToolTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/src/components/tables/ToolTable.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/src/components/tables/ToolTableInventory.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/src/components/tables/ToolTableInventory.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/src/components/tables/ToolsLocationTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/src/components/tables/ToolsLocationTable.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/src/config/menu.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/src/config/menu.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/src/pages/AddDatadashboard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/src/pages/AddDatadashboard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/src/pages/ApproveRequests.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/src/pages/ApproveRequests.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/src/pages/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/src/pages/Home.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/src/pages/Inventory.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/src/pages/Inventory.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/src/pages/Location.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../Inventory Management System/ims-react-running/src/pages/Location.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Toyota-Examination/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../Toyota-Examination/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Toyota-Examination/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../Toyota-Examination/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Toyota-Examination/src/Router.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../Toyota-Examination/src/Router.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Toyota-Examination/src/config/menu.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../Toyota-Examination/src/config/menu.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Toyota-Examination/src/pages/Dashboard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../Toyota-Examination/src/pages/Dashboard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Toyota-Examination/src/pages/ImageWithFillInTheBlanks.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Toyota-Examination/src/pages/ImageWithTextarea.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Toyota-Examination/src/pages/MCQQuestions.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Toyota-Examination/src/pages/ShortAnswerQuestions.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Toyota-Examination/src/pages/UploadQuestions.tsx" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/mkdocs.yml" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2aObvhn2WiJ7kp2sTvpcS5aXffx" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "C:/Users/SDC-8/Desktop/Sowndarya/CMTI ALL PROJECTS/CMTI/CMTI-Projects/GerbIndia Project/CMTI_GerbIndia-mkdocs"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\siri\codes\pycharm\projects\GerbIndia-mkdocs\docs\images" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\siri\codes\pycharm\projects\documentation\docs\images" />
+      <recent name="D:\siri\codes\pycharm\projects\documentation" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="CMTI_GerbIndia-mkdocs" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="documentation" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/.." />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.CMTI_GerbIndia-mkdocs" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f994dd26-589d-4c60-a098-2a34f831b9d7" name="Changes" comment="first commit" />
+      <created>1704192804943</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1704192804943</updated>
+    </task>
+    <task id="LOCAL-00001" summary="first commit">
+      <created>1709805958096</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1709805958096</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="first commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="first commit" />
+  </component>
+</project>

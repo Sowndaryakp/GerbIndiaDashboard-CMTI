@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="img/favicon.ico">
+
+    
+    <title>Frontend services - Gerb documentation</title>
+    
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
+    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href="css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="css/base.min.css" rel="stylesheet">
+    <link href="css/cinder.min.css" rel="stylesheet">
+
+    
+        
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
+        
+    
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+            <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+        <![endif]-->
+
+    
+
+     
+</head>
+
+<body>
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+
+            <!-- Main title -->
+
+            
+              <a class="navbar-brand" href="index.html">Gerb documentation</a>
+            
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                
+                
+                    <li >
+                        <a href="index.html">Home</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="backend.html">Backend services</a>
+                    </li>
+                
+                
+                
+                    <li class="active">
+                        <a href="frontend.html">Frontend services</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="ui.html">User Interface</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="troubleshoot.html">Troubleshooting</a>
+                    </li>
+                
+                
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <i class="fas fa-search"></i> Search
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="prev" href="backend.html">
+                            <i class="fas fa-arrow-left"></i> Previous
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="next" href="ui.html">
+                            Next <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+    <div class="container">
+        
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="first-level active"><a href="#introduction">Introduction</a></li>
+            <li class="second-level"><a href="#frontend-technologies">Frontend Technologies</a></li>
+                
+                <li class="third-level"><a href="#frontend-stack-overview">Frontend Stack Overview</a></li>
+            <li class="second-level"><a href="#prerequisites">Prerequisites</a></li>
+                
+                <li class="third-level"><a href="#creating-a-vue-3-project">Creating a Vue 3 Project</a></li>
+                <li class="third-level"><a href="#adding-tailwind-css-to-vue-3-project">Adding Tailwind CSS to Vue 3 Project:</a></li>
+            <li class="second-level"><a href="#file-structure">File Structure</a></li>
+                
+            <li class="second-level"><a href="#commands">Commands</a></li>
+                
+            <li class="second-level"><a href="#implementation">Implementation</a></li>
+                
+                <li class="third-level"><a href="#how-to-generate-a-component-and-its-corresponding-syntax">How to generate a component and its corresponding syntax.</a></li>
+            <li class="second-level"><a href="#project-functionalities-overview-for-welder-page">Project Functionalities Overview for Welder Page:</a></li>
+                
+                <li class="third-level"><a href="#live-button-functionalities">Live Button Functionalities:</a></li>
+                <li class="third-level"><a href="#all-stats-button-functionalities">All Stats Button Functionalities:</a></li>
+                <li class="third-level"><a href="#production-button-functionalities">Production Button Functionalities:</a></li>
+                <li class="third-level"><a href="#editsave-button-functionalities">Edit/Save Button Functionalities:</a></li>
+            <li class="second-level"><a href="#project-functionalities-overview-for-machine-scheduling-page">Project Functionalities Overview for Machine-Scheduling Page:</a></li>
+                
+                <li class="third-level"><a href="#add-machine-button-functionalities">Add Machine Button Functionalities:</a></li>
+                <li class="third-level"><a href="#apply-filter-logic-functionalities">Apply Filter Logic Functionalities:</a></li>
+                <li class="third-level"><a href="#download-table-excel-button-functionalities">Download Table Excel Button Functionalities:</a></li>
+                <li class="third-level"><a href="#download-production-data-button-functionalities">Download Production Data Button Functionalities:</a></li>
+                <li class="third-level"><a href="#delete-data-logic-functionalities">Delete Data Logic Functionalities:</a></li>
+            <li class="second-level"><a href="#project-functionalities-overview-for-element-master-page">Project Functionalities Overview for Element-Master Page:</a></li>
+                
+                <li class="third-level"><a href="#add-element-type-button-functionalities">Add Element Type Button Functionalities:</a></li>
+            <li class="second-level"><a href="#project-functionalities-overview-for-report-page">Project Functionalities Overview for Report Page:</a></li>
+                
+                <li class="third-level"><a href="#filtering-data-functionalities">Filtering Data Functionalities:</a></li>
+    </ul>
+</div></div>
+        <div class="col-md-9" role="main">
+
+<h1 id="introduction">Introduction</h1>
+<p><strong>Project Overview: IoT Based Data Acquisition And Machine Monitoring For Welding Machine[GerbIndia]</strong></p>
+<h2 id="frontend-technologies">Frontend Technologies</h2>
+<h3 id="frontend-stack-overview">Frontend Stack Overview</h3>
+<ul>
+<li>The project's frontend utilizes a modern tech stack including <strong>HTML5</strong>  for markup, <strong>CSS3</strong> for styling, <strong>Tailwind CSS</strong> for utility-first styling, <strong>JavaScript</strong> for scripting, <strong>Vue3.js</strong> as the JavaScript framework, and <strong>Axios</strong> for handling HTTP requests.</li>
+</ul>
+<h2 id="prerequisites">Prerequisites</h2>
+<h3 id="creating-a-vue-3-project">Creating a Vue 3 Project</h3>
+<p>To create a Vue 3 project, you can use the Vue CLI (Command Line Interface), which is a standard tool for Vue.js development. Follow these steps:</p>
+<ol>
+<li>
+<p><strong>Install Node.js and npm:</strong></p>
+<ul>
+<li>Before creating a Vue project, ensure that you have Node.js and npm (Node Package Manager) installed on your machine. You can download and install them from <a href="https://nodejs.org/">https://nodejs.org/</a>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Install Vue CLI:</strong></p>
+<ul>
+<li>Open a terminal or command prompt and install the Vue CLI globally by running the following command:<pre><code>   npm install -g @vue/cli
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Create a New Project:</strong></p>
+<ul>
+<li>Navigate to the directory where you want to create your Vue 3 project using the cd command.</li>
+<li>Run the following command to create a new Vue 3 project:<pre><code>   vue create project-name
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Configure Project Settings:</strong></p>
+<ul>
+<li>The Vue CLI will prompt you to pick a preset.</li>
+<li>Choose "Default ([Vue 3] babel, eslint)" for a project with Vue 3, Babel, and ESLint.</li>
+<li>Alternatively, you can manually select features based on your project requirements.</li>
+</ul>
+</li>
+<li>
+<p><strong>Project Initialization:</strong></p>
+<ul>
+<li>Once the project is created, navigate into the project directory:<pre><code>cd project-name
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Run the Development Server:</strong></p>
+<ul>
+<li>To start the development server and see your project in action, run:<pre><code>npm run serve
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Explore and Customize:</strong></p>
+<ul>
+<li>Open the project in your preferred code editor.</li>
+<li>Explore the <strong><code>src</code></strong> directory where your main application code is located.</li>
+<li>Customize the project according to your needs by modifying components, adding new features, and integrating external libraries.</li>
+</ul>
+</li>
+</ol>
+<h3 id="adding-tailwind-css-to-vue-3-project">Adding Tailwind CSS to Vue 3 Project:</h3>
+<p>To add Tailwind CSS to a Vue 3 project created with the Vue CLI, you can follow these steps:</p>
+<ol>
+<li>
+<p><strong>Install Tailwind CSS and its Dependencies:</strong></p>
+<ul>
+<li>Open a terminal in the root of your Vue 3 project.</li>
+<li>Install Tailwind CSS, PostCSS, and Autoprefixer by running the following command:<pre><code>npm install -D tailwindcss postcss autoprefixer
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Generate Tailwind Configuration Files:</strong></p>
+<ul>
+<li>Create a configuration file for Tailwind CSS by running:<pre><code> npx tailwindcss init -p
+ - This will generate a tailwind.config.js file and a postcss.config.js file in your project's root directory.
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Configure PostCSS:</strong></p>
+<ul>
+<li>Open the postcss.config.js file and ensure it includes the following plugins:<pre><code> module.exports = {
+   plugins: {
+      tailwindcss: {},
+      autoprefixer: {},
+   }
+ }
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Create Styles Entry Point:</strong></p>
+<ul>
+<li>Create a new file, for example, <strong><code>src/styles/tailwind.css</code></strong> to serve as your styles entry point.<pre><code> /* src/styles/tailwind.css */
+
+ @import 'tailwindcss/base';
+ @import 'tailwindcss/components';
+ @import 'tailwindcss/utilities';
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Import Tailwind CSS in Main Styles File:</strong></p>
+<ul>
+<li>Open your main styles file, usually src/assets/styles/main.css, and import the Tailwind CSS styles:<pre><code> /* src/assets/styles/main.css */
+
+  @import './tailwind.css';
+
+  /* Your existing styles go here */
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Update Build Configuration:</strong></p>
+<ul>
+<li>Open <strong><code>vue.config.js</code></strong> in the root of your project (create it if it doesn't exist) and add the following configuration:<pre><code>   // vue.config.js
+   module.exports = {
+     css: {
+       loaderOptions: {
+          postcss: {
+            plugins: [
+               require('tailwindcss'),
+               require('autoprefixer'),
+            ],
+          },
+       },
+     },
+   }
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Use Tailwind CSS Classes:</strong></p>
+<ul>
+<li>You can now use Tailwind CSS classes in your Vue components. For example, in your Vue component's template:<pre><code>     &lt;template&gt;
+        &lt;div class="bg-blue-500 text-white p-4"&gt;
+         This is a Tailwind CSS component!
+        &lt;/div&gt;
+     &lt;/template&gt;
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Run the Development Server:</strong></p>
+<ul>
+<li>Start or restart your development server:<pre><code>      npm run serve
+</code></pre>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="file-structure">File Structure</h2>
+<p>In Vue.js 3, the file structure is flexible and depends on the complexity and requirements of your project. However, there are common conventions that you can follow to organize your Vue.js project in a clean and maintainable way. Here's a step-by-step explanation of a typical file structure for a Vue.js 3 project:</p>
+<ol>
+<li><strong>Project Root:</strong><ul>
+<li>At the root of your project, you might find configuration files like <strong><code>package.json</code></strong>, <strong><code>babel.config.js</code></strong>, and <strong><code>vue.config.js</code></strong>.</li>
+</ul>
+</li>
+<li>
+<p><strong>src Folder:</strong></p>
+<ul>
+<li>The <strong><code>src</code></strong> folder is where your main source code resides.</li>
+</ul>
+</li>
+<li>
+<p><strong>Assets:</strong></p>
+<ul>
+<li>
+<p>The <strong><code>assets</code></strong> folder contains static assets like images, fonts, and stylesheets.</p>
+<pre><code> src/
+   |- assets/
+        |- images/
+              |- ak400.png
+        |- styles/
+</code></pre>
+<p><img alt="Alt Text" src="images/assets.PNG" /></p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Components:</strong></p>
+<ul>
+<li>
+<p>The <strong><code>components</code></strong> folder is where you store your Vue components. You can organize them further based on features or functionalities.</p>
+<pre><code>  src/
+    |- components/
+         |- elementMaster.vue
+         |- filterTable.vue
+         |- welder.vue
+         |- ...
+</code></pre>
+<p><img alt="Alt Text" src="images/components.PNG" /></p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Views/Pages:</strong></p>
+<ul>
+<li>
+<p>The <strong><code>views</code></strong> or <strong><code>pages</code></strong> folder is where you store higher-level components that represent pages or views in your application.</p>
+<pre><code>   src/
+     |- views/
+          |- Home.vue
+          |- elementMasterTable.vue
+          |- weldertable.vue
+          |- ...
+</code></pre>
+<p><img alt="Alt Text" src="images/views.PNG" /></p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Router:</strong></p>
+<ul>
+<li>
+<p>If you're using Vue Router for navigation, you might have a <strong><code>router</code></strong> folder to manage your routes.</p>
+<pre><code>    src/
+      |- router/
+           |- index.js
+</code></pre>
+<p><img alt="Alt Text" src="images/router.PNG" /> </p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Store (State Management):</strong></p>
+<ul>
+<li>
+<p>If you're using Vuex for state management, you might have a store folder.</p>
+<pre><code>    src/
+      |- store/
+           |- index.js
+      |- modules/
+</code></pre>
+<p><img alt="Alt Text" src="images/store.PNG" /></p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Plugins:</strong></p>
+<ul>
+<li>
+<p>The <strong><code>plugins</code></strong> folder can contain Vue plugins or third-party integrations.</p>
+<pre><code>     src/
+       |- plugins/
+            |- axios.js
+</code></pre>
+<p><img alt="Alt Text" src="images/pluggins.PNG" /></p>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="commands">Commands</h2>
+<ul>
+<li><code>npm run dev</code> - Start the development server and run the Vue 3 project.</li>
+<li><code>npm run build</code> - Build the Vue 3 project for production deployment.</li>
+</ul>
+<h2 id="implementation">Implementation</h2>
+<p>Certainly! Now, I will provide an explanation for the functionalities of each component:</p>
+<h3 id="how-to-generate-a-component-and-its-corresponding-syntax">How to generate a component and its corresponding syntax.</h3>
+<ol>
+<li>
+<p><strong>Creating a Basic Component:</strong></p>
+<ul>
+<li>Start by creating a new <strong><code>.vue</code></strong> file, for example, <strong><code>MyComponent.vue</code></strong>.<pre><code>    &lt;!-- MyComponent.vue --&gt;
+
+    &lt;template&gt;
+       &lt;div&gt;
+        &lt;!-- Your component's template goes here --&gt;
+         &lt;h1&gt;{{ message }}&lt;/h1&gt;
+        &lt;/div&gt;
+    &lt;/template&gt;
+
+    &lt;script&gt;
+    export default {
+        data() {
+            return {
+                message: 'Hello, Vue!'
+           };
+        }
+    }
+    &lt;/script&gt;
+
+    &lt;style scoped&gt;
+       /* Your component-specific styles go here */
+        h1 {
+          color: blue;
+        }
+    &lt;/style&gt;
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Vue Component Syntax Breakdown:</strong></p>
+<ul>
+<li><strong><code>&lt;template&gt;:</code></strong> Contains the HTML structure of the component.</li>
+<li><strong><code>&lt;script&gt;:</code></strong> Contains the JavaScript code for the component.</li>
+<li>
+<p><strong><code>&lt;style&gt;:</code></strong> Contains the component's styles (use scoped attribute to scope styles to the component).</p>
+<p><img alt="Alt Text" src="images/simpleSyntax.png" /></p>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="project-functionalities-overview-for-welder-page"><strong>Project Functionalities Overview for Welder Page:</strong></h2>
+<h3 id="live-button-functionalities"><strong><code>Live Button Functionalities:</code></strong></h3>
+<p><img alt="Alt Text" src="images/LiveDataButton.png" /></p>
+<ul>
+<li><code>Live Button Click Event:</code> <ul>
+<li>The <code>"Live"</code> button is configured to respond to the click event using the @click directive.</li>
+<li>When the button is clicked, the <code>"showUserLiveCurrentPopup"</code> function is invoked.</li>
+</ul>
+</li>
+<li>
+<p><code>Function Invocation:</code> - Build the Vue 3 project for production deployment.</p>
+<ul>
+<li>The <code>"showUserLiveCurrentPopup"</code> function is called with an argument (<code>row.itemno</code>).</li>
+<li>The purpose and functionality of the <code>"showUserLiveCurrentPopup"</code> function are determined by the implementation in the Vue.js component or script associated with this template.</li>
+</ul>
+<p><img alt="Alt Text" src="images/LiveDataLogic.png" /></p>
+<ul>
+<li><strong><code>Visibility Toggle:</code></strong> <ul>
+<li>The function sets a reactive variable (<code>'isUserLiveCurrentPopupVisible'</code>) to <code>'true'</code>, making the user live current popup visible.</li>
+</ul>
+</li>
+<li><strong><code>Graph Data Configuration:</code></strong> <ul>
+<li>The <code>'machineId'</code> parameter is assigned to the <code>'graphData'</code> object, updating the machineId for graph data.</li>
+</ul>
+</li>
+<li><strong><code>HTTP GET Request:</code></strong> <ul>
+<li>An Axios HTTP GET request is made to fetch live data for the specified <code>'machineId'</code> from a given endpoint.</li>
+</ul>
+</li>
+<li><strong><code>Data Validation:</code></strong> <ul>
+<li>Checks if there is data in the response and if the array is not empty.</li>
+</ul>
+</li>
+<li><strong><code>Data Extraction:</code></strong> <ul>
+<li>Extracts specific values (low and high standard voltage, low and high standard current) from the response data.</li>
+</ul>
+</li>
+<li><strong><code>Graph Data Update:</code></strong> <ul>
+<li>Updates the <code>'graphData'</code> object with the extracted range values.</li>
+</ul>
+</li>
+<li><strong><code>Console Logging:</code></strong> <ul>
+<li>Logs the low standard voltage value to the console.</li>
+</ul>
+</li>
+<li><strong><code>Error Handling:</code></strong> <ul>
+<li>Logs an error if there is no data or the array is empty in the response.</li>
+</ul>
+</li>
+<li><strong><code>Assumption:</code></strong> <ul>
+<li>Assumes the existence of a <code>'sendata'</code> function, commented out but not implemented, to update range values. The <code>'sendata'</code> function is expected to be defined elsewhere in the component.</li>
+</ul>
+</li>
+<li><strong><code>Error Logging:</code></strong> <ul>
+<li>Logs an error if there is an issue fetching data from the server.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="all-stats-button-functionalities"><strong><code>All Stats Button Functionalities:</code></strong></h3>
+<p><img alt="Alt Text" src="images/StatsDataButton.png" /></p>
+<ul>
+<li><code>All Stats Button Click Event:</code> <ul>
+<li>The <code>'All Stats'</code> button is configured to respond to the click event using the <code>'@click'</code> directive.</li>
+<li>When the button is clicked, the <code>'showStackPopup'</code> function is invoked.</li>
+</ul>
+</li>
+<li><code>Function Invocation:</code> <ul>
+<li>The <code>'showStackPopup'</code> function is called.</li>
+<li>The purpose and functionality of the <code>'showStackPopup'</code> function would be determined by the implementation in the Vue.js component's script.</li>
+</ul>
+</li>
+</ul>
+<p><img alt="Alt Text" src="images/StackVisibleLogic.png" /></p>
+<ul>
+<li><strong><code>Popup Container:</code></strong> <ul>
+<li>If the <code>'isStackVisible'</code> variable is true, display a fixed-positioned container covering the entire screen, centered both vertically and horizontally.</li>
+</ul>
+</li>
+<li><strong><code>Chart Display Section:</code></strong> <ul>
+<li>Within the container, create a rounded and shadowed section with a white background, providing padding.</li>
+</ul>
+</li>
+<li><strong><code>Render Stack Chart Component:</code></strong> <ul>
+<li>Inside this section, render a <code>'Stack'</code> chart component with a height of 96 units, passing in <code>'stateChartData'</code> as a prop.</li>
+</ul>
+</li>
+<li><strong><code>Close Button:</code></strong> <ul>
+<li>Include a close button at the top-right corner of the container.</li>
+</ul>
+</li>
+<li>
+<p><strong><code>Close Icon:</code></strong> </p>
+<ul>
+<li>The close button contains an <code>"X"</code> icon sourced from an external URL, serving as a visual representation of closing the popup.</li>
+</ul>
+<p><img alt="Alt Text" src="images/StackPageLogic.PNG" /></p>
+</li>
+<li>
+<p><strong><code>Define Props:</code></strong> </p>
+<ul>
+<li>The component defines a prop named <code>'chartData'</code> with default values representing a chart's minimum timestamp and data points.</li>
+</ul>
+</li>
+<li><strong><code>Render Item Function:</code></strong> <ul>
+<li>The component has a function named <code>'renderItem'</code> that takes parameters <code>'params'</code> and <code>'api'</code>.</li>
+</ul>
+</li>
+<li><strong><code>Category Index Extraction:</code></strong> <ul>
+<li>Extract the category index from the value at index 0 using <code>'api.value(0)'</code>.</li>
+</ul>
+</li>
+<li><strong><code>Calculate Start Coordinate:</code></strong> <ul>
+<li>Calculate the start coordinate based on the value at index 1 and the extracted category index.</li>
+</ul>
+</li>
+<li><strong><code>Calculate End Coordinate:</code></strong> <ul>
+<li>Calculate the end coordinate based on the value at index 2 and the extracted category index.</li>
+</ul>
+</li>
+<li><strong><code>Calculate Height:</code></strong> <ul>
+<li>Calculate the height as a fraction (30%) of the total height of the chart.</li>
+</ul>
+</li>
+<li><strong><code>Create Clipped Rectangle Shape:</code></strong> <ul>
+<li>Use echarts.graphic.clipRectByRect to create a clipped rectangle shape based on the calculated start, end, and height.</li>
+</ul>
+</li>
+<li><strong><code>Return Rectangle Shape:</code></strong> <ul>
+<li>If <code>'rectShape'</code> exists, return a rectangle shape with type, transition, shape, and style information.</li>
+</ul>
+</li>
+</ul>
+<h3 id="production-button-functionalities"><strong><code>Production Button Functionalities:</code></strong></h3>
+<p><img alt="Alt Text" src="images/ProductionDataButton.png" /></p>
+<ul>
+<li><code>Production Button Click Event:</code> <ul>
+<li>The <code>'Production'</code> button is configured to respond to the click event using the <code>'@click'</code> directive.</li>
+<li>When the button is clicked, the <code>'showProductionPopup'</code> function is invoked.</li>
+</ul>
+</li>
+<li>
+<p><code>Function Invocation:</code> </p>
+<ul>
+<li>The <code>'showProductionPopup'</code> function is called with an argument (<code>'row.itemno'</code>).</li>
+<li>The purpose and functionality of the <code>'showProductionPopup'</code> function would be determined by the implementation in the Vue.js component's script.</li>
+</ul>
+<p><img alt="Alt Text" src="images/ProductionDataLogic.png" /></p>
+</li>
+<li>
+<p><strong><code>Popup Container:</code></strong> </p>
+<ul>
+<li>If the <code>'isProductionVisible'</code> variable is true, display a fixed-positioned container covering the entire screen, centered both vertically and horizontally.</li>
+</ul>
+</li>
+<li><strong><code>Production Component Display Section:</code></strong> <ul>
+<li>Within the container, create a rounded and shadowed section with a white background, providing padding.</li>
+</ul>
+</li>
+<li><strong><code>Render Production Component:</code></strong> <ul>
+<li>Inside this section, render a <code>'Production'</code> component with a height of 96 units, passing in <code>'ParentProductionData'</code> as a prop.</li>
+</ul>
+</li>
+</ul>
+<p><img alt="Alt Text" src="images/ProductionPageLogic.png" /></p>
+<ul>
+<li><strong><code>Epoch to DateTime Conversion:</code></strong> <ul>
+<li>The <code>'epochToDateTimeString'</code> function converts an epoch timestamp to a formatted date-time string.</li>
+</ul>
+</li>
+<li><strong><code>Fetch Data Function:</code></strong> <ul>
+<li>The <code>'fetchData'</code> function is an asynchronous function that fetches production data using Axios.</li>
+</ul>
+</li>
+<li><strong><code>Watch for Prop Changes:</code></strong> <ul>
+<li>The <code>'watch'</code> function observes changes in the '<code>dataFromParentProduction</code>' prop and triggers the <code>'fetchData'</code> function accordingly.</li>
+</ul>
+</li>
+<li><strong><code>Calculate Total Duration:</code></strong> <ul>
+<li>The <code>'calculateTotalDuration'</code> function calculates the total duration for a specific state (IDLE or PRODUCTION) based on data points.</li>
+</ul>
+</li>
+<li><strong><code>Format Duration Function:</code></strong> <ul>
+<li>The <code>'formatDuration'</code> function formats a duration in milliseconds into hours, minutes, and seconds. </li>
+</ul>
+</li>
+<li><strong><code>Component Mount:</code></strong> <ul>
+<li>The <code>'onMounted'</code> lifecycle hook ensures that the <code>'fetchData'</code> function is executed when the component is mounted.</li>
+</ul>
+</li>
+</ul>
+<h3 id="editsave-button-functionalities"><strong><code>Edit/Save Button Functionalities:</code></strong></h3>
+<p><img alt="Alt Text" src="images/EditSaveButton.png" /></p>
+<p><img alt="Alt Text" src="images/EditSaveLogic.png" /></p>
+<ul>
+<li><strong><code>Asynchronous Data Saving Function:</code></strong> <ul>
+<li>The <code>'saveEditedData'</code> function is asynchronous and handles the process of saving edited data.</li>
+</ul>
+</li>
+<li><strong><code>Original Type Storage:</code></strong> <ul>
+<li>The original type of the row is stored before making changes.</li>
+</ul>
+</li>
+<li><strong><code>HTTP PUT Request for Data Update:</code></strong> <ul>
+<li>An HTTP PUT request is made to update data based on the edited row using the axios library.</li>
+</ul>
+</li>
+<li><strong><code>Edited Type Extraction:</code></strong> <ul>
+<li>The edited type is extracted from the response data.</li>
+</ul>
+</li>
+<li><strong><code>Data and Graph Updates:</code></strong> <ul>
+<li>Operator data and graph data are updated based on the edited row.</li>
+</ul>
+</li>
+<li><strong><code>Toggle Editing Status:</code></strong> <ul>
+<li>The editing status of the row is toggled.</li>
+</ul>
+</li>
+<li><strong><code>Fetch Recent Data:</code></strong> <ul>
+<li>Recent data is fetched from a FastAPI endpoint for the specific machine and operator.</li>
+</ul>
+</li>
+<li><strong><code>Filter Data for Operator:</code></strong> <ul>
+<li>Data is filtered for the specific operator.</li>
+</ul>
+</li>
+<li><strong><code>Most Recent Data Identification:</code></strong> <ul>
+<li>The most recent data entry is identified based on the timestamp.<ol>
+<li><code>Time Conversion to Epoch-Time</code>: - Start and end times from the most recent data are converted to epoch-time.</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><strong><code>Element Type Change Check:</code></strong> <ul>
+<li>Checks if the element type has changed.</li>
+</ul>
+</li>
+<li><strong><code>HTTP POST Request for New Entry:</code></strong> <ul>
+<li>If the element type has changed, a new entry is created using an HTTP POST request.</li>
+</ul>
+</li>
+<li><strong><code>Error Handling:</code></strong> <ul>
+<li>Errors during the process are handled and logged.</li>
+</ul>
+</li>
+</ul>
+<h2 id="project-functionalities-overview-for-machine-scheduling-page">Project Functionalities Overview for Machine-Scheduling Page:</h2>
+<h3 id="add-machine-button-functionalities"><strong><code>Add Machine Button Functionalities:</code></strong></h3>
+<p><img alt="Alt Text" src="images/AddMachineButton.png" /></p>
+<p><img alt="Alt Text" src="images/AddMachineLogic.png" /></p>
+<ul>
+<li><strong><code>New Machine Object Creation:</code></strong> <ul>
+<li>A new machine object is created with default values based on the form data.</li>
+</ul>
+</li>
+<li><strong><code>String Version Creation:</code></strong> <ul>
+<li>A string version of the new machine object is created, including formatted date-time strings using the moment library.</li>
+</ul>
+</li>
+<li><strong><code>HTTP POST Request:</code></strong> <ul>
+<li>An HTTP POST request is made to save the new machine data to the backend using the axios library.</li>
+</ul>
+</li>
+<li><strong><code>Table Data Update:</code></strong> <ul>
+<li>The new machine, represented as a string, is added to the table data.</li>
+</ul>
+</li>
+<li><strong><code>Form Reset and Visibility Toggle:</code></strong> <ul>
+<li>The form data is reset, and the visibility of the form is set to false.</li>
+</ul>
+</li>
+<li><strong><code>Error Handling:</code></strong> <ul>
+<li>Errors during the process are handled and logged, allowing for appropriate error handling (e.g., displaying an error message).</li>
+</ul>
+</li>
+</ul>
+<h3 id="apply-filter-logic-functionalities"><strong><code>Apply Filter Logic Functionalities:</code></strong></h3>
+<p><img alt="Alt Text" src="images/ApplyFilterLogic.png" /></p>
+<ul>
+<li><strong><code>Filtering Process:</code></strong> <ul>
+<li>The function filters the <code>'tableData'</code> based on specified filter criteria: <code>'operatorName'</code>, <code>'machineId'</code>, and <code>'startDate'</code>.</li>
+</ul>
+</li>
+<li><strong><code>Filter Conditions:</code></strong> <ul>
+<li>Checks if there is a match for the operator name, machine ID, and start date based on the provided filter values. If no filter is applied for a specific criterion, it considers it a match.</li>
+</ul>
+</li>
+<li><strong><code>Date Comparison:</code></strong> <ul>
+<li>Extracts the date part from the timestamp and compares it with the filter date, ensuring a match when the dates are equal.</li>
+</ul>
+</li>
+<li><strong><code>Resulting Data:</code></strong> <ul>
+<li>Constructs a new array (<code>'filteredData'</code>) containing the entries that meet all filter conditions.</li>
+</ul>
+</li>
+<li><strong><code>Update Table Data:</code></strong> <ul>
+<li>Updates the <code>'tableData'</code> with the filtered results, displaying only the entries that match the applied filters.</li>
+</ul>
+</li>
+<li><strong><code>Hide Filter Form:</code></strong> <ul>
+<li>Sets the visibility of the filter form to false, hiding it after applying the filters.</li>
+</ul>
+</li>
+</ul>
+<h3 id="download-table-excel-button-functionalities"><strong><code>Download Table Excel Button Functionalities:</code></strong></h3>
+<p><img alt="Alt Text" src="images/DownloadTableExcelButton.png" /></p>
+<p><img alt="Alt Text" src="images/DownloadTableExcelLogic.png" /></p>
+<ul>
+<li><strong><code>HTTP GET Request:</code></strong> <ul>
+<li>An HTTP GET request is made using Axios to fetch operational shift data.</li>
+</ul>
+</li>
+<li><strong><code>Console Logging:</code></strong> <ul>
+<li>The fetched operational shift data is logged to the console for verification.</li>
+</ul>
+</li>
+<li><strong><code>Data Conversion:</code></strong> <ul>
+<li>The response data is converted to an array format, ensuring consistency.</li>
+</ul>
+</li>
+<li><strong><code>Data Update:</code></strong> <ul>
+<li>TThe reactive data variable (<code>'data.value'</code>) is updated with the fetched data.</li>
+</ul>
+</li>
+<li><strong><code>Excel Sheet Generation:</code></strong> <ul>
+<li>JSON data is converted to an Excel sheet using the XLSX library.</li>
+</ul>
+</li>
+<li><strong><code>Workbook Creation:</code></strong> <ul>
+<li>A new Excel workbook is created using the XLSX library.</li>
+</ul>
+</li>
+<li><strong><code>Sheet Appending:</code></strong> <ul>
+<li>The generated sheet is appended to the workbook with the sheet name '<code>DataSheet</code>'.</li>
+</ul>
+</li>
+<li><strong><code>File Writing:</code></strong> <ul>
+<li>The workbook is written to an Excel file named <code>'tableExcel.xlsx'</code>.</li>
+</ul>
+</li>
+<li><strong><code>Error Handling:</code></strong> <ul>
+<li>Errors during the process are handled and logged, allowing for appropriate error handling (e.g., displaying an error message).</li>
+</ul>
+</li>
+</ul>
+<h3 id="download-production-data-button-functionalities"><strong><code>Download Production Data Button Functionalities:</code></strong></h3>
+<p><img alt="Alt Text" src="images/DownloadProductionDataButton.png" /></p>
+<p><img alt="Alt Text" src="images/DownloadProductionDataPopup.png" /></p>
+<ul>
+<li><strong><code>Visibility Toggle:</code></strong> <ul>
+<li>The form is displayed (<code>'v-if="isProductionFormVisible"'</code>) in the center of the screen.</li>
+</ul>
+</li>
+<li><strong><code>Form Structure:</code></strong> <ul>
+<li>The form consists of input fields for selecting a machine name, start date, and end date.</li>
+</ul>
+</li>
+<li><strong><code>Machine Name Selection:</code></strong> <ul>
+<li>A dropdown menu allows the user to select a machine name, populated dynamically from the <code>'machineIds'</code> array.</li>
+</ul>
+</li>
+<li><strong><code>Start Date Input:</code></strong> <ul>
+<li>An input field for selecting the start date using the <code>'startDateProd'</code> variable.</li>
+</ul>
+</li>
+<li><strong><code>End Date Input:</code></strong> <ul>
+<li>An input field for selecting the end date using the <code>'endDateProdProd'</code> variable.</li>
+</ul>
+</li>
+<li><strong><code>Form Submission Buttons:</code></strong> <ul>
+<li>Two buttons at the bottom of the form:<ul>
+<li><code>'Download Button:'</code>- Triggers the <code>'generateProductionExcel'</code> method on form submission.</li>
+<li><code>'Cancel Button:'</code>- Calls the <code>'cancelProductionForm'</code> method to cancel and close the form.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><code>Event Handling:</code></strong> <ul>
+<li>The <code>'@submit.prevent'</code> directive prevents the default form submission behavior.</li>
+</ul>
+</li>
+<li><strong><code>Styling:</code></strong> <ul>
+<li>The form is styled with a specific width, padding, background color, borders, and shadow for a visually appealing layout.</li>
+</ul>
+</li>
+</ul>
+<p><img alt="Alt Text" src="images/DownloadProductionDataLogic.png" /></p>
+<ul>
+<li><strong><code>Field Validation:</code></strong> <ul>
+<li>Checks if essential fields (machine ID, start date, and end date) are filled; displays an alert if not.</li>
+</ul>
+</li>
+<li><strong><code>Date Formatting:</code></strong> <ul>
+<li>Formats the start and end dates using the <code>'moment'</code> library.</li>
+</ul>
+</li>
+<li><strong><code>Backend API URL:</code></strong> <ul>
+<li>Constructs the backend API URL for fetching production data based on the selected machine and date range.</li>
+</ul>
+</li>
+<li><strong><code>Fetch Production Data:</code></strong> <ul>
+<li>Makes an asynchronous request to the backend to retrieve production data.</li>
+</ul>
+</li>
+<li><strong><code>Success Handling:</code></strong> <ul>
+<li>If successful, logs the success message, processes the response data, and triggers the download of an Excel file.</li>
+</ul>
+</li>
+<li><strong><code>Error Handling:</code></strong> <ul>
+<li>Handles errors by providing specific messages based on the type of error, including HTTP status codes and validation errors.</li>
+</ul>
+</li>
+<li><strong><code>Form Reset and Visibility:</code></strong> <ul>
+<li>Resets the form and hides it after successful data processing and download.</li>
+</ul>
+</li>
+</ul>
+<h3 id="delete-data-logic-functionalities"><strong><code>Delete Data Logic Functionalities:</code></strong></h3>
+<p><img alt="Alt Text" src="images/DeleteDataLogic.png" /></p>
+<ul>
+<li><strong><code>Timestamp Conversion:</code></strong> <ul>
+<li>Converts the start and end times from the input format to Unix timestamps using the <code>'moment'</code> library.</li>
+</ul>
+</li>
+<li><strong><code>URL Encoding:</code></strong> <ul>
+<li>Encodes the element and operator names for safe inclusion in the URL.</li>
+</ul>
+</li>
+<li><strong><code>URL Construction:</code></strong> <ul>
+<li>Constructs the URL for the DELETE request based on the specified parameters.</li>
+</ul>
+</li>
+<li><strong><code>DELETE Request:</code></strong> <ul>
+<li>Makes an asynchronous DELETE request to the backend API to delete the specified data.</li>
+</ul>
+</li>
+<li><strong><code>Success Handling:</code></strong> <ul>
+<li>If successful, logs the success message, updates the table data by removing the deleted entry, and triggers a page reload after a short delay.</li>
+</ul>
+</li>
+<li><strong><code>Error Handling:</code></strong> <ul>
+<li>Handles errors by logging and displaying an error message in case the deletion fails.</li>
+</ul>
+</li>
+</ul>
+<h2 id="project-functionalities-overview-for-element-master-page">Project Functionalities Overview for Element-Master Page:</h2>
+<h3 id="add-element-type-button-functionalities"><strong><code>Add Element Type Button Functionalities:</code></strong></h3>
+<p><img alt="Alt Text" src="images/AddElementTypeLogic.png" /></p>
+<ul>
+<li><strong><code>Validation:</code></strong> <ul>
+<li>The function begins by validating the format of both standard current and voltage.</li>
+</ul>
+</li>
+<li><strong><code>Validation Errors Check:</code></strong> <ul>
+<li>If there are validation errors, the function halts further execution to prevent form submission.</li>
+</ul>
+</li>
+<li><strong><code>Form Data Preparation:</code></strong> <ul>
+<li>Constructs the form data object with various properties, including type, range, standard current, and standard voltage.</li>
+</ul>
+</li>
+<li><strong><code>HTTP POST Request:</code></strong> <ul>
+<li>Utilizes axios to make an asynchronous POST request to the FastAPI backend, sending the form data.</li>
+</ul>
+</li>
+<li><strong><code>Response Handling:</code></strong> <ul>
+<li>Logs a success message and sets an alert message indicating the successful creation of the element.</li>
+</ul>
+</li>
+<li><strong><code>Form Reset and Visibility:</code></strong> <ul>
+<li>Resets the form fields, hides the form, and triggers a data fetch to update the table.</li>
+</ul>
+</li>
+<li><strong><code>Error Handling:</code></strong> <ul>
+<li>Catches any errors that may occur during the process and handles them appropriately, displaying relevant error messages.</li>
+</ul>
+</li>
+</ul>
+<h2 id="project-functionalities-overview-for-report-page">Project Functionalities Overview for Report Page:</h2>
+<h3 id="filtering-data-functionalities"><strong><code>Filtering Data Functionalities:</code></strong></h3>
+<p><img alt="Alt Text" src="images/FilteringData.png" /></p>
+<ul>
+<li><strong><code>Endpoint Definitions:</code></strong> <ul>
+<li>The function defines various endpoints for different parameters, each representing a specific type of data.</li>
+</ul>
+</li>
+<li><strong><code>Data Fetching Loop:</code></strong> <ul>
+<li>The function iterates through each parameter in the defined endpoints and makes asynchronous GET requests using axios.</li>
+</ul>
+</li>
+<li><strong><code>Options Extraction:</code></strong> <ul>
+<li>For each parameter, the response data is extracted using a helper function (<code>'extractOptions'</code>) and stored in the <code>'availableOptions'</code> object.</li>
+</ul>
+</li>
+<li><strong><code>Deduplication and Update:</code></strong> <ul>
+<li>Specific parameters in the <code>'availableOptions'</code> object, such as 'range,' 'project,' etc., are deduplicated to ensure unique values.</li>
+</ul>
+</li>
+<li><strong><code>Error Handling:</code></strong> <ul>
+<li>The function includes error handling to log any errors that may occur during the fetching process.</li>
+</ul>
+</li>
+</ul>
+<p><img alt="Alt Text" src="images/FilterSubmitLogic.png" /></p>
+<ul>
+<li><strong><code>Options Extraction Function:</code></strong> <ul>
+<li>The <code>'extractOptions'</code> function is a helper that extracts options from response data based on the specified parameter. It handles different response structures.</li>
+</ul>
+</li>
+<li><strong><code>Form Submission Function:</code></strong> <ul>
+<li>The <code>'submitForm'</code> function makes a GET request to a specified endpoint (<code>'http://172.18.100.240:6969/excel/'</code>) with form data as parameters. It checks the response for data and handles success or no-data scenarios.</li>
+</ul>
+</li>
+<li><strong><code>Excel Download Function:</code></strong> <ul>
+<li>The <code>'downloadExcel'</code> function converts filtered values to an Excel sheet using XLSX, appends it to a new workbook, and downloads the workbook as an Excel file.</li>
+</ul>
+</li>
+<li><strong><code>OnMount Data Fetch:</code></strong> <ul>
+<li>The <code>'onMounted'</code> lifecycle hook ensures that the <code>'fetchDataForParameters'</code> function is executed when the component is mounted. This function likely populates available options for form parameters.</li>
+</ul>
+</li>
+</ul></div>
+        
+        
+    </div>
+
+    
+      <footer class="col-md-12 text-center">
+          
+          
+            <hr>
+            <p>
+            <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small>
+            </p>
+          
+
+          
+          
+      </footer>
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="js/bootstrap-3.0.3.min.js"></script>
+
+    
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
+        
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    <script>var base_url = "."</script>
+    
+    <script src="js/base.js"></script>
+    <script src="search/main.js"></script>
+
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+    </body>
+
+</html>

@@ -1,0 +1,50 @@
+{
+  "name": "vue-project",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@canvasjs/charts": "^3.7.13",
+    "@canvasjs/vue-charts": "^1.0.1",
+    "@fortawesome/fontawesome-free": "^6.4.0",
+    "@syncfusion/ej2-vue-charts": "^23.2.4",
+    "@syncfusion/ej2-vue-popups": "^23.2.4",
+    "ant-design-vue": "^4.0.3",
+    "apexcharts": "^3.44.0",
+    "autoprefixer": "^10.4.14",
+    "axios": "^1.6.2",
+    "chart.js": "^4.4.0",
+    "dygraphs": "^2.2.1",
+    "echarts": "^5.4.3",
+    "exceljs": "^4.3.0",
+    "file-saver": "^2.0.5",
+    "html2pdf.js": "^0.10.1",
+    "moment": "^2.29.4",
+    "moment-timezone": "^0.5.43",
+    "papaparse": "^5.4.1",
+    "pinia": "^2.1.7",
+    "postcss": "^8.4.27",
+    "primevue": "^3.34.1",
+    "router": "^1.3.8",
+    "tailwindcss": "^3.3.3",
+    "vue": "^3.2.36",
+    "vue-apexcharts": "^1.6.2",
+    "vue-chartjs": "^5.2.0",
+    "vue-datepicker": "^1.3.0",
+    "vue-echarts": "^6.6.1",
+    "vue-flatpickr-component": "^11.0.3",
+    "vue-router": "^4.2.4",
+    "vue-toast-notification": "^3.1.2",
+    "vue3-apexcharts": "^1.4.4",
+    "vue3-datepicker": "^0.4.0",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^4.2.3",
+    "vite": "^4.3.9"
+  }
+}
