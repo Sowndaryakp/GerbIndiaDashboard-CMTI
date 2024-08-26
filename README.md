@@ -1,2 +1,2 @@
 # GerbIndiaDashboard-CMTI-
-The main Gerb India Project Frontend Code
+The Updated Frontend and Backend code with mkdocs
