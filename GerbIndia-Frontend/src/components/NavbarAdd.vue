@@ -435,7 +435,7 @@ onMounted(() => {
  }, 1000);
 });
 const fetchInstructions = () => {
-  axios.get('http://192.168.0.105:6969/instruction/get_instructions/')
+  axios.get('http://172.18.100.54:6969/instruction/get_instructions/')
     .then(response => {
       instructions.value = response.data;
     })
@@ -462,7 +462,7 @@ const cancelEdit = () => {
 };
 
 const updateInstruction = (instructionId) => {
-  axios.put(`http://192.168.0.105:6969/instruction/put_instructions/instruction_id?instruction_id=${instructionId}`, {
+  axios.put(`http://172.18.100.54:6969/instruction/put_instructions/instruction_id?instruction_id=${instructionId}`, {
     instruction: editingInstructionText.value
   })
     .then(response => {
@@ -477,7 +477,7 @@ const updateInstruction = (instructionId) => {
 };
 
 const deleteInstruction = (instructionId) => {
-  axios.delete(`http://192.168.0.105:6969/instruction/delete_instructions/instruction_id?instruction_id=${instructionId}`)
+  axios.delete(`http://172.18.100.54:6969/instruction/delete_instructions/instruction_id?instruction_id=${instructionId}`)
     .then(response => {
       fetchInstructions(); // Refresh instructions after deletion
       // alert('Instruction deleted successfully!');
@@ -493,7 +493,7 @@ const showAddInstruction = () => {
 };
 
 const addInstruction = async () => {
-  const response = await fetch('http://192.168.0.105:6969/instruction/post_instructions/', {
+  const response = await fetch('http://172.18.100.54:6969/instruction/post_instructions/', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

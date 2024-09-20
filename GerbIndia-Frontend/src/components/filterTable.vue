@@ -150,7 +150,7 @@ const closeDaywisePopup = () => {
 
 // Method to fetch machine names
 const fetchMachineNames = async () => {
-  const machinesUrl = 'http://192.168.0.105:6969/machines';
+  const machinesUrl = 'http://172.18.100.54:6969/machines';
   try {
     const response = await axios.get(machinesUrl);
     machineIds.value = response.data.Data.map((machine) => machine.machine_id);
@@ -166,7 +166,7 @@ const fetchMachineNames = async () => {
 //     return;
 //   }
 
-//   const url = `http://192.168.0.105:6969/production_data/live_data/?date=${selectedDate.value}&machine_id=${selectedMachine.value}`;
+//   const url = `http://172.18.100.54:6969/production_data/live_data/?date=${selectedDate.value}&machine_id=${selectedMachine.value}`;
 //   try {
 //     const response = await axios.get(url);
 //     if (response.data && Array.isArray(response.data) && response.data.length > 0) {
@@ -213,7 +213,7 @@ const downloadDaywiseData = async () => {
   const epochLocalTime = convertToLocalEpochTime(selectedDate.value);
 
   // Construct URL with epochLocalTime and machine ID
-  const url = `http://192.168.0.105:6969/production_data/live-data/?start_time=${epochLocalTime}&machine_id=${encodeURIComponent(selectedMachine.value)}&skip=0&limit=5000`;
+  const url = `http://172.18.100.54:6969/production_data/live-data/?start_time=${epochLocalTime}&machine_id=${encodeURIComponent(selectedMachine.value)}&skip=0&limit=5000`;
 
   try {
     const response = await axios.get(url);
@@ -274,18 +274,18 @@ const availableOptions = ref({});
 const fetchDataForParameters = async () => {
   try {
     const endpoints = {
-      plate_thickness: 'http://192.168.0.105:6969/elements',
-      // range: 'http://192.168.0.105:6969/elements',
-      machine_id: 'http://192.168.0.105:6969/machines',
-      welder_name: 'http://192.168.0.105:6969/welder/',
-      project: 'http://192.168.0.105:6969/op_shift/',
-      I_no: 'http://192.168.0.105:6969/op_shift/',
-      Fc_no: 'http://192.168.0.105:6969/op_shift/',
-      type: 'http://192.168.0.105:6969/elements',
-      standard_current: 'http://192.168.0.105:6969/elements',
-      standard_voltage: 'http://192.168.0.105:6969/elements',
-      plate_thickness: 'http://192.168.0.105:6969/plate/plate',
-      plate_description: 'http://192.168.0.105:6969/plate/plate',
+      plate_thickness: 'http://172.18.100.54:6969/elements',
+      // range: 'http://172.18.100.54:6969/elements',
+      machine_id: 'http://172.18.100.54:6969/machines',
+      welder_name: 'http://172.18.100.54:6969/welder/',
+      project: 'http://172.18.100.54:6969/op_shift/',
+      I_no: 'http://172.18.100.54:6969/op_shift/',
+      Fc_no: 'http://172.18.100.54:6969/op_shift/',
+      type: 'http://172.18.100.54:6969/elements',
+      standard_current: 'http://172.18.100.54:6969/elements',
+      standard_voltage: 'http://172.18.100.54:6969/elements',
+      plate_thickness: 'http://172.18.100.54:6969/plate/plate',
+      plate_description: 'http://172.18.100.54:6969/plate/plate',
     };
 
     for (const param in endpoints) {
@@ -314,7 +314,7 @@ const extractOptions = (data, param) => {
 
 const submitForm = async () => {
   try {
-    const response = await axios.get('http://192.168.0.105:6969/excel/', { params: formData.value });
+    const response = await axios.get('http://172.18.100.54:6969/excel/', { params: formData.value });
 
     if (response.data && Array.isArray(response.data) && response.data.length > 0) {
       filteredValues.value = response.data;

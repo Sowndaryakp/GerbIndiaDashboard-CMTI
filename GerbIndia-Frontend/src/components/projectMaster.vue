@@ -98,7 +98,7 @@ const submitProjectForm = async () => {
       project: projectValue.value,
     };
 
-    const response = await axios.post('http://192.168.0.105:6969/project/', formData);
+    const response = await axios.post('http://172.18.100.54:6969/project/', formData);
 
     console.log('Project created successfully:', response.data);
 
@@ -123,7 +123,7 @@ const tableData = ref([]);
 
 const fetchData = async () => {
   try {
-    const response = await fetch("http://192.168.0.105:6969/project/");
+    const response = await fetch("http://172.18.100.54:6969/project/");
     const result = await response.json();
 
     const projectData = result.Data || [];
@@ -152,7 +152,7 @@ const saveEditedProject = async (index) => {
   };
 
   try {
-    const url = `http://192.168.0.105:6969/project/${editedProject.project}`;
+    const url = `http://172.18.100.54:6969/project/${editedProject.project}`;
 
     await axios.put(url, postData);
 
@@ -164,7 +164,7 @@ const saveEditedProject = async (index) => {
 
 const deleteProject = async (project, I_no, Fc_no) => {
   try {
-    const url = `http://192.168.0.105:6969/project/${project.project}?project=${project.project}&I_no=${project.I_no}&Fc_no=${project.Fc_no}`;
+    const url = `http://172.18.100.54:6969/project/${project.project}?project=${project.project}&I_no=${project.I_no}&Fc_no=${project.Fc_no}`;
     await axios.delete(url);
 
     // Update the local tableData by filtering out the deleted project

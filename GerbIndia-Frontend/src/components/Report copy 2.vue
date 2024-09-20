@@ -63,7 +63,7 @@ const generateAndDownloadPDF = () => {
 const generateExcel = async () => {
   try {
     // Construct the Axios URL with the selected machine
-    const url = `http://192.168.0.105:9999/live_data/${selectedMachine.value}`;
+    const url = `http://172.18.100.54:9999/live_data/${selectedMachine.value}`;
 
     // Fetch data for the selected machine using Axios
     const response = await axios.get(url);

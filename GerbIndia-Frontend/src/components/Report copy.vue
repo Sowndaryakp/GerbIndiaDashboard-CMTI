@@ -27,7 +27,7 @@ export default {
   },
   methods: {
     async downloadExcel() {
-      const url = `http://192.168.0.105:9999/live_data/${this.selectedMachine}`;
+      const url = `http://172.18.100.54:9999/live_data/${this.selectedMachine}`;
       
       try {
         const response = await this.$axios.get(url, {

@@ -8,7 +8,7 @@ import html2pdf from 'html2pdf.js';
 const downloadTableDataAsExcel = async () => {
   try {
     // Make a request to the backend to fetch the data
-    const response = await axios.get('http://192.168.0.105:6969/op_shift/');
+    const response = await axios.get('http://172.18.100.54:6969/op_shift/');
 
     // Assuming the API response has a 'dataToDownload' key containing the specific data
     const dataToDownload = response.data.dataToDownload;

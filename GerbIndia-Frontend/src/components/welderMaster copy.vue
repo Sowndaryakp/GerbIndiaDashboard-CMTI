@@ -37,7 +37,7 @@ const tableData = ref([]);
 
 const fetchData = async () => {
   try {
-    const response = await fetch("http://192.168.0.105:6969/welder/");
+    const response = await fetch("http://172.18.100.54:6969/welder/");
     const result = await response.json();
     tableData.value = result.Data;
   } catch (error) {

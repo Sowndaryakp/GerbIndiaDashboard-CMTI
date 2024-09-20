@@ -183,7 +183,7 @@ const submitElementForm = async () => {
     };
 
     // Make the HTTP POST request to your FastAPI backend
-    const response = await axios.post('http://192.168.0.105:6969/elements/', formData);
+    const response = await axios.post('http://172.18.100.54:6969/elements/', formData);
 
     // Handle the response as needed
     console.log('Element created successfully:', response.data);
@@ -233,7 +233,7 @@ const tableData = ref([]);
 
 const fetchData = async () => {
   try {
-    const response = await fetch("http://192.168.0.105:6969/elements");
+    const response = await fetch("http://172.18.100.54:6969/elements");
     const result = await response.json();
     tableData.value = result.Data.map(data => ({ ...data, isEditing: false }));
   } catch (error) {
@@ -262,7 +262,7 @@ const saveEditedElement = async (index) => {
   };
 
   try {
-    const url = `http://192.168.0.105:6969/elements/${editedElement.type}`;
+    const url = `http://172.18.100.54:6969/elements/${editedElement.type}`;
     alertMessage.value = `Element ${editedElement.type} Edited successfully`;
     await axios.put(url, postData);
    
@@ -274,7 +274,7 @@ const saveEditedElement = async (index) => {
 
 const deleteElement = async (element) => {
   try {
-    const url = `http://192.168.0.105:6969/elements/${element.type}`;
+    const url = `http://172.18.100.54:6969/elements/${element.type}`;
     alertMessage.value = `Element ${element} Deleted successfully`;
     await axios.delete(url);
 

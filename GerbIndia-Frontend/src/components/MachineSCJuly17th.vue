@@ -659,7 +659,7 @@ const submitElementForm = async () => {
     };
 
     // Make the HTTP POST request to your FastAPI backend
-    const response = await axios.post('http://192.168.0.105:6969/elements/', formData);
+    const response = await axios.post('http://172.18.100.54:6969/elements/', formData);
 
     // Handle the response as needed
     console.log('Element created successfully:', response.data);
@@ -699,7 +699,7 @@ const submitWelderForm = async () => {
     };
 
     // Make the HTTP POST request to your FastAPI backend
-    const response = await axios.post('http://192.168.0.105:6969/welder/', formData);
+    const response = await axios.post('http://172.18.100.54:6969/welder/', formData);
 
     // Handle the response as needed
     console.log('Welder created successfully:', response.data);
@@ -735,7 +735,7 @@ const data = ref(null);
 
 // Computed property for the Axios URL for op_shift data
 const axiosOpShiftUrl = computed(() => {
-  return `http://192.168.0.105:6969/op_shift/`;
+  return `http://172.18.100.54:6969/op_shift/`;
 });
 
 // Function to fetch data from the API for op_shift
@@ -764,7 +764,7 @@ const downloadTableDataExcel = async () => {
 // const downloadTableDataAsExcel = async () => {
 //   try {
 //     // Make a request to the backend to fetch the data
-//     const response = await axios.get('http://192.168.0.105:6969/op_shift/');
+//     const response = await axios.get('http://172.18.100.54:6969/op_shift/');
 
 //     // Assuming the API response has a 'dataToDownload' key containing the specific data
 //     const dataToDownload = response.data.dataToDownload;
@@ -865,7 +865,7 @@ const downloadReport = () => {
 const downloadTableData = async () => {
   try {
     // Make a request to the backend to fetch the data
-    const response = await axios.get('http://192.168.0.105:6969/op_shift/');
+    const response = await axios.get('http://172.18.100.54:6969/op_shift/');
 
     // Assuming the API response has a 'dataToDownload' key containing the specific data
     const dataToDownload = response.data.dataToDownload;
@@ -894,7 +894,7 @@ const downloadTableData = async () => {
 };
 //to fetch all the details in the table
 const fetchMachineNames = async () => {
-  const machinesUrl = 'http://192.168.0.105:6969/machines'; // Replace with the actual endpoint
+  const machinesUrl = 'http://172.18.100.54:6969/machines'; // Replace with the actual endpoint
   try {
     const response = await axios.get(machinesUrl);
     machineIds.value = response.data.Data.map((machine) => machine.machine_id);
@@ -912,7 +912,7 @@ const elementTypes = ref([]);
 
 
 const fetchElementTypes = async () => {
-  const elementsUrl = 'http://192.168.0.105:6969/elements'; // Replace with the actual endpoint
+  const elementsUrl = 'http://172.18.100.54:6969/elements'; // Replace with the actual endpoint
   try {
     const response = await axios.get(elementsUrl);
     elementTypes.value = response.data.Data.map((element) => element.type);
@@ -927,7 +927,7 @@ onMounted(() => {
 const operators = ref([]); // Store machine IDs
 
 const fetchOperators = async () => {
-  const machinesUrl = 'http://192.168.0.105:6969/welder/'; // Replace with the actual endpoint
+  const machinesUrl = 'http://172.18.100.54:6969/welder/'; // Replace with the actual endpoint
   
   try {
     const response = await axios.get(machinesUrl);
@@ -947,7 +947,7 @@ const fetchOperators = async () => {
 // const operatorIds = ref([]); // Store machine IDs
 
 // const fetchOperatorIds = async () => {
-//   const machinesUrl = 'http://192.168.0.105:6969/welder'; // Replace with the actual endpoint
+//   const machinesUrl = 'http://172.18.100.54:6969/welder'; // Replace with the actual endpoint
 //   try {
 //     const response = await axios.get(machinesUrl);
 //     operatorIds.value = response.data.Data.map((machine) => machine.id);
@@ -960,7 +960,7 @@ const fetchOperators = async () => {
 const shiftTypes = ref([]); // Store machine IDs
 
 const fetchShiftTypes = async () => {
-  const machinesUrl = 'http://192.168.0.105:6969/shift'; // Replace with the actual endpoint
+  const machinesUrl = 'http://172.18.100.54:6969/shift'; // Replace with the actual endpoint
   try {
     const response = await axios.get(machinesUrl);
     shiftTypes.value = response.data.Data.map((machine) => machine.shift);
@@ -977,7 +977,7 @@ const Project = ref(null);
 const I_noValues = ref([]); // Store I_no values
 
 const fetchI_noValues = async () => {
-  const url = 'http://192.168.0.105:6969/project/';
+  const url = 'http://172.18.100.54:6969/project/';
   try {
     const response = await axios.get(url);
     I_noValues.value = response.data.Data.map((item) => item.I_no);
@@ -989,7 +989,7 @@ const fetchI_noValues = async () => {
 const Fc_noValues = ref([]); // Store Fc_no values
 
 const fetchFc_noValues = async () => {
-  const url = 'http://192.168.0.105:6969/project/';
+  const url = 'http://172.18.100.54:6969/project/';
   try {
     const response = await axios.get(url);
     Fc_noValues.value = response.data.Data.map((item) => item.Fc_no);
@@ -1000,7 +1000,7 @@ const fetchFc_noValues = async () => {
 
 const projectValues = ref([]); // Store project values
 const fetchProjectValues = async () => {
-  const url = 'http://192.168.0.105:6969/project/';
+  const url = 'http://172.18.100.54:6969/project/';
   try {
     const response = await axios.get(url);
     projectValues.value = response.data.Data.map((item) => item.project);
@@ -1023,7 +1023,7 @@ const originalTableData = ref([]);
 const fetchAndDisplayDataForAllMachines = () => {
   machineNames.forEach((machineId) => {
     // console.log(machineId);
-    const url = `http://192.168.0.105:6969/op_shift/${machineId}`;
+    const url = `http://172.18.100.54:6969/op_shift/${machineId}`;
     
     axios
       .get(url)
@@ -1051,7 +1051,7 @@ const deleteData = (machineName, startTime, endTime, elementName, operatorName) 
   const encodedElementName = encodeURIComponent(elementName);
   const encodedOperatorName = encodeURIComponent(operatorName);
 
-  const url = `http://192.168.0.105:6969/op_shift/?machine_name=${machineName}&start_time=${startTimeEpoch}&end_time=${endTimeEpoch}&element_name=${encodedElementName}&operator_name=${encodedOperatorName}`;
+  const url = `http://172.18.100.54:6969/op_shift/?machine_name=${machineName}&start_time=${startTimeEpoch}&end_time=${endTimeEpoch}&element_name=${encodedElementName}&operator_name=${encodedOperatorName}`;
 
   axios
     .delete(url)
@@ -1100,7 +1100,7 @@ const deleteData = (machineName, startTime, endTime, elementName, operatorName) 
 
 //     try {
 //       // Make a POST request to save the new machine data to the backend
-//       await axios.post('http://192.168.0.105:6969/op_shift/', newMachine); // Updated URL
+//       await axios.post('http://172.18.100.54:6969/op_shift/', newMachine); // Updated URL
 //       // Add the new machine to the table data
 //       console.log(newMachine);
 //       tableData.value.push(newMachineString);
@@ -1116,7 +1116,7 @@ const deleteData = (machineName, startTime, endTime, elementName, operatorName) 
 
 const fetchMachineData = async () => {
   // Use the appropriate API endpoint to fetch data based on machine and operator names
-  const url = `http://192.168.0.105:6969/op_shift/machine-data?machineName=${formData.machineName}&operatorName=${formData.operator_name}`;
+  const url = `http://172.18.100.54:6969/op_shift/machine-data?machineName=${formData.machineName}&operatorName=${formData.operator_name}`;
   const response = await axios.get(url);
 
 
@@ -1160,7 +1160,7 @@ const saveMachine = async () => {
 
     try {
       // Make a PUT request to update the machine data
-      const url = `http://192.168.0.105:6969/op_shift/shiftops/update?machine_id=${formData.machineName}&operator_name=${formData.operator_name}`;
+      const url = `http://172.18.100.54:6969/op_shift/shiftops/update?machine_id=${formData.machineName}&operator_name=${formData.operator_name}`;
       alertMessage.value = `Machine ${formData.machineName} Edited successfully`;
       const response = await axios.put(url, updatedMachine);
       // resetFormFields();
@@ -1245,7 +1245,7 @@ setTimeout(() => {
     };
 
     try {
-    const url = 'http://192.168.0.105:6969/op_shift/';
+    const url = 'http://172.18.100.54:6969/op_shift/';
 
     // Make the POST request
     await axios.post(url, newMachine);
@@ -1403,7 +1403,7 @@ const generateProductionExcel = async () => {
   const formattedStartDateProd = moment(startDateProd.value).format('YYYY-MM-DD');
   const formattedEndDateProdProd = moment(endDateProdProd.value).format('YYYY-MM-DD');
 
-  const backendURL = `http://192.168.0.105:6969/graph/get_production_end_data?machine_id=${machine_id.value}&start_date=${formattedStartDateProd}&end_date=${formattedEndDateProdProd}`;
+  const backendURL = `http://172.18.100.54:6969/graph/get_production_end_data?machine_id=${machine_id.value}&start_date=${formattedStartDateProd}&end_date=${formattedEndDateProdProd}`;
 
   try {
     const response = await axios.get(backendURL);

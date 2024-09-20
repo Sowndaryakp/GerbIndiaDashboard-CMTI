@@ -52,16 +52,16 @@ const availableOptions = ref({});
 const fetchDataForParameters = async () => {
 try {
   const endpoints = {
-    plate_thickness: 'http://192.168.0.105:6969/elements',
-    machine_id: 'http://192.168.0.105:6969/machines',
-    welder_name: 'http://192.168.0.105:6969/welder/',
-    project: 'http://192.168.0.105:6969/welder/',
-    shift: 'http://192.168.0.105:6969/welder/',
-    I_no: 'http://192.168.0.105:6969/welder/',
-    Fc_no: 'http://192.168.0.105:6969/welder/',
-    type: 'http://192.168.0.105:6969/elements',
-    standard_current: 'http://192.168.0.105:6969/elements',
-    standard_voltage: 'http://192.168.0.105:6969/elements',
+    plate_thickness: 'http://172.18.100.54:6969/elements',
+    machine_id: 'http://172.18.100.54:6969/machines',
+    welder_name: 'http://172.18.100.54:6969/welder/',
+    project: 'http://172.18.100.54:6969/welder/',
+    shift: 'http://172.18.100.54:6969/welder/',
+    I_no: 'http://172.18.100.54:6969/welder/',
+    Fc_no: 'http://172.18.100.54:6969/welder/',
+    type: 'http://172.18.100.54:6969/elements',
+    standard_current: 'http://172.18.100.54:6969/elements',
+    standard_voltage: 'http://172.18.100.54:6969/elements',
   };
 
   for (const param in endpoints) {
@@ -93,7 +93,7 @@ try {
     formData.value.end_time = new Date(formData.value.end_time).getTime() / 1000;
   }
 
-  const response = await axios.get('http://192.168.0.105:6969/excel/', { params: formData.value });
+  const response = await axios.get('http://172.18.100.54:6969/excel/', { params: formData.value });
   filteredValues.value = response.data;
   console.log(response)
 } catch (error) {

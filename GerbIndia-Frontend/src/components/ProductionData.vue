@@ -82,17 +82,17 @@
   
   // Computed property for the Axios URL for machine data
   const axiosMachineUrl = computed(() => {
-    return `http://192.168.0.105:6969/live_data/${sampleProperties.machine_id}`;
+    return `http://172.18.100.54:6969/live_data/${sampleProperties.machine_id}`;
   });
   
   // Computed property for the Axios URL for operator data
   const axiosOperatorUrl = computed(() => {
-    return `http://192.168.0.105:6969/welder/${selectedName.value}`;
+    return `http://172.18.100.54:6969/welder/${selectedName.value}`;
   });
   
   // Computed property for the Axios URL for the predetermined type
   const axiosTypeUrl = computed(() => {
-    return `http://192.168.0.105:6969/elements/${predeterminedType}`;
+    return `http://172.18.100.54:6969/elements/${predeterminedType}`;
   });
   
   

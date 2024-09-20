@@ -256,7 +256,7 @@ onMounted(() => {
 
 const fetchData = async () => {
   try {
-    const url = `http://192.168.0.105:6969/live_data/${props.dataFromParent.machineId}`;
+    const url = `http://172.18.100.54:6969/live_data/${props.dataFromParent.machineId}`;
 
     const response = await axios.get(url);
     console.log(response);

@@ -31,7 +31,7 @@ const stateChartData = ref([]);
 // Function to fetch state data from the endpoint
 const fetchStateData = async () => {
   try {
-    const response = await axios.get('http://192.168.0.105:6969/graph/get_graph_data');
+    const response = await axios.get('http://172.18.100.54:6969/graph/get_graph_data');
     const responseData = response.data;
 
     // Process the response data as needed
